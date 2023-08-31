@@ -1,0 +1,19 @@
+import { createRouter, createWebHistory } from "vue-router";
+import admin from "./admin.js";
+import { useUser } from "../store/use-user.js";
+
+const routes = [...admin];
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+router.beforeEach((to) => {
+  const store = useUser();
+  const { isUser, userEmail } = store;
+
+  console.log(userEmail);
+  if (to.meta.requiresAuth && !isUser) return "/login";
+});
+
+export default router;

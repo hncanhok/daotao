@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+img {
+  max-width: 100%;
+  height: auto !important;
+}
+
+body {  
+  font-family: 'Roboto';
+  font-size: 16px;
+  overflow-x: hidden;  
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto';
+  font-weight: bold;
+}
+
+.ant-btn-primary {
+  color: #fff;
+  background-color: #a10707;
+  box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
+}
+
+
