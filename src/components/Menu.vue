@@ -1,11 +1,19 @@
 <template>
   <div class="container-fluid p-1 d-none d-lg-block" style="background-color: #a10707">
-    <div class="container">
-      {{ myVal(5) }}
+    <div class="container">    
+      
       <ul>
         <li v-for="menu in menucha" :key="menu.id" style="position: relative;">
-          <span v-if="menu.menuParent == 0"> {{ menu.menuName.toUpperCase() }}</span>
-          <div v-if="menu.id == 2" class="boxmenu">                                              
+          <span @mouseover="menucap2 = loadBoxMenu(2)" v-if="menu.menuParent == 0"> {{ menu.menuName.toUpperCase() }}</span>          
+          <div class = "boxmenu"> 
+            {{ loadBoxMenu(2) }}
+           
+<!--                   <div v-if="menucha.menuParent == 2" class="menucap2">
+                    <i class="fa-solid fa-caret-right me-2"></i>
+                    {{ menucha.menuName }}
+                  </div> -->
+                  
+                                                         
           </div>
         </li>
        
@@ -19,10 +27,11 @@ import { computed, ref } from "vue";
 export default {
   
   setup() {
-    let menucha = ref([]);    
-    let menucap2 = ref([]);   
-    let count = ref(0);
-        
+    let menucha = ref([]); 
+    let menucap2 = ref([]); 
+    let active = ref(true);      
+    let temp = ref(-1);
+
     const loadMenuCha = () => {
       axios
         .get("http://10.16.100.33:7150/api/MenuInfo/GetallMenu")
@@ -35,47 +44,36 @@ export default {
         });
        
     };
-    const myVal = computed(() => id => {
-      for(let i=0; i<5;i++){
-          
-          menucap2.value.push(i);
-         
-          
-        }
-        return menucap2;
-    } )
-    
-    const loadMenuCap2 = () => {                  
-     /*  axios
+
+    const loadBoxMenu = computed((id) => {
+      axios
         .get("http://10.16.100.33:7150/api/MenuInfo/GetallMenu")
         .then((response) => {
           menucha.value = response.data;    
-          console.log(menucha.value.length);
-          for(let i=0; i<menucha.value.length;i++){
+          menucap2 = ref([]);
+          for(let i = 0; i < menucha.value.length; i++) {
             if(menucha.value[i].menuParent == id){
-              menucap2.value.push(menucha.value[i]);    
-              console.log(menucap2.value);    
+              menucap2.value.push(menucha.value[i].menuName);             
             }
-          }                   
+          }
+          console.log(menucap2.value);
+          return menucap2;
         })
         .catch((error) => {
           console.log(error);
-        });    */
-        for(let i=0; i<5;i++){
-          
-          menucap2.value.push(i);
-         
-          
-        }
-        console.log(menucap2.value);
-        return menucap2;
-      
-    };
-    
+        });
+       
+    });
+                
     loadMenuCha();
-   
-  
-    return { menucha, menucap2, myVal};
+    // loadBoxMenu(2);
+
+    function showbox(){
+      console.log("f");
+    }
+    
+     
+    return { menucha, active, temp, showbox, menucap2, loadBoxMenu };
   },
 
   
@@ -99,19 +97,25 @@ li {
 
 .boxmenu {
   position: absolute;
-  top:31px;
+  top:29px;
   left:0;
-  background-color: white;
-  clip-path: polygon(0 5%, 8% 5%, 10% 0, 12% 5%, 83% 5%, 100% 5%, 100% 85%, 100% 100%, 85% 100%, 15% 100%, 0 100%, 0% 85%);
   z-index: 1; 
-  width: max-content;  
+  background-color: white;
   color:black; 
-  padding: 20px 30px;
-  border: 1px solid #878787;
+  width: max-content;  
+  clip-path: polygon(0 5%, 8% 5%, 10% 0, 12% 5%, 83% 5%, 100% 5%, 100% 85%, 100% 100%, 85% 100%, 15% 100%, 0 100%, 0% 85%);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
+  /* padding: 20px 30px; */
+  
 }
 
-.borderbottom {
-  border-bottom: 1px solid #bbbbbb;
+
+.menucap2 {
+  border-bottom: 1px solid #bbbbbb;    
+  margin: 10px 0;
+  padding: 5px 20px 5px 20px;
+  
+  
 }
 
 </style>
