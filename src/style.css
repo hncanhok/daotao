@@ -10,6 +10,7 @@ body {
   font-family: 'Roboto';
   font-size: 16px;
   overflow-x: hidden;  
+  line-height: 1.8;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -22,5 +23,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #a10707;
   box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
 }
+
+
 
 

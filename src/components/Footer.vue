@@ -2,12 +2,12 @@
   <div class="container-fluid pb-5" style="background-color: #9b1a1e">
     <div class="container">
       <div class="row">
-        <div class="col-12 m-5">
+        <div class="col-12 mt-5 mb-5">
           <img src="../assets/logo/Logo-E-Learning-04.png" alt="" width="200" />
         </div>
       </div>
       <div class="row">
-        <div class="col-12 col-sm-6 col-lg-5 ms-lg-5">
+        <div class="col-12 col-sm-6 col-lg-5">
           <h3 class="pb-2" style="color: #ffea76">
             PHÒNG CHẤT LƯỢNG ĐÀO TẠO - ALPHANAM GROUP
           </h3>

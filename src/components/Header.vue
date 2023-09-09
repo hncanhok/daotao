@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="container">
-      <div class="row p-2 p-lg-4">
+      <div class="row p-2 pb-lg-4 pt-lg-4 ps-lg-0">
         <div class="col-2 d-block d-lg-none d-flex align-items-center p-0">
           <i
             @click="showDrawer()"
@@ -12,12 +12,14 @@
         <div
           class="col-8 d-flex justify-content-center justify-content-lg-start text-sm-start"
         >
-          <img
+          <router-link :to="{ name: 'Home'}">
+            <img
             src="../assets/logo/Logo-E-Learning-03.png"
             alt="Logo E-Learning"
             width="200"
             height="auto"
           />
+          </router-link>
         </div>
         <div class="col pt-3 text-end d-none d-lg-block">
           <a-input-search
@@ -26,9 +28,10 @@
             placeholder="Tìm kiếm..."
             enter-button
           />
-          <div style="display: inline-block" class="mt-2 ms-4">
+          <div style="display: inline-block" class="mt-2 ms-3">
+            <i class="fa-solid fa-bell fa-xl me-2"></i>
             <i class="fa-solid fa-circle-user fa-xl" style="color: #a10707"></i>
-            <span @click="onLogout()" class="ms-4">THOÁT</span>
+            <span @click="onLogout()" class="ms-2">THOÁT</span>
           </div>
         </div>
         <div
