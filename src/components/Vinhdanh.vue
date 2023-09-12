@@ -20,10 +20,10 @@
             v-bind="settings"
             :breakpoints="breakpoints"
           >
-            <Slide v-for="slide in 10" :key="slide">
+            <Slide v-for="slide in data" :key="slide.id">
               <div class="carousel__item">
                 <div class="vinhdanh">
-                  <img src="../assets/images/meeting2.jpg" alt="" />
+                  <img :src="slide.imgHienthi" alt="" />
                 </div>
                 <div class="pt-4">
                   <i
@@ -48,13 +48,13 @@
                   ></i>
                 </div>
                 <h3 class="pt-4" style="color: #fff44b">
-                  MS. NGUYỄN NGỌC HUYỀN
+                  {{ slide.newPageDescription.toUpperCase() }}
                 </h3>
                 <h3 class="text-white">
-                  C<span class="underline">HUYÊN VIÊ</span>N
+                  <span class="underline">{{ slide.title.toUpperCase() }}</span>
                 </h3>
                 <p class="pt-3 text-white" style="line-height: 1.6">
-                  Đạt thành tích học tập xuất sắc Quý III/2023
+                  {{ slide.newPageContent }}
                 </p>
               </div>
             </Slide>
@@ -82,7 +82,26 @@ export default defineComponent({
     Slide,
     Navigation,
   },
+  mounted() {
+    this.loadData();
+  },
+  methods: {
+    loadData() {
+      axios({
+        method: "get",
+        url: "http://10.16.100.33:7150/api/NewPaper/GetNewsbyCate?title=vinhdanh&pages=1",
+       
+      })
+        .then((response) => {
+          this.data = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
   data: () => ({
+    data: [],
     // carousel settings
     settings: {
       itemsToShow: 1,
@@ -110,7 +129,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .vinhdanh {
   min-height: 200px;
   width: 100%;
@@ -143,6 +162,9 @@ export default defineComponent({
   right: 37%;
   top: 100%;
 }
+.gachchan {
+    left: 23%;
+  }
 }
 
 @media screen and (min-width: 576px) and (max-width: 820px) {
@@ -156,6 +178,9 @@ export default defineComponent({
   right: 43%;
   top: 100%;
 }
+.gachchan {
+    left: 38%;
+  }
 }
 
 @media screen and (min-width: 1080px) {
@@ -176,4 +201,11 @@ export default defineComponent({
   border-bottom: 1px solid white;
   padding-bottom: 10px;
 }
+
+.gachchan {
+  position: absolute;
+  top: 40px;
+  left: 44%;
+}
+
 </style>

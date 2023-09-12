@@ -79,6 +79,7 @@ export default {
         .get("http://10.16.100.33:7150/api/MenuInfo/GetallMenu")
         .then((response) => {
           this.menucha = response.data;
+          
         })
         .catch((error) => {
           console.log(error);

@@ -26,6 +26,8 @@ import "./style.css";
 import "ant-design-vue/dist/reset.css";
 import "bootstrap/dist/css/bootstrap-grid.min.css";
 import "bootstrap/dist/css/bootstrap-utilities.min.css";
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedState);
@@ -35,7 +37,7 @@ let app;
 app = createApp(App);
 
 registerGlobalComponents(app);
-
+app.use(VueSweetalert2);
 app.use(pinia);
 app.use(router);
 app.use(Input);

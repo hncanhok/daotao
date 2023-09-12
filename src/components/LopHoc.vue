@@ -17,11 +17,20 @@
         <a-table
           :columns="columns"
           :data-source="data"
-          :scroll="{ x: 1200, y: 350 }"
+          :scroll="{ x: 1200, y: 600 }"
         >
-          <template #bodyCell="{ column }">
-            <template v-if="column.key === 'operation'">
-              <a>ĐĂNG KÝ</a>
+          <template #bodyCell="{ column, index, record }">
+            <template
+              v-if="column.key === 'operation' && record.register == 'PC'"
+            >
+              <a-button
+                @click="dangky(record.id, index)"
+                shape="round"
+                :size="size"
+                style="color: #a10707; font-weight: bold; border-color: #a10707"
+              >
+                {{ record.dangky.toUpperCase() }}
+              </a-button>
             </template>
           </template>
         </a-table>
@@ -32,71 +41,151 @@
 
 <script>
 import { defineComponent } from "vue";
+import { useUser } from "../store/use-user";
+
+const store = useUser();
+const { useID, userEmail, screptionID } = store;
 const columns = [
   {
     title: "STT",
     width: 50,
-    dataIndex: "name",
-    key: "name",   
+    dataIndex: "stt",
+    key: "stt",
   },
   {
     title: "MÃ LỚP HỌC",
     width: 100,
-    dataIndex: "age",
-    key: "age",   
+    dataIndex: "infomationCode",
+    key: "age",
   },
   {
     title: "TÊN LỚP HỌC",
-    dataIndex: "address",
+    dataIndex: "infomationName",
     key: "1",
-    width: 150,   
+    width: 150,
   },
   {
     title: "TRẠNG THÁI",
-    dataIndex: "address",
+    dataIndex: "trangThai",
     key: "2",
     width: 150,
   },
   {
     title: "ĐỊA ĐIỂM TỔ CHỨC",
-    dataIndex: "address",
+    dataIndex: "infomationContent",
     key: "3",
     width: 150,
   },
   {
     title: "NGÀY KHAI GIẢNG",
-    dataIndex: "address",
+    dataIndex: "infomationStartdate",
     key: "4",
     width: 150,
   },
   {
     title: "GIẢNG VIÊN",
-    dataIndex: "address",
+    dataIndex: "infomationLeader",
     key: "5",
     width: 150,
-  }, 
+  },
   {
     title: "ĐĂNG KÝ",
     key: "operation",
     fixed: "right",
-    width: 100,
+    width: 150,
   },
 ];
 const data = [];
-for (let i = 0; i < 26; i++) {
-  data.push({
-    key: i,
-    name: `${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
-  });
-}
+const id = "";
+const action = "";
+const status = true;
+
 export default defineComponent({
   data() {
     return {
       data,
       columns,
+      useID,
+      userEmail,
+      screptionID,
+      id,
+      action,
     };
+  },
+  mounted() {
+    this.loadData();
+  },
+  methods: {
+    showAlert() {
+      // Use sweetalert2
+      this.$swal("Hello Vue world!!!");
+    },
+    dangky(id, index) {
+      this.id = id;
+      axios({
+        method: "post",
+        url: "http://10.16.100.33:7150/api/ClassInfo/dangkyhoc",
+        headers: {},
+        data: {
+          userEmail: this.userEmail,
+          useID: this.useID,
+          screptionID: this.screptionID,
+          ClassID: id,
+        },
+      })
+        .then((response) => {
+          if (response.data.register.split("/")[1] == "null") {
+            this.$swal.fire({
+              icon: "error",
+              title: response.data.notification,
+              showConfirmButton: true,
+            });
+          } else {
+            this.$swal.fire({
+              icon: "success",
+              title: response.data.notification,
+              showConfirmButton: true,
+            });
+          }
+
+          this.loadData();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    loadData() {
+      axios({
+        method: "post",
+        url: "http://10.16.100.33:7150/api/ClassInfo/GetallHome",
+        headers: {},
+        data: {
+          userEmail: this.userEmail,
+          useID: this.useID,
+          screptionID: this.screptionID,
+        },
+      })
+        .then((response) => {
+          this.data = [];
+          for (let i = 0; i < response.data.length; i++) {
+            this.data.push({
+              stt: i + 1,
+              id: response.data[i].id,
+              infomationCode: response.data[i].infomationCode,
+              infomationName: response.data[i].infomationName,
+              trangThai: response.data[i].trangThai,
+              infomationContent: response.data[i].infomationContent,
+              infomationStartdate: response.data[i].infomationStartdate,
+              infomationLeader: response.data[i].infomationLeader,
+              dangky: response.data[i].dangky,
+              register: response.data[i].register.split("/")[2],
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 });
 </script>

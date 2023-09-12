@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container pb-5">
       <div class="row p-5">
         <div class="col-12 text-center" style="position: relative">
           <h1 style="color: #a10707">THÔNG ĐIỆP TỪ BAN LÃNH ĐẠO</h1>

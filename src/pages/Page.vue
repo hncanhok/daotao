@@ -3,6 +3,10 @@
     {{ this.$router.push("/") }}
   </div>
 
+  <div>
+    <img src="https://daotao.alphanam.com/images_share/QuyI_2022_2.jpg"/>
+  </div>
+
   <div v-if="title == 'thong_diep'">
     <Thongdiep :urldetail="urldetail" />
   </div>
@@ -25,15 +29,20 @@
   <div v-if="title == 'khoa_hoc_goi_y'">
     <LopHoc :urldetail="urldetail" />
   </div>
+
+  <div v-if="title == 'chuong_trinh'">
+    <ChuongTrinh :urldetail="urldetail" />
+  </div>
 </template>
 
 <script>
 import Thongdiep from "../components/ThongDiep.vue";
 import Cotloi from "../components/CotLoi.vue";
-import Vanhoa from '../components/VanHoa.vue';
+import Vanhoa from "../components/VanHoa.vue";
 import Giangvien from "../components/GiangVien.vue";
-import NoiQuy from '../components/NoiQuy.vue';
-import LopHoc from '../components/LopHoc.vue';
+import NoiQuy from "../components/NoiQuy.vue";
+import LopHoc from "../components/LopHoc.vue";
+import ChuongTrinh from "../components/ChuongTrinh.vue";
 
 export default {
   components: {
@@ -42,8 +51,11 @@ export default {
     Vanhoa,
     Giangvien,
     NoiQuy,
-    LopHoc
+    LopHoc,
+    ChuongTrinh
   },
   props: ["id", "urldetail", "title"],
 };
 </script>
+
+<style scoped></style>
