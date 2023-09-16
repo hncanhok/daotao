@@ -3,7 +3,7 @@
     <div class="container pb-5">
       <div class="row p-5">
         <div class="col-12 text-center" style="position: relative">
-          <h1 style="color: #b80000">TIÊU ĐIỂM</h1>
+          <h1 style="color: #b80000; font-weight: bold">TIÊU ĐIỂM</h1>
           <div class="gachchan">
             <img
               src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -14,89 +14,144 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12 col-sm-4">
-          <div class="tieudiem">
-            <img src="../assets/images/meeting.jpg" alt="" />
-            <h2 class="pt-4">
-              CHƯƠNG TRÌNH “ĐÀO TẠO KỸ THUẬT VẬN HÀNH XE SANG”
-            </h2>
-            <p class="pt-2 pb-2" style="line-height: 1.4;">
-              Sáng ngày 4/5/2023, tại trụ sở 108 Nguyễn Trãi, Hà Nội đã diễn ra
-              chương trình “Đào tạo kỹ thuật vận hành xe sang” dành cho các nhân
-              viên Lái xe và các cán bộ nhân viên hỗ trợ, quản lý xe ô tô thuộc
-              Ban Hành chính tập đoàn. Chương trình đào tạo được...
-            </p>
-            <div class="text-center">
-              <a-button
-                shape="round"
-                style="color: #b80000; border: 1px solid #b80000"
-              >
-                <span style="font-weight: bold">Xem thêm</span>
-                <i class="fa-solid fa-angles-right fa-2xs ms-1"></i>
-              </a-button>
+        <div
+          v-for="tieudiem in data"
+          :key="tieudiem.id"
+          class="col-12 col-lg-4 col-sm-6"
+        >
+          <router-link
+            style="text-decoration: none; color: inherit"
+            :to="{
+              name: 'DetailPage',
+              params: {
+                // title: tieudiem.urlFriendLink,
+                urldetail: tieudiem.id,
+              },
+            }"
+          >
+            <div class="tieudiem">
+              <div class="khunganh">
+                <div
+                  class="anhtieudiem"
+                  :style="{
+                    backgroundImage: 'url(' + tieudiem.imgHienthi + ')',
+                  }"
+                ></div>
+              </div>
+              <h3 class="pt-4" style="font-weight: bold">
+                {{ tieudiem.title.toUpperCase() }}
+              </h3>
+              <p class="pt-2 pb-2" style="text-align: justify">
+                {{ tieudiem.newPageDescription }}...
+              </p>
+              <div class="text-center mb-4 mb-sm-0">
+                <a-button
+                  shape="round"
+                  style="color: #b80000; border: 1px solid #b80000"
+                >
+                  <span style="font-weight: bold">Xem thêm</span>
+                  <i class="fa-solid fa-angles-right fa-2xs ms-1"></i>
+                </a-button>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-4">
-          <div class="tieudiem">
-            <img src="../assets/images/meeting.jpg" alt="" />
-            <h2 class="pt-4">
-              CHƯƠNG TRÌNH “ĐÀO TẠO KỸ THUẬT VẬN HÀNH XE SANG”
-            </h2>
-            <p class="pt-2 pb-2" style="line-height: 1.4;">
-              Sáng ngày 4/5/2023, tại trụ sở 108 Nguyễn Trãi, Hà Nội đã diễn ra
-              chương trình “Đào tạo kỹ thuật vận hành xe sang” dành cho các nhân
-              viên Lái xe và các cán bộ nhân viên hỗ trợ, quản lý xe ô tô thuộc
-              Ban Hành chính tập đoàn. Chương trình đào tạo được...
-            </p>
-            <div class="text-center">
-              <a-button
-                shape="round"
-                style="color: #b80000; border: 1px solid #b80000"
-              >
-                <span style="font-weight: bold">Xem thêm</span>
-                <i class="fa-solid fa-angles-right fa-2xs ms-1"></i>
-              </a-button>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-4">
-          <div class="tieudiem">
-            <img src="../assets/images/meeting.jpg" alt="" />
-            <h2 class="pt-4">
-              CHƯƠNG TRÌNH “ĐÀO TẠO KỸ THUẬT VẬN HÀNH XE SANG”
-            </h2>
-            <p class="pt-2 pb-2" style="line-height: 1.4;">
-              Sáng ngày 4/5/2023, tại trụ sở 108 Nguyễn Trãi, Hà Nội đã diễn ra
-              chương trình “Đào tạo kỹ thuật vận hành xe sang” dành cho các nhân
-              viên Lái xe và các cán bộ nhân viên hỗ trợ, quản lý xe ô tô thuộc
-              Ban Hành chính tập đoàn. Chương trình đào tạo được...
-            </p>
-            <div class="text-center">
-              <a-button
-                shape="round"
-                style="color: #b80000; border: 1px solid #b80000"
-              >
-                <span style="font-weight: bold">Xem thêm</span>
-                <i class="fa-solid fa-angles-right fa-2xs ms-1"></i>
-              </a-button>
-            </div>
-          </div>
+          </router-link>
         </div>
       </div>
       <div class="row p-5">
-      <div class="col text-center">
-        <a-button type="primary" shape="round" size="large" style="padding: 6px 60px 0 60px">         
-          <h4 style="color: #ffe760">XEM TẤT CẢ</h4>
-        </a-button>
+        <div class="col text-center">
+          <router-link
+            :to="{
+              name: 'KhoaHoc',
+              params: {
+                id: -2,
+              },
+            }"
+          >
+            <a-button
+              type="primary"
+              shape="round"
+              size="large"
+              style="padding: 6px 60px 0 60px"
+            >
+              <h4 style="color: #ffe760">XEM TẤT CẢ</h4>
+            </a-button>
+          </router-link>
+        </div>
       </div>
-    </div>
     </div>
   </div>
 </template>
 
-<style>
-    @media screen and (min-width: 1080px) {
-        .tieudiem { margin: 0 0 0 40px;}
-    }
+<script>
+export default {
+  data() {
+    return {
+      data: [],
+    };
+  },
+  mounted() {
+    this.loadData();
+  },
+  methods: {
+    loadData() {
+      axios({
+        method: "get",
+        url: "http://10.16.100.33:7150/api/NewPaper/GetNewsbyCate?title=tieudiem&pages=0",
+      })
+        .then((response) => {
+          this.data = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+};
+</script>
+
+<style scoped>
+.khunganh {
+  overflow: hidden;
+  width: 100%;
+}
+.anhtieudiem {
+  width: 100%;
+  height: 230px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: 1s;
+}
+.anhtieudiem:hover {
+  transform: scale(1.05);
+}
+.gachchan {
+  position: absolute;
+  top: 50px;
+  left: 44%;
+}
+
+@media screen and (max-width: 576px) {
+  /* .phanhoi {
+    margin-left: 2rem;
+  } */
+  .gachchan {
+    top: 50px;
+    left: 23%;
+  }
+}
+@media screen and (min-width: 576px) and (max-width: 835px) {
+  /* .phanhoi {
+    margin-left: 2rem;
+  } */
+  .gachchan {
+    top: 50px;
+    left: 38%;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .tieudiem {
+    margin: 0 0 0 20px;
+  }
+}
 </style>

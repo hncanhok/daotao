@@ -33,6 +33,14 @@
   <div v-if="title == 'chuong_trinh'">
     <ChuongTrinh :urldetail="urldetail" />
   </div>
+
+  <div v-if="title == 'tin_tuc'">
+    <TinTuc :urldetail="urldetail" />
+  </div>
+
+  <div v-if="title == 'thu_vien'">
+    <ThuVien :urldetail="urldetail" />
+  </div>
 </template>
 
 <script>
@@ -43,6 +51,8 @@ import Giangvien from "../components/GiangVien.vue";
 import NoiQuy from "../components/NoiQuy.vue";
 import LopHoc from "../components/LopHoc.vue";
 import ChuongTrinh from "../components/ChuongTrinh.vue";
+import TinTuc from "../components/TinTuc.vue";
+import ThuVien from "../components/ThuVien.vue";
 
 export default {
   components: {
@@ -52,7 +62,9 @@ export default {
     Giangvien,
     NoiQuy,
     LopHoc,
-    ChuongTrinh
+    ChuongTrinh,
+    TinTuc,
+    ThuVien
   },
   props: ["id", "urldetail", "title"],
 };

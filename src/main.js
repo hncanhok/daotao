@@ -17,6 +17,7 @@ import {
   Drawer,
   Button,
   message,
+  Pagination
 } from "ant-design-vue";
 import App from "./App.vue";
 import { registerGlobalComponents } from "./utils/import.js";
@@ -50,6 +51,7 @@ app.use(Menu);
 app.use(List);
 app.use(Button);
 app.use(Drawer);
+app.use(Pagination);
 
 app.mount("#app");
 

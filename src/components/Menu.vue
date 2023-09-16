@@ -104,14 +104,15 @@ export default {
 <style scoped>
 ul {
   list-style-type: none;
-  padding-top: 20px;
-  margin-bottom: 0;
+  padding-top: 10px;
+  margin-bottom: 0;  
 }
 
 li {
   display: inline;
   padding-right: 60px;
   color: white;
+
 }
 .fa-caret-right {
   color: #a10707;

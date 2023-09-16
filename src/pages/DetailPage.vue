@@ -1,8 +1,74 @@
 <template>
-  <div class="container">
+  <div class="container pt-4 pb-5">
     <div class="row">
-      <div class="col">
-        <p v-html="content"></p>
+      <div class="col-12 col-lg-8">
+        <h3 style="color: #a10707; font-weight: bold" class="pb-4">TRANG CHỦ > TIN TỨC</h3>
+        <h3 style="font-weight: bold">{{ data.title }}</h3>
+        <p v-html="data.newPageContent"></p>
+      </div>
+      <div class="col-12 col-lg-4 ps-lg-5" style="text-align: justify">
+        <div style="border-bottom: 2px solid #a10707" class="text-center mb-5">
+          <h1 style="font-weight: bold; color: #a10707" class="p-0 m-0">
+            CÁC TIN TỨC KHÁC
+          </h1>
+        </div>
+        <div v-for="tieudiem in otherNews" :key="tieudiem.id">
+          <div class="tieudiem">
+            <router-link
+              :to="{
+                name: 'DetailPage',
+                params: {
+                  // title: tieudiem.urlFriendLink,
+                  urldetail: tieudiem.id,
+                },
+              }"
+            >
+              <div
+                class="anhtieudiem"
+                :style="{
+                  backgroundImage: 'url(' + tieudiem.imgHienthi + ')',
+                }"
+              ></div>
+            </router-link>
+            <router-link
+              style="text-decoration: none; color: inherit"
+              :to="{
+                name: 'DetailPage',
+                params: {
+                  // title: tieudiem.urlFriendLink,
+                  urldetail: tieudiem.id,
+                },
+              }"
+            >
+              <h3 class="pt-4" style="font-weight: bold">
+                {{ tieudiem.title }}
+              </h3>
+            </router-link>
+            <p class="pt-2 pb-2" style="text-align: justify">
+              {{ tieudiem.newPageDescription }}...
+            </p>
+            <div class="text-center mb-5">
+              <a-button
+                shape="round"
+                style="color: #b80000; border: 1px solid #b80000"
+              >
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  :to="{
+                    name: 'DetailPage',
+                    params: {
+                      // title: tieudiem.urlFriendLink,
+                      urldetail: tieudiem.id,
+                    },
+                  }"
+                >
+                  <span style="font-weight: bold">Xem thêm</span>
+                </router-link>
+                <i class="fa-solid fa-angles-right fa-2xs ms-1"></i>
+              </a-button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -10,25 +76,50 @@
 
 <script>
 export default {
-  props: [],
+  props: ["urldetail"],
   data() {
     return {
-      content: "",
+      data: {},
+      otherNews: [],
     };
   },
   mounted() {
-    this.loadContent();
+    this.loadData();
+    this.loadOtherNews();
+  },
+  watch: {
+    urldetail() {
+      window.scrollTo(0, 0);
+      this.loadData();
+      this.loadOtherNews();
+    },
   },
   methods: {
-    loadContent() {
+    loadData() {
       axios
         .get("http://10.16.100.33:7150/api/NewPaper/GetNewsbyID", {
           params: {
-            id: this.$route.params.urldetail,
+            id: this.urldetail,
           },
         })
         .then((response) => {
-          this.content = response.data.newPageContent;
+          this.data = response.data;
+          console.log("id " + this.$route.params.id);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    loadOtherNews() {
+      axios
+        .get("http://10.16.100.33:7150/api/NewPaper/GetOtherNewsByID", {
+          params: {
+            id: this.urldetail,
+          },
+        })
+        .then((response) => {
+          this.otherNews = response.data;
         })
         .catch((error) => {
           console.log(error);
@@ -37,3 +128,21 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+.anhtieudiem {
+  width: 100%;
+  height: 230px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: 1s;
+}
+
+.anhtieudiem:hover {
+  transform: scale(1.05);
+}
+.tieudiem {  
+  overflow: hidden;
+}
+</style>

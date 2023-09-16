@@ -3,7 +3,7 @@
     <div class="container pb-5">
       <div class="row p-5">
         <div class="col-12 text-center" style="position: relative">
-          <h1 style="color: #b80000">PHẢN HỒI CỦA HỌC VIÊN</h1>
+          <h1 style="color: #b80000;font-weight: bold;">PHẢN HỒI CỦA HỌC VIÊN</h1>
           <div class="gachchan">
             <img
               src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -18,32 +18,29 @@
           <Carousel
             :autoplay="2000"
             v-bind="settings"
-            :breakpoints="breakpoints"           
+            :breakpoints="breakpoints"
           >
-            <Slide v-for="slide in 10" :key="slide">
+            <Slide v-for="slide in data" :key="slide.id">
               <div class="carousel__item">
                 <div class="phanhoi">
-                  <a class="facebook" href="https://www.facebook.com/"></a>
+                  <a class="anhphanhoi" :style="{ backgroundImage: 'url(' + slide.imgHienthi + ')' }"></a>
                 </div>
 
-                <h3 class="pt-4" style="color: #b80000">
-                  MS. NGUYỄN NGỌC HUYỀN
+                <h3 class="pt-4" style="color: #b80000;font-weight: bold;">
+                  {{ slide.newPageDescription.toUpperCase() }}
                 </h3>
-                <p>Chuyên viên Chất lượng</p>
+                <p style="font-weight: 500;">
+                  {{ slide.title }}
+                </p>
                 <p
+                  v-html="slide.newPageContent"
                   class="p-4 rounded m-lg-4"
                   style="
                     background-color: #9b1a1e;
                     color: white;
                     line-height: 1.6;
                   "
-                >
-                  Các lớp đào tạo rất bổ ích, mang lại nhiều kiến thức mới cho
-                  CBNV nâng cao kỹ năng mềm, các kỹ năng cơ bản để áp dụng vào
-                  thực tế một cách hiệu quả. Giảng viên có chuyên môn và cách
-                  truyền đạt dễ hiểu, thu hút giúp CBNV tham gia lớp học cảm
-                  thấy vui vẻ và tinh thần tích cực
-                </p>
+                ></p>
               </div>
             </Slide>
 
@@ -61,8 +58,6 @@
 import { defineComponent } from "vue";
 import { Carousel, Navigation, Slide } from "vue3-carousel";
 
-
-
 export default defineComponent({
   name: "Breakpoints",
   components: {
@@ -70,7 +65,25 @@ export default defineComponent({
     Slide,
     Navigation,
   },
+  mounted() {
+    this.loadData();
+  },
+  methods: {
+    loadData() {
+      axios({
+        method: "get",
+        url: "http://10.16.100.33:7150/api/NewPaper/GetNewsbyCate?title=phanhoi&pages=1",
+      })
+        .then((response) => {
+          this.data = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
   data: () => ({
+    data: [],
     // carousel settings
     settings: {
       itemsToShow: 1,
@@ -98,7 +111,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .phanhoi {
   height: 250px;
   width: 250px;
@@ -106,32 +119,50 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
- 
-  
+  margin: auto;
 }
-.facebook {
+.anhphanhoi {
   display: inline-block;
   width: 100%;
-  height: 100%;
-  background: url(https://alphanamec.com.vn/images/banner/1alphaname&c.jpg);
+  height: 100%; 
   background-position: 50% 50%;
   background-size: cover;
   border-radius: 50%;
-  
 }
 
 .carousel__slide {
   padding: 10px;
 }
-
+.carousel__item {
+  
+}
+.gachchan {
+  position: absolute;
+  top: 50px;
+  left: 44%;
+}
 
 @media screen and (max-width: 576px) {
-    .phanhoi { margin-left: 2rem;}
+  /* .phanhoi {
+    margin-left: 2rem;
+  } */
+  .gachchan {
+    top: 110px;
+    left: 23%;
+  }
 }
-@media screen and (min-width: 576px) and (max-width: 820px) {
-    .phanhoi { margin-left: 2rem;}
+@media screen and (min-width: 576px) and (max-width: 835px) {
+  /* .phanhoi {
+    margin-left: 2rem;
+  } */
+  .gachchan {
+    top: 50px;
+    left: 38%;
+  }
 }
 @media screen and (min-width: 1080px) {
-    .phanhoi { margin-left: 5rem;}
+  /* .phanhoi {
+    margin-left: 5rem;
+  } */
 }
 </style>

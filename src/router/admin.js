@@ -13,6 +13,11 @@ const admin = [
             layout: "auth"
         },
         component: () => import("../pages/Login.vue"),       
+    },   
+    {
+        path: "/:id/khoa-hoc",
+        name: "KhoaHoc",       
+        component: () => import("../components/TinTuc.vue"),       
     },           
     {
         path: "/:id:urldetail/:title",   
@@ -21,7 +26,7 @@ const admin = [
         props: true     
     }, 
     {
-        path: "/:urldetail/:title",   
+        path: "/:urldetail",   
         name: "DetailPage",
         component: () => import("../pages/DetailPage.vue"),  
         props: true     

@@ -13,10 +13,12 @@ body {
   line-height: 1.8;
 }
 
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Roboto';
   font-weight: bold;
 }
+
 
 .ant-btn-primary {
   color: #fff;
@@ -35,4 +37,22 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Roboto';
   font-size: 16px;
  
+}
+.ant-pagination .ant-pagination-item a {
+  border: 1px solid #818181;
+  border-radius: 50%;  
+}
+.ant-pagination .ant-pagination-item-active a {
+  color: #ffffff;  
+}
+.ant-pagination .ant-pagination-item-active {
+  font-weight: 600;
+  background-color: #a10707;
+  border: none;
+  border-radius: 50%;
+  
+}
+
+html {
+  scroll-behavior: smooth;
 }
