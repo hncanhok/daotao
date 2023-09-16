@@ -4,7 +4,7 @@
     style="background-color: #a10707"
   >
     <div class="container">
-      <ul class="ps-0">
+      <ul class="ps-4 pe-4 d-flex justify-content-between align-items-center">
         <li v-for="menu in menucha" :key="menu.id" style="position: relative">
           <span v-if="menu.menuParent == 0">
             <div
@@ -12,17 +12,17 @@
               @mouseover="
                 [(menucap2 = loadBoxMenu(menu.id)), (action = menu.id)]
               "
-            >            
-              <router-link                
+            >
+              <router-link
                 style="text-decoration: none; color: inherit"
                 :to="{
-                      name: 'Page',
-                      params: {
-                        title: menu.urlFriendLink,
-                        id: menu.id,
-                        urldetail: menu.urlDetail,
-                      },
-                    }"
+                  name: 'Page',
+                  params: {
+                    title: menu.urlFriendLink,
+                    id: menu.id,
+                    urldetail: menu.urlDetail,
+                  },
+                }"
                 >{{ menu.menuName.toUpperCase() }}</router-link
               >
             </div>
@@ -65,21 +65,27 @@
 export default {
   data() {
     return {
+      allMenu: [],
       menucha: [],
       menucap2: [],
       action: 1,
     };
   },
-  mounted() {
-    this.loadMenuCha();
+  created() {
+    this.loadAllMenu();
   },
   methods: {
-    loadMenuCha() {
+    loadAllMenu() {
       axios
         .get("http://10.16.100.33:7150/api/MenuInfo/GetallMenu")
         .then((response) => {
-          this.menucha = response.data;
-          
+          this.allMenu = response.data;
+          for (let i = 0; i < this.allMenu.length; i++) {
+            if (this.allMenu[i].menuParent == 0) {
+              this.menucha.push(this.allMenu[i]);
+              console.log(this.menucha);
+            }
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -87,9 +93,9 @@ export default {
     },
     loadBoxMenu(id) {
       this.menucap2 = [];
-      for (let i = 0; i < this.menucha.length; i++) {
-        if (this.menucha[i].menuParent == id) {
-          this.menucap2.push(this.menucha[i]);
+      for (let i = 0; i < this.allMenu.length; i++) {
+        if (this.allMenu[i].menuParent == id) {
+          this.menucap2.push(this.allMenu[i]);
         }
       }
 
@@ -103,16 +109,15 @@ export default {
 
 <style scoped>
 ul {
-  list-style-type: none;
-  padding-top: 10px;
+  list-style-type: none;  
   margin-bottom: 0;  
+  height: 60px;
 }
 
 li {
-  display: inline;
-  padding-right: 60px;
-  color: white;
-
+  /* display: inline; */
+  /* padding-right: 60px; */
+  color: white; 
 }
 .fa-caret-right {
   color: #a10707;
@@ -120,7 +125,7 @@ li {
 
 .vitribox {
   position: absolute;
-  top: 38px;
+  top: 44px;
   left: 0;
   z-index: 1;
   background-color: white;

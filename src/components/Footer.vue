@@ -6,8 +6,8 @@
           <img src="../assets/logo/Logo-E-Learning-04.png" alt="" width="200" />
         </div>
       </div>
-      <div class="row">
-        <div class="col-12 col-sm-6 col-lg-5">
+      <div class="d-flex flex-column flex-lg-row justify-content-between">
+        <div>
           <h3 class="pb-2" style="color: #ffea76">
             PHÒNG CHẤT LƯỢNG ĐÀO TẠO - ALPHANAM GROUP
           </h3>
@@ -24,7 +24,7 @@
             <span>phongchatluongdaotao@alphanam.com</span>
           </p>
         </div>
-        <div class="col-12 col-sm-6 col-lg">
+        <div>
           <h3 class="pb-2" style="color: #ffea76">WEBSITE LIÊN KẾT</h3>
           <p><a href="https://alphanam.com.vn/">Alphanam.com.vn</a></p>
           <p><a href="https://alphanamfamily.com/">Alphanamfamily.com</a></p>
@@ -32,7 +32,7 @@
             <a href="https://eoffice.alphanam.com/">Eoffice.alphanam.com</a>
           </p>
         </div>
-        <div class="col-12 col-sm-6 col-lg">
+        <div>
           <h3 class="pb-2" style="color: #ffea76">TRANG CHỦ</h3>
           <p><a href="https://alphanam.com.vn/">Giới thiệu</a></p>
           <p><a href="https://alphanamfamily.com/">Khóa học đang diễn ra</a></p>
@@ -40,7 +40,7 @@
             <a href="https://eoffice.alphanam.com/">Chương trình đào tạo</a>
           </p>
         </div>
-        <div class="col-12 col-sm-6 col-lg">
+        <div>
           <h3 class="pb-2" style="color: #9b1a1e">TRANG CHỦ</h3>
           <p><a href="https://alphanam.com.vn/">Kỳ thi - Kiểm tra</a></p>
           <p><a href="https://alphanamfamily.com/">Tin tức</a></p>

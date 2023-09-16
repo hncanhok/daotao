@@ -6,35 +6,49 @@
         v-for="course in courses"
         :key="course.id"
       >
-        <div>
-          <div class="thuvien">
+        <router-link
+          style="text-decoration: none; color: inherit"
+          :to="{
+            name: 'DetailPage',
+            params: {
+              // title: tieudiem.urlFriendLink,
+              urldetail: course.id,
+            },
+          }"
+        >
+          <div>
+            <div class="thuvien">
+              <div
+                class="hinhanh"
+                :style="{ backgroundImage: 'url(' + course.urlDetail + ')' }"
+              ></div>
+            </div>
+
             <div
-              class="hinhanh"
-              :style="{ backgroundImage: 'url(' + course.imgHienthi + ')' }"
-            ></div>
-          </div>
+              class="d-flex align-items-center justify-content-center text-center pt-2"
+              style="
+                background-color: #a10707;
+                color: white;
+                height: 80px;
+                line-height: 1.4;
+              "
+            >
+              <h2 style="font-weight: bold">
+                {{ course.menuName.toUpperCase() }}
+              </h2>
+            </div>
 
-          <div
-            class="d-flex align-items-center justify-content-center text-center pt-2"
-            style="
-              background-color: #a10707;
-              color: white;
-              height: 80px;
-              line-height: 1.4;
-            "
-          >
-            <h2 style="font-weight: bold">{{ course.title.toUpperCase() }}</h2>
-          </div>
-          <a-button
-            class="mt-4"
-            shape="round"
-            style="color: #b80000; border: 1px solid #b80000"
-          >
-            <span style="font-weight: bold">Xem chi tiết</span>
+            <a-button
+              class="mt-4"
+              shape="round"
+              style="color: #b80000; border: 1px solid #b80000"
+            >
+              <span style="font-weight: bold">Xem chi tiết</span>
 
-            <i class="fa-solid fa-angles-right fa-2xs ms-1"></i>
-          </a-button>
-        </div>
+              <i class="fa-solid fa-angles-right fa-2xs ms-1"></i>
+            </a-button>
+          </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -48,7 +62,7 @@ export default {
     const khoahocgoiy = () => {
       axios({
         method: "get",
-        url: "http://10.16.100.33:7150/api/NewPaper/GetNewsCustomerSize?title=khoahocgoiy&pages=1&Pagesize=6",
+        url: "http://10.16.100.33:7150/api/MenuInfo/GetChildMenu?parentid=7",
       })
         .then((response) => {
           courses.value = response.data;
@@ -83,7 +97,7 @@ export default {
   transform: scale(1.05);
 }
 
-.thuvien {  
+.thuvien {
   overflow: hidden;
   width: 100%;
 }

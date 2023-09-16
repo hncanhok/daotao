@@ -41,6 +41,8 @@
   <div v-if="title == 'thu_vien'">
     <ThuVien :urldetail="urldetail" />
   </div>
+
+  
 </template>
 
 <script>
@@ -53,6 +55,7 @@ import LopHoc from "../components/LopHoc.vue";
 import ChuongTrinh from "../components/ChuongTrinh.vue";
 import TinTuc from "../components/TinTuc.vue";
 import ThuVien from "../components/ThuVien.vue";
+import DetailPage from "./DetailPage.vue";
 
 export default {
   components: {
@@ -64,7 +67,8 @@ export default {
     LopHoc,
     ChuongTrinh,
     TinTuc,
-    ThuVien
+    ThuVien,
+    DetailPage
   },
   props: ["id", "urldetail", "title"],
 };

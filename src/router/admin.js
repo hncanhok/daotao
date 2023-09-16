@@ -18,7 +18,12 @@ const admin = [
         path: "/:id/khoa-hoc",
         name: "KhoaHoc",       
         component: () => import("../components/TinTuc.vue"),       
-    },           
+    },    
+    {
+        path: "/:id/tieu-diem",
+        name: "TieuDiem",       
+        component: () => import("../components/TinTuc.vue"),       
+    },         
     {
         path: "/:id:urldetail/:title",   
         name: "Page",

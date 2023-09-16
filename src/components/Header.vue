@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="container">
-      <div class="row p-2 pb-lg-4 pt-lg-4 ps-lg-0">
+      <div class="row p-4">
         <div class="col-2 d-block d-lg-none d-flex align-items-center p-0">
           <i
             @click="showDrawer()"
@@ -35,7 +35,7 @@
           </div>
         </div>
         <div
-          class="col d-block d-lg-none text-end d-flex align-items-center justify-content-end p-0"
+          class="col d-block d-lg-none text-end d-flex align-items-center justify-content-end"
         >
           <i class="fa-solid fa-circle-user fa-xl" style="color: #a10707"></i>
         </div>

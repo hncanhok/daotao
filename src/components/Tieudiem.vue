@@ -61,7 +61,7 @@
         <div class="col text-center">
           <router-link
             :to="{
-              name: 'KhoaHoc',
+              name: 'TieuDiem',
               params: {
                 id: -2,
               },

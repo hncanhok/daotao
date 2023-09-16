@@ -6,15 +6,31 @@
         :key="chuongtrinh.id"
         class="col-12 col-sm-6 p-4"
       >
-        <div style="position: relative">
-          <div
-            class="vinhdanh"
-            :style="{ backgroundImage: 'url(' + chuongtrinh.imgHienthi + ')' }"
-          ></div>
-          <div class="title">
-            <h3 class="text-white">{{ chuongtrinh.title.toUpperCase() }}</h3>
+        <router-link
+          style="text-decoration: none; color: inherit"
+          :to="{
+            name: 'DetailPage',
+            params: {
+              // title: tieudiem.urlFriendLink,
+              urldetail: chuongtrinh.id,
+            },
+          }"
+        >
+          <div style="position: relative">
+            <div class="chuongtrinh">
+              <div
+              class="hinhanh"
+              :style="{
+                backgroundImage: 'url(' + chuongtrinh.imgHienthi + ')',
+              }"
+            ></div>
+            </div>
+            
+            <div class="title">
+              <h3 class="text-white">{{ chuongtrinh.title.toUpperCase() }}</h3>
+            </div>
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -37,7 +53,7 @@ export default {
           "http://10.16.100.33:7150/api/NewPaper/GetNewsCustomerSize?title=chuongtrinhdaotao&pages=1&Pagesize=4"
         )
         .then((response) => {
-          this.data = response.data;          
+          this.data = response.data;
         })
         .catch((error) => {
           // handle error
@@ -61,11 +77,19 @@ export default {
   padding: 20px 40px 10px 40px;
   background: rgba(161, 7, 7, 0.5);
 }
-.vinhdanh {
+.chuongtrinh {
+  overflow: hidden;
+  width: 100%;
+}
+.hinhanh {
   width: 100%;
   height: 390px;
   background-size: cover;
   background-repeat: no-repeat;
+  transition: 1s;
+}
+.hinhanh:hover {
+  transform: scale(1.05);
 }
 
 @media screen and (max-width: 576px) {

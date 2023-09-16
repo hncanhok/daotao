@@ -2,9 +2,23 @@
   <div class="container pt-4 pb-5">
     <div class="row">
       <div class="col-12 col-lg-8">
-        <h3 style="color: #a10707; font-weight: bold" class="pb-4">TRANG CHỦ > TIN TỨC</h3>
+        <h3 style="color: #a10707; font-weight: bold" class="pb-4">
+          TRANG CHỦ > TIN TỨC
+        </h3>
         <h3 style="font-weight: bold">{{ data.title }}</h3>
         <p v-html="data.newPageContent"></p>
+
+        <a-button
+            v-if="data.taiLieuURL != ''"
+            class="mt-2"
+            type="primary"
+            shape="round"
+            :size="size"
+            @click="downloadItem(data.taiLieuURL)"
+          >
+            <i class="fa-solid fa-download pe-2"></i>Download
+          </a-button>
+       
       </div>
       <div class="col-12 col-lg-4 ps-lg-5" style="text-align: justify">
         <div style="border-bottom: 2px solid #a10707" class="text-center mb-5">
@@ -104,7 +118,7 @@ export default {
         })
         .then((response) => {
           this.data = response.data;
-          console.log("id " + this.$route.params.id);
+          console.log("download " + response.data.taiLieuURL);
         })
         .catch((error) => {
           console.log(error);
@@ -125,12 +139,29 @@ export default {
           console.log(error);
         });
     },
+    downloadItem(url) {
+      axios({
+        url: url,
+        method: "GET",
+        responseType: "blob"
+      })
+      .then((response) => {
+          var fileUrl = window.URL.createObjectURL(new Blob([response.data]))
+          var fileLink = document.createElement('a')
+          fileLink.href = fileUrl
+          fileLink.setAttribute('download', 'image.jpg')
+          document.body.appendChild(fileLink)
+          fileLink.click()
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
 
 <style scoped>
-
 .anhtieudiem {
   width: 100%;
   height: 230px;
@@ -142,7 +173,7 @@ export default {
 .anhtieudiem:hover {
   transform: scale(1.05);
 }
-.tieudiem {  
+.tieudiem {
   overflow: hidden;
 }
 </style>
