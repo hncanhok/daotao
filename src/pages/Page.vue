@@ -3,8 +3,8 @@
     {{ this.$router.push("/") }}
   </div>
 
-  <div>
-    <img src="https://daotao.alphanam.com/images_share/QuyI_2022_2.jpg"/>
+  <div class="banner" :style="{ backgroundImage: 'url(' + url + ')' }">
+   
   </div>
 
   <div v-if="title == 'thong_diep'">
@@ -42,7 +42,35 @@
     <ThuVien :urldetail="urldetail" />
   </div>
 
-  
+  <div v-if="title == 'lop_hoc_cua_ban'">
+    <LopHocCuaBan :urldetail="urldetail" />
+  </div>
+
+  <div v-if="title == 'thong_tin_ca_nhan'">
+    <ThongTinCaNhan :urldetail="urldetail" />
+  </div>
+
+  <div
+    v-if="
+      title == 'tai_lieu' ||
+      title == 'bieu_mau' ||
+      title == 'huong_dan_dao_tao' ||
+      title == 'huong_dan_su_dung_elearning'
+    "
+  >
+    <TinTuc :id="id" />
+  </div>
+
+  <div
+    v-if="
+      title == 'Dao_tao_Nen_tang' ||
+      title == 'Dao_tao_phat_trien' ||
+      title == 'Dao_tao_truong_Thanh' ||
+      title == 'Dao_tao_chuyen_mon'
+    "
+  >
+    <DetailPage :urldetail="urldetail" />
+  </div>
 </template>
 
 <script>
@@ -56,8 +84,15 @@ import ChuongTrinh from "../components/ChuongTrinh.vue";
 import TinTuc from "../components/TinTuc.vue";
 import ThuVien from "../components/ThuVien.vue";
 import DetailPage from "./DetailPage.vue";
+import LopHocCuaBan from "../components/LopHocCuaBan.vue";
+import ThongTinCaNhan from "../components/ThongTinCaNhan.vue";
 
 export default {
+  data() {
+    return {
+      url: "",
+    };
+  },
   components: {
     Thongdiep,
     Cotloi,
@@ -68,10 +103,38 @@ export default {
     ChuongTrinh,
     TinTuc,
     ThuVien,
-    DetailPage
+    DetailPage,
+    LopHocCuaBan,
+    ThongTinCaNhan
   },
   props: ["id", "urldetail", "title"],
+  created() {
+    this.loadBanner();
+  },
+  methods: {
+    loadBanner() {
+      axios
+        .get(
+          "http://10.16.100.33:7150/api/MenuInfo/GetallMenuByGroup?groupid=4"
+        )
+        .then((response) => {
+          this.url = response.data[0].urlDetail;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.banner {
+  height: 35rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+</style>
+
+

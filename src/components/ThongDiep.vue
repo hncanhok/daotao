@@ -59,6 +59,8 @@ export default {
 
 @media only screen and (max-width: 576px) {
   .gachchan {
+    position: absolute;
+    top: 110px;
     left: 23%;
   }
 }

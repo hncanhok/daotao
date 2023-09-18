@@ -5,7 +5,8 @@ export const useUser = defineStore("userId", {
     isUser: false,
     userEmail: null,
     useID: null,
-    screptionID: null
+    screptionID: null,
+    userName: null
   }),
   actions: {
     onLogin(data) {
@@ -19,6 +20,9 @@ export const useUser = defineStore("userId", {
     },
     onScreptionID(data) {
       this.screptionID = data;
+    },
+    onUserName(data) {
+      this.userName = data;
     },
   },
   persist: true,

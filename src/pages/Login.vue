@@ -165,10 +165,12 @@ export default {
       })
         .then((response) => {
           if (response.data.status == true) {
+           
             useUser().onLogin(true);
             useUser().onUserEmail(response.data.userEmail);
             useUser().onUseID(response.data.useID);
             useUser().onScreptionID(response.data.screptionID);
+            useUser().onUserName(response.data.username);
             router.push({ name: "Home" });
           } else {
             error.value = "Email hoặc mật khẩu chưa đúng!";

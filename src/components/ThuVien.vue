@@ -7,12 +7,11 @@
         :key="course.id"
       >
         <router-link
-          style="text-decoration: none; color: inherit"
+          style="text-decoration: none;color: inherit"
           :to="{
-            name: 'DetailPage',
+            name: 'ThuVien',
             params: {
-              // title: tieudiem.urlFriendLink,
-              urldetail: course.id,
+              id: course.id,
             },
           }"
         >
@@ -20,7 +19,7 @@
             <div class="thuvien">
               <div
                 class="hinhanh"
-                :style="{ backgroundImage: 'url(' + course.urlDetail + ')' }"
+                :style="{ backgroundImage: 'url(' + course.imgHienthi + ')' }"
               ></div>
             </div>
 
@@ -57,6 +56,11 @@
 <script>
 import { ref } from "vue";
 export default {
+  data() {
+    return {
+      id: -3
+    }
+  },
   setup() {
     let courses = ref([]);
     const khoahocgoiy = () => {

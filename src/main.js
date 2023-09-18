@@ -17,7 +17,9 @@ import {
   Drawer,
   Button,
   message,
-  Pagination
+  Pagination,
+  Checkbox,
+  Modal
 } from "ant-design-vue";
 import App from "./App.vue";
 import { registerGlobalComponents } from "./utils/import.js";
@@ -52,6 +54,8 @@ app.use(List);
 app.use(Button);
 app.use(Drawer);
 app.use(Pagination);
+app.use(Checkbox);
+app.use(Modal);
 
 app.mount("#app");
 

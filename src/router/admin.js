@@ -23,7 +23,12 @@ const admin = [
         path: "/:id/tieu-diem",
         name: "TieuDiem",       
         component: () => import("../components/TinTuc.vue"),       
-    },         
+    },       
+    {
+        path: "/:id/thu-vien",
+        name: "ThuVien",       
+        component: () => import("../components/TinTuc.vue"),       
+    },     
     {
         path: "/:id:urldetail/:title",   
         name: "Page",
