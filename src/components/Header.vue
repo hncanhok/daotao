@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="container">
       <div class="row p-4">
-        <div class="col-2 d-block d-lg-none d-flex align-items-center p-0">
+        <div class="col d-block d-lg-none d-flex align-items-center p-0">
           <i
             @click="showDrawer()"
             class="fa-solid fa-bars fa-xl"
@@ -10,7 +10,7 @@
           ></i>
         </div>
         <div
-          class="col-8 d-flex justify-content-center justify-content-lg-start text-sm-start"
+          class="col-6 d-flex justify-content-center justify-content-lg-start text-sm-start"
         >
           <router-link :to="{ name: 'Home' }">
             <img
@@ -23,17 +23,29 @@
         </div>
         <div class="col pt-3 text-end d-none d-lg-block">
           <a-input-search
-            class="rounded-pill"
+            class="rounded-pill p-2"
             style="width: 250px"
             placeholder="Tìm kiếm..."
             enter-button
           />
-          <div style="display: inline-block" class="mt-2 ms-3">
-            <i class="fa-solid fa-bell fa-xl me-2"></i>
+          <div
+            style="display: inline-block; position: relative"
+            class="ms-2 p-2"
+          >
+            <router-link
+              :to="{ name: 'BaiKiemTra' }"
+              style="text-decoration: none; color: inherit"
+            >
+              <i class="fa-solid fa-bell fa-2xl me-lg-3"></i>
+
+              <div class="thongbao d-inline-block">
+                <span v-show="thongbao > 0" class="circle">{{ thongbao }}</span>
+              </div>
+            </router-link>
             <div
               @mouseover="mouseover"
               @mouseleave="mouseleave"
-              class="d-inline-block"
+              class="d-inline-block mt-1"
               style="position: relative"
             >
               <i
@@ -89,6 +101,21 @@
         <div
           class="col d-block d-lg-none text-end d-flex align-items-center justify-content-end"
         >
+          <div
+            style="display: inline-block; position: relative"
+            class="ms-2 p-2"
+          >
+            <router-link
+              :to="{ name: 'BaiKiemTra' }"
+              style="text-decoration: none; color: inherit"
+            >
+              <i class="fa-solid fa-bell fa-2xl me-lg-3"></i>
+
+              <div class="thongbao d-inline-block">
+                <span v-show="thongbao > 0" class="circle">{{ thongbao }}</span>
+              </div>
+            </router-link>
+          </div>
           <i class="fa-solid fa-circle-user fa-xl" style="color: #a10707"></i>
         </div>
       </div>
@@ -111,9 +138,10 @@ export default defineComponent({
     MenuMobile,
   },
   setup() {
+    const thongbao = ref(0);
     const active = ref(false);
     const menuUser = ref([]);
-    const { userName } = useUser();
+    const { userName, useID, userEmail, screptionID } = useUser();
     const router = useRouter();
     const visible = ref(false);
     const afterVisibleChange = (bool) => {
@@ -153,6 +181,27 @@ export default defineComponent({
       active.value = false;
     };
 
+    const loadTest = () => {
+      axios({
+        method: "post",
+        url: "http://10.16.100.33:7150/api/Kiemtra/dskiemtra",
+        headers: {},
+        data: {
+          userEmail: userEmail,
+          useID: useID,
+          screptionID: screptionID,
+        },
+      })
+        .then((response) => {
+          thongbao.value = response.data.length;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    loadTest();
+
     return {
       visible,
       afterVisibleChange,
@@ -163,6 +212,7 @@ export default defineComponent({
       active,
       mouseover,
       mouseleave,
+      thongbao,
     };
   },
 });
@@ -199,5 +249,25 @@ export default defineComponent({
   width: 50px;
   height: 50px;
   border-radius: 50%;
+}
+
+.thongbao {
+  position: absolute;
+  top: 5px;
+  left: 20px;
+}
+span.circle {
+  background: red;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 18px;
+  margin-right: 5px;
+  text-align: center;
+  width: 18px;
+  font-size: 12px;
 }
 </style>

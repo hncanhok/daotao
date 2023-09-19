@@ -2,7 +2,9 @@
   <div class="container">
     <div class="row p-5">
       <div class="col-12 text-center" style="position: relative">
-        <h1 style="color: #a10707">KHÓA HỌC GỢI Ý</h1>
+        <h1 class="title" style="color: #a10707; font-weight: bold">
+          DANH SÁCH BÀI KIỂM TRA CỦA BẠN
+        </h1>
         <div class="gachchan">
           <img
             src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -15,23 +17,22 @@
     <div class="row">
       <div class="col">
         <a-table
-          :pagination="{ pageSize: 50 }"
           :columns="columns"
           :data-source="data"
+          :pagination="{ pageSize: 50 }"
           :scroll="{ x: 1200, y: 600 }"
         >
-          <template #bodyCell="{ column, index, record }">
-            <template
-              v-if="column.key === 'operation' && record.register == 'PC'"
-            >
-              <a-button
-                @click="dangky(record.id, index)"
-                shape="round"
-                :size="size"
-                style="color: #a10707; font-weight: bold; border-color: #a10707"
-              >
-                {{ record.dangky.toUpperCase() }}
-              </a-button>
+          <template #bodyCell="{ column, record }">
+            <template v-if="column.key === 'action'">
+              <router-link :to="{name: 'KhaoSat', params: {classID: record.classID, exambleID: record.classID}}">
+                <a-button
+                  shape="round"
+                  :size="size"
+                  style="color: #faf577; font-weight: bold; background: #a10707"
+                >
+                  LÀM BÀI
+                </a-button>
+              </router-link>
             </template>
           </template>
         </a-table>
@@ -48,52 +49,61 @@ const store = useUser();
 const { useID, userEmail, screptionID } = store;
 const columns = [
   {
-    title: "STT",
-    width: 50,
-    dataIndex: "stt",
-    key: "stt",
+    title: "ID",
+    width: 100,
+    dataIndex: "classID",
+    key: "classID",
+    fixed: true,
   },
+  
   {
     title: "MÃ LỚP HỌC",
-    width: 100,
-    dataIndex: "infomationCode",
-    key: "age",
+    dataIndex: "informationCode",
+    key: "informationCode",
+    width: 150,
   },
   {
     title: "TÊN LỚP HỌC",
-    dataIndex: "infomationName",
-    key: "1",
+    width: 250,
+    dataIndex: "informationName",
+    key: "informationName",
+  },
+  {
+    title: "GIẢNG VIÊN",
+    dataIndex: "informationLeader",
+    key: "informationLeader",
+    width: 180,
+  },
+  {
+    title: "THỜI GIAN LÀM BÀI",
+    dataIndex: "informationDatecount",
+    key: "informationDatecount",
+    width: 200,
+  },
+  {
+    title: "BẮT ĐẦU",
+    dataIndex: "startChecktime",
+    key: "startChecktime",
+    width: 150,
+  },
+  {
+    title: "KẾT THÚC",
+    dataIndex: "endChecktime",
+    key: "endChecktime",
     width: 150,
   },
   {
     title: "TRẠNG THÁI",
-    dataIndex: "trangThai",
-    key: "2",
-    width: 150,
+    dataIndex: "statustCode",
+    key: "statustCode",
+    width: 200,
   },
   {
-    title: "ĐỊA ĐIỂM TỔ CHỨC",
-    dataIndex: "infomationContent",
-    key: "3",
-    width: 150,
-  },
-  {
-    title: "NGÀY KHAI GIẢNG",
-    dataIndex: "infomationStartdate",
-    key: "4",
-    width: 150,
-  },
-  {
-    title: "GIẢNG VIÊN",
-    dataIndex: "infomationLeader",
-    key: "5",
-    width: 150,
-  },
-  {
-    title: "ĐĂNG KÝ",
-    key: "operation",
+    title: "HÀNH ĐỘNG",
+    dataIndex: "action",
+    key: "action",
+    width: 120,
     fixed: "right",
-    width: 150,
   },
 ];
 const data = [];
@@ -158,7 +168,7 @@ export default defineComponent({
     loadData() {
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/ClassInfo/GetallHome",
+        url: "http://10.16.100.33:7150/api/Kiemtra/dskiemtra",
         headers: {},
         data: {
           userEmail: this.userEmail,
@@ -167,21 +177,7 @@ export default defineComponent({
         },
       })
         .then((response) => {
-          this.data = [];
-          for (let i = 0; i < response.data.length; i++) {
-            this.data.push({
-              stt: i + 1,
-              id: response.data[i].id,
-              infomationCode: response.data[i].infomationCode,
-              infomationName: response.data[i].infomationName,
-              trangThai: response.data[i].trangThai,
-              infomationContent: response.data[i].infomationContent,
-              infomationStartdate: response.data[i].infomationStartdate,
-              infomationLeader: response.data[i].infomationLeader,
-              dangky: response.data[i].dangky,
-              register: response.data[i].register.split("/")[2],
-            });
-          }
+          this.data = response.data;
         })
         .catch((error) => {
           console.log(error);
@@ -194,18 +190,25 @@ export default defineComponent({
 <style scoped>
 .gachchan {
   position: absolute;
-  top: 40px;
+  top: 50px;
   left: 44%;
 }
 
 @media only screen and (max-width: 576px) {
   .gachchan {
+    position: absolute;
     left: 23%;
+    top: 65px;
+  }
+  .title {
+    font-size: 20px;
   }
 }
 
-@media only screen and (min-width: 576px) and (max-width: 820px) {
+@media only screen and (min-width: 576px) and (max-width: 835px) {
   .gachchan {
+    position: absolute;
+    top: 50px;
     left: 38%;
   }
 }

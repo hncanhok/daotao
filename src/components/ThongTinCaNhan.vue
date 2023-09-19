@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid pt-5 pb-5" style="background-color: #e2e8f0">
-    <div class="container" style="background-color: #fff;">
+    <div class="container">
       <div class="main-body">
         <div class="row">
-          <div class="col-md-4 mb-3">
+          <div class="col-md-4 mb-3 bg-white p-md-5">
             <div class="d-flex flex-column align-items-center text-center">
               <img
                 src="https://www.w3schools.com/howto/img_avatar.png"
@@ -18,22 +18,22 @@
             </div>
           </div>
 
-          <div class="col-md-8">
-            <div class="row" style="border-bottom: 1px solid #bbbbbb">
+          <div class="col-md-7 bg-white ms-md-5">
+            <div class="row p-2" style="border-bottom: 1px solid #bbbbbb">
               <div class="col-sm-3">
                 <span class="mb-0">Mã nhân viên</span>
               </div>
               <div class="col-sm-9 text-secondary">{{ user.useCode }}</div>
             </div>
-            
-            <div class="row" style="border-bottom: 1px solid #bbbbbb">
+
+            <div class="row p-2" style="border-bottom: 1px solid #bbbbbb">
               <div class="col-sm-3">
                 <span class="mb-0">Tên nhân viên</span>
               </div>
               <div class="col-sm-9 text-secondary">{{ user.userName }}</div>
             </div>
-           
-            <div class="row" style="border-bottom: 1px solid #bbbbbb">
+
+            <div class="row p-2" style="border-bottom: 1px solid #bbbbbb">
               <div class="col-sm-3">
                 <span class="mb-0">Email</span>
               </div>
@@ -41,8 +41,8 @@
                 {{ user.userEmail }}
               </div>
             </div>
-           
-            <div class="row" style="border-bottom: 1px solid #bbbbbb">
+
+            <div class="row p-2" style="border-bottom: 1px solid #bbbbbb">
               <div class="col-sm-3">
                 <span class="mb-0">Đơn vị</span>
               </div>
@@ -50,8 +50,8 @@
                 {{ user.congtyName }}
               </div>
             </div>
-           
-            <div class="row" style="border-bottom: 1px solid #bbbbbb">
+
+            <div class="row p-2" style="border-bottom: 1px solid #bbbbbb">
               <div class="col-sm-3">
                 <span class="mb-0">Khối</span>
               </div>
@@ -59,8 +59,8 @@
                 {{ user.khoiName }}
               </div>
             </div>
-           
-            <div class="row" style="border-bottom: 1px solid #bbbbbb">
+
+            <div class="row p-2" style="border-bottom: 1px solid #bbbbbb">
               <div class="col-sm-3">
                 <span class="mb-0">Ban</span>
               </div>
@@ -68,8 +68,8 @@
                 {{ user.banName }}
               </div>
             </div>
-           
-            <div class="row" style="border-bottom: 1px solid #bbbbbb">
+
+            <div class="row p-2" style="border-bottom: 1px solid #bbbbbb">
               <div class="col-sm-3">
                 <span class="mb-0">Phòng</span>
               </div>
@@ -77,8 +77,8 @@
                 {{ user.phongName }}
               </div>
             </div>
-           
-            <div class="row" style="border-bottom: 1px solid #bbbbbb">
+
+            <div class="row p-2" style="border-bottom: 1px solid #bbbbbb">
               <div class="col-sm-3">
                 <span class="mb-0">Chức vụ</span>
               </div>
@@ -86,15 +86,16 @@
                 {{ user.chucvuName }}
               </div>
             </div>
-           
-            <div class="row">
+
+            <div class="row p-2">
               <div class="col-sm-12">
                 <a-button type="primary" @click="showModal"
                   >Đổi mật khẩu</a-button
                 >
                 <a-modal
+                  width="800px"
                   v-model:visible="visible"
-                  title="Title"
+                  title="Đổi mật khẩu"
                   :confirm-loading="confirmLoading"
                   @ok="handleOk"
                 >
@@ -109,7 +110,22 @@
                       @validate="handleValidate"
                       @finishFailed="handleFinishFailed"
                     >
-                      <a-form-item has-feedback label="Password" name="pass">
+                      <a-form-item
+                        has-feedback
+                        label="Mật khẩu cũ"
+                        name="oldpass"
+                      >
+                        <a-input
+                          v-model:value="formState.oldpass"
+                          type="password"
+                          autocomplete="off"
+                        />
+                      </a-form-item>
+                      <a-form-item
+                        has-feedback
+                        label="Mật khẩu mới"
+                        name="pass"
+                      >
                         <a-input
                           v-model:value="formState.pass"
                           type="password"
@@ -118,7 +134,7 @@
                       </a-form-item>
                       <a-form-item
                         has-feedback
-                        label="Confirm"
+                        label="Nhập lại mật khẩu"
                         name="checkPass"
                       >
                         <a-input
@@ -128,14 +144,14 @@
                         />
                       </a-form-item>
 
-                      <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
+                      <!--   <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
                         <a-button type="primary" html-type="submit"
                           >Submit</a-button
                         >
                         <a-button style="margin-left: 10px" @click="resetForm"
                           >Reset</a-button
                         >
-                      </a-form-item>
+                      </a-form-item> -->
                     </a-form>
                   </p>
                 </a-modal>
@@ -151,7 +167,7 @@
 <script>
 import { ref, defineComponent, reactive } from "vue";
 import { useUser } from "../store/use-user";
-
+import { message } from "ant-design-vue";
 export default defineComponent({
   setup() {
     const store = useUser();
@@ -165,12 +181,37 @@ export default defineComponent({
       visible.value = true;
     };
     const handleOk = () => {
+      axios({
+        method: "post",
+        url: "http://10.16.100.33:7150/api/UserInfo/UserUpdatePass",
+        headers: {},
+        data: {
+          userEmail: userEmail,
+          useID: useID,
+          screptionID: screptionID,
+          oldpass: formState.oldpass,
+          newpass: formState.pass,
+        },
+      })
+        .then((response) => {
+          console.log(response.data);
+          if (response.data == true) {
+            message.success("Đổi mật khẩu thành công");
+          } else {
+            message.error("Đổi mật khẩu không thành công");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
       modalText.value = "The modal will be closed after two seconds";
       confirmLoading.value = true;
       setTimeout(() => {
         visible.value = false;
         confirmLoading.value = false;
-      }, 2000);
+      }, 1000);
+      resetForm();
     };
 
     const loadProfile = () => {
@@ -196,6 +237,7 @@ export default defineComponent({
 
     const formRef = ref();
     const formState = reactive({
+      oldpass: "",
       pass: "",
       checkPass: "",
       age: undefined,
@@ -216,7 +258,9 @@ export default defineComponent({
     };
     let validatePass = async (_rule, value) => {
       if (value === "") {
-        return Promise.reject("Please input the password");
+        return Promise.reject("Vui lòng nhập mật khẩu");
+      } else if (value.length < 6) {
+        return Promise.reject("Mật khẩu phải có ít nhất 6 ký tự");
       } else {
         if (formState.checkPass !== "") {
           formRef.value.validateFields("checkPass");
@@ -226,9 +270,9 @@ export default defineComponent({
     };
     let validatePass2 = async (_rule, value) => {
       if (value === "") {
-        return Promise.reject("Please input the password again");
+        return Promise.reject("Vui lòng nhập lại mật khẩu mới");
       } else if (value !== formState.pass) {
-        return Promise.reject("Two inputs don't match!");
+        return Promise.reject("Mật khẩu mới không khớp");
       } else {
         return Promise.resolve();
       }
@@ -296,53 +340,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* .card {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-}
-
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 0 solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
-}
-
-.card-body {
-  flex: 1 1 auto;
-  min-height: 1px;
-  padding: 1rem;
-}
-
-.gutters-sm {
-  margin-right: -8px;
-  margin-left: -8px;
-}
-
-.gutters-sm > .col,
-.gutters-sm > [class*="col-"] {
-  padding-right: 8px;
-  padding-left: 8px;
-}
-.mb-3,
-.my-3 {
-  margin-bottom: 1rem !important;
-}
-
-.bg-gray-300 {
-  background-color: #e2e8f0;
-}
-.h-100 {
-  height: 100% !important;
-}
-.shadow-none {
-  box-shadow: none !important;
-} */
-
 .gachchan {
   position: absolute;
   top: 40px;

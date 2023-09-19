@@ -15,11 +15,11 @@ import {
   Menu,
   List,
   Drawer,
-  Button,
-  message,
+  Button, 
   Pagination,
   Checkbox,
-  Modal
+  Modal,
+  Radio
 } from "ant-design-vue";
 import App from "./App.vue";
 import { registerGlobalComponents } from "./utils/import.js";
@@ -56,6 +56,7 @@ app.use(Drawer);
 app.use(Pagination);
 app.use(Checkbox);
 app.use(Modal);
+app.use(Radio);
 
 app.mount("#app");
 
