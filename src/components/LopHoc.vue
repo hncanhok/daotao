@@ -135,6 +135,7 @@ export default defineComponent({
         },
       })
         .then((response) => {
+          console.log("useID" + this.useID);
           if (response.data.register.split("/")[1] == "null") {
             this.$swal.fire({
               icon: "error",
