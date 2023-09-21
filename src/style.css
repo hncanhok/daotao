@@ -6,19 +6,22 @@ img {
   height: auto !important;
 }
 
-body {  
-  font-family: 'Roboto';
+body {
+  font-family: "Roboto";
   font-size: 16px;
-  overflow-x: hidden;  
-  line-height: 1.8;
+  overflow-x: hidden;
+  line-height: 1.8; 
 }
 
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Roboto';
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Roboto";
   font-weight: bold;
 }
-
 
 .ant-btn-primary {
   color: #fff;
@@ -26,36 +29,34 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
 }
 
-.ant-table-wrapper .ant-table-thead >tr>th {
+.ant-table-wrapper .ant-table-thead > tr > th {
   background: #a10707;
   color: white;
   padding: 8px 16px;
 }
 
-.ant-table-tbody >tr >td {
+.ant-table-tbody > tr > td {
   color: #000000;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 16px;
- 
 }
 .ant-pagination .ant-pagination-item a {
   border: 1px solid #818181;
-  border-radius: 50%;  
+  border-radius: 50%;
 }
 .ant-pagination .ant-pagination-item-active a {
-  color: #ffffff;  
+  color: #ffffff;
 }
 .ant-pagination .ant-pagination-item-active {
   font-weight: 600;
   background-color: #a10707;
   border: none;
   border-radius: 50%;
-  
 }
 
-html {
+/* html { 
   scroll-behavior: smooth;
-}
+} */
 .fa-caret-right {
   color: #a10707;
 }

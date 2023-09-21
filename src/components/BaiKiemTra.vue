@@ -16,7 +16,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <a-table
+        <a-table         
           :columns="columns"
           :data-source="data"
           :pagination="{ pageSize: 50 }"
@@ -24,15 +24,18 @@
         >
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'action'">
-              <router-link :to="{name: 'KhaoSat', params: {classID: record.classID, exambleID: record.classID}}">
-                <a-button
-                  shape="round"
-                  :size="size"
-                  style="color: #faf577; font-weight: bold; background: #a10707"
-                >
-                  LÀM BÀI
-                </a-button>
-              </router-link>
+              <a-button
+                v-if="checkTime(record.endChecktime) && record.statustCode != 'ĐÃ XÁC NHẬN'"
+                @click="headerSurvey(record.classID, record.numberTest)"
+                shape="round"
+                :size="size"
+                style="color: #faf577; font-weight: bold; background: #a10707"
+              >
+                LÀM BÀI
+              </a-button>
+            </template>
+            <template v-if="column.key === 'startChecktime'">
+              
             </template>
           </template>
         </a-table>
@@ -44,7 +47,9 @@
 <script>
 import { defineComponent } from "vue";
 import { useUser } from "../store/use-user";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const store = useUser();
 const { useID, userEmail, screptionID } = store;
 const columns = [
@@ -55,7 +60,7 @@ const columns = [
     key: "classID",
     fixed: true,
   },
-  
+
   {
     title: "MÃ LỚP HỌC",
     dataIndex: "informationCode",
@@ -109,7 +114,8 @@ const columns = [
 const data = [];
 const id = "";
 const action = "";
-const status = true;
+const status = 0;
+const resposeIdTest = 0;
 
 export default defineComponent({
   data() {
@@ -121,12 +127,20 @@ export default defineComponent({
       screptionID,
       id,
       action,
+      router,
+      resposeIdTest,
     };
   },
   mounted() {
     this.loadData();
   },
   methods: {
+    checkTime(endChecktime) {
+      const endTime = new Date(endChecktime).getTime();
+      const nowTime = new Date().getTime();
+      if(endTime <= nowTime) return false;
+      return true;
+    },
     showAlert() {
       // Use sweetalert2
       this.$swal("Hello Vue world!!!");
@@ -178,6 +192,82 @@ export default defineComponent({
       })
         .then((response) => {
           this.data = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    headerSurvey(classID, exambleID) {
+      axios({
+        method: "post",
+        url: "http://10.16.100.33:7150/api/KhaoSat/HeaderSurvey",
+        headers: {},
+        data: {
+          userEmail: this.userEmail,
+          useID: this.useID,
+          screptionID: this.screptionID,
+          classID: classID,
+          exambleID: 0,
+        },
+      })
+        .then((response) => {
+          if (response.data.resposeId > 0) {
+            this.$router.push({
+              name: "KhaoSat",
+              params: { classID: classID, exambleID: exambleID },
+            });
+          } else {
+            axios({
+              method: "post",
+              url: "http://10.16.100.33:7150/api/Kiemtra/GetHeadKiemtra",
+              headers: {},
+              data: {
+                userEmail: this.userEmail,
+                useID: this.useID,
+                screptionID: this.screptionID,
+                classID: classID,
+                exambleID: exambleID,
+              },
+            })
+              .then((response) => {
+                if (response.data.resposeId > 0) {
+                  this.$router.push({
+                    name: "Test",
+                    params: { 
+                      classID: classID, 
+                      exambleID: exambleID,
+                      informationName: response.data.informationName
+                     },
+
+                  });
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    getHeadKiemtra() {
+      axios({
+        method: "post",
+        url: "http://10.16.100.33:7150/api/Kiemtra/GetHeadKiemtra",
+        headers: {},
+        data: {
+          userEmail: this.userEmail,
+          useID: this.useID,
+          screptionID: this.screptionID,
+          classID: 8453,
+          exambleID: 2013,
+        },
+      })
+        .then((response) => {
+          this.resposeIdTest = response.data.resposeId;
+          return this.resposeIdTest;
         })
         .catch((error) => {
           console.log(error);

@@ -68,7 +68,7 @@
                     class="pt-4 ps-3 pe-3"
                     style="color: #a10707; font-weight: bold"
                   >
-                    {{ userName.toUpperCase() }}
+                    {{ userName }}
                   </p>
                 </div>
                 <div class="box2">

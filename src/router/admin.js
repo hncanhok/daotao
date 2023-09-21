@@ -48,10 +48,16 @@ const admin = [
         props: true     
     },
     {
-        path: "/:classID:exambleID/khao-sat-lop-hoc",   
+        path: "/:classID:exambleID/khao-sat",   
         name: "KhaoSat",
-        component: () => import("../pages/KhaoSat.vue"),  
-        props: true     
+        component: () => import("../components/KhaoSat.vue"),  
+          
+    },
+    {
+        path: "/:classID:exambleID/:informationName",   
+        name: "Test",
+        component: () => import("../components/Test.vue"),  
+        props: true   
     },
     {
         path: "/:pathMatch(.*)*",           

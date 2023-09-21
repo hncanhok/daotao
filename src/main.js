@@ -19,7 +19,8 @@ import {
   Pagination,
   Checkbox,
   Modal,
-  Radio
+  Radio,
+  message
 } from "ant-design-vue";
 import App from "./App.vue";
 import { registerGlobalComponents } from "./utils/import.js";
@@ -57,6 +58,7 @@ app.use(Pagination);
 app.use(Checkbox);
 app.use(Modal);
 app.use(Radio);
+app.use(message);
 
 app.mount("#app");
 
