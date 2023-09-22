@@ -109,21 +109,24 @@
               :to="{ name: 'BaiKiemTra' }"
               style="text-decoration: none; color: inherit"
             >
-              <i class="fa-solid fa-bell fa-2xl me-lg-3"></i>
+              <i class="fa-solid fa-bell fa-xl fa-lg-2xl me-2 me-lg-3"></i>
 
               <div class="thongbao d-inline-block">
                 <span v-show="thongbao > 0" class="circle">{{ thongbao }}</span>
               </div>
             </router-link>
           </div>
-          <i class="fa-solid fa-circle-user fa-xl" style="color: #a10707"></i>
+          <i class="fa-solid fa-circle-user fa-xl" @click="showDrawer2()" style="color: #a10707"></i>
         </div>
       </div>
     </div>
   </div>
 
-  <a-drawer v-model:visible="visible" title="DANH MỤC" placement="left">
+  <a-drawer v-model:visible="visible" placement="left">
     <MenuMobile />
+  </a-drawer>
+  <a-drawer v-model:visible="visible2" placement="right">
+    <UserMobile />
   </a-drawer>
 </template>
 
@@ -131,24 +134,32 @@
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 import MenuMobile from "./MenuMobile.vue";
+import UserMobile from "./UserMobile.vue";
 import { useUser } from "../store/use-user.js";
 
 export default defineComponent({
   components: {
     MenuMobile,
+    UserMobile
   },
   setup() {
     const thongbao = ref(0);
     const active = ref(false);
     const menuUser = ref([]);
     const { userName, useID, userEmail, screptionID } = useUser();
+    
     const router = useRouter();
     const visible = ref(false);
+    const visible2 = ref(false);
     const afterVisibleChange = (bool) => {
       console.log("visible", bool);
     };
     const showDrawer = () => {
       visible.value = true;
+    };
+    const showDrawer2 = () => {
+      visible2.value = true;
+     
     };
 
     const onLogout = () => {
@@ -204,8 +215,10 @@ export default defineComponent({
 
     return {
       visible,
+      visible2,
       afterVisibleChange,
       showDrawer,
+      showDrawer2,
       onLogout,
       userName,
       menuUser,

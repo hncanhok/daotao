@@ -17,9 +17,8 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   const store = useUser();
-  const { isUser, userEmail } = store;
-
-  console.log(userEmail);
+  const { isUser } = store;
+  
   if (to.meta.requiresAuth && !isUser) return "/login";
 });
 

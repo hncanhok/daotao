@@ -16,7 +16,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <a-table         
+        <a-table
           :columns="columns"
           :data-source="data"
           :pagination="{ pageSize: 50 }"
@@ -25,7 +25,10 @@
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'action'">
               <a-button
-                v-if="checkTime(record.endChecktime) && record.statustCode != 'ĐÃ XÁC NHẬN'"
+                v-if="
+                  checkTime(record.endChecktime) &&
+                  record.statustCode != 'ĐÃ XÁC NHẬN'
+                "
                 @click="headerSurvey(record.classID, record.numberTest)"
                 shape="round"
                 :size="size"
@@ -34,9 +37,7 @@
                 LÀM BÀI
               </a-button>
             </template>
-            <template v-if="column.key === 'startChecktime'">
-              
-            </template>
+            <template v-if="column.key === 'startChecktime'"> </template>
           </template>
         </a-table>
       </div>
@@ -50,8 +51,7 @@ import { useUser } from "../store/use-user";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const store = useUser();
-const { useID, userEmail, screptionID } = store;
+
 const columns = [
   {
     title: "ID",
@@ -118,18 +118,28 @@ const status = 0;
 const resposeIdTest = 0;
 
 export default defineComponent({
-  data() {
+  setup() {
+    const store = useUser();
+    const { useID, userEmail, screptionID } = store;
+
     return {
-      data,
-      columns,
       useID,
       userEmail,
       screptionID,
+    };
+  },
+  data() {
+    return {
+      data,
+      columns,     
       id,
       action,
       router,
       resposeIdTest,
     };
+  },
+  created() {
+    console.log("email " + this.userEmail);
   },
   mounted() {
     this.loadData();
@@ -138,7 +148,7 @@ export default defineComponent({
     checkTime(endChecktime) {
       const endTime = new Date(endChecktime).getTime();
       const nowTime = new Date().getTime();
-      if(endTime <= nowTime) return false;
+      if (endTime <= nowTime) return false;
       return true;
     },
     showAlert() {
@@ -233,12 +243,11 @@ export default defineComponent({
                 if (response.data.resposeId > 0) {
                   this.$router.push({
                     name: "Test",
-                    params: { 
-                      classID: classID, 
+                    params: {
+                      classID: classID,
                       exambleID: exambleID,
-                      informationName: response.data.informationName
-                     },
-
+                      informationName: response.data.informationName,
+                    },
                   });
                 }
               })

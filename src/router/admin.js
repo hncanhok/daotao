@@ -18,50 +18,59 @@ const admin = [
         path: "/:id/khoa-hoc",
         name: "KhoaHoc",       
         component: () => import("../components/TinTuc.vue"),       
+        meta: { requiresAuth: true },
     },    
     {
         path: "/:id/tieu-diem",
         name: "TieuDiem",       
-        component: () => import("../components/TinTuc.vue"),       
+        component: () => import("../components/TinTuc.vue"),     
+        meta: { requiresAuth: true },  
     },       
     {
         path: "/:id/thu-vien",
         name: "ThuVien",       
-        component: () => import("../components/TinTuc.vue"),       
+        component: () => import("../components/TinTuc.vue"),     
+        meta: { requiresAuth: true },  
     },     
     {
         path: "/:id:urldetail/:title",   
         name: "Page",
         component: () => import("../pages/Page.vue"),  
-        props: true     
+        props: true,     
+        meta: { requiresAuth: true },
     }, 
     {
         path: "/:urldetail",   
         name: "DetailPage",
         component: () => import("../pages/DetailPage.vue"),  
-        props: true     
+        props: true,     
+        meta: { requiresAuth: true },
     },
     {
         path: "/danh-sach-bai-kiem-tra-cua-ban",   
         name: "BaiKiemTra",
         component: () => import("../components/BaiKiemTra.vue"),  
-        props: true     
+        props: true,     
+        meta: { requiresAuth: true },
     },
     {
         path: "/:classID:exambleID/khao-sat",   
         name: "KhaoSat",
         component: () => import("../components/KhaoSat.vue"),  
+        meta: { requiresAuth: true },
           
     },
     {
         path: "/:classID:exambleID/:informationName",   
         name: "Test",
         component: () => import("../components/Test.vue"),  
-        props: true   
+        props: true,
+        meta: { requiresAuth: true },   
     },
     {
         path: "/:pathMatch(.*)*",           
-        component: () => import("../pages/NotFound.vue"),       
+        component: () => import("../pages/NotFound.vue"),     
+        meta: { requiresAuth: true },  
     }
 ];
 
