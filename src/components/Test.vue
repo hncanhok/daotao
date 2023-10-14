@@ -134,7 +134,7 @@ export default {
     const headerSurvey = () => {
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/Kiemtra/GetHeadKiemtra",
+        url: "https://daotao.alphanam.com:7150/api/Kiemtra/GetHeadKiemtra",
         headers: {},
         data: {
           userEmail: userEmail,
@@ -203,7 +203,7 @@ export default {
     const loadData = () => {
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/ChitietKiemtra/Chitietdethi",
+        url: "https://daotao.alphanam.com:7150/api/ChitietKiemtra/Chitietdethi",
         headers: {},
         data: {
           userEmail: userEmail,
@@ -234,7 +234,7 @@ export default {
     const onchange = (id, questionID, questionType, luachon) => {
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/ChitietKiemtra/ThuchienKT",
+        url: "https://daotao.alphanam.com:7150/api/ChitietKiemtra/ThuchienKT",
         headers: {},
         data: {
           userEmail: userEmail,
@@ -272,7 +272,7 @@ export default {
     const onChangeText = (id, questionID, questionType, gopy) => {
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/ChitietKiemtra/ThuchienKT",
+        url: "https://daotao.alphanam.com:7150/api/ChitietKiemtra/ThuchienKT",
         headers: {},
         data: {
           userEmail: userEmail,
@@ -309,7 +309,7 @@ export default {
     const onEndTest = () => {
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/Kiemtra/KetthucKiemtra",
+        url: "https://daotao.alphanam.com:7150/api/Kiemtra/KetthucKiemtra",
         headers: {},
         data: {
           userEmail: userEmail,

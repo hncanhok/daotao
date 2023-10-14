@@ -17,9 +17,15 @@ const admin = [
     {
         path: "/:id/khoa-hoc",
         name: "KhoaHoc",       
-        component: () => import("../components/TinTuc.vue"),       
+        component: () => import("../components/ChiTietKhoaHoc.vue"),       
         meta: { requiresAuth: true },
     },    
+    {
+        path: "/:urldetail/khoa-hoc-dang-dien-ra",
+        name: "LopHoc",       
+        component: () => import("../components/LopHoc.vue"),       
+        meta: { requiresAuth: true },
+    },   
     {
         path: "/:id/tieu-diem",
         name: "TieuDiem",       

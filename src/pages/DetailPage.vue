@@ -110,8 +110,9 @@ export default {
   },
   methods: {
     loadData() {
+     
       axios
-        .get("http://10.16.100.33:7150/api/NewPaper/GetNewsbyID", {
+        .get("https://daotao.alphanam.com:7150/api/NewPaper/GetNewsbyID", {
           params: {
             id: this.urldetail,
           },
@@ -127,7 +128,7 @@ export default {
 
     loadOtherNews() {
       axios
-        .get("http://10.16.100.33:7150/api/NewPaper/GetOtherNewsByID", {
+        .get("https://daotao.alphanam.com:7150/api/NewPaper/GetOtherNewsByID", {
           params: {
             id: this.urldetail,
           },

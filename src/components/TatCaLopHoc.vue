@@ -1,15 +1,6 @@
 <template>
   <div class="container">
-    <div class="row pt-5">
-      <div class="col-12">
-        <h3 style="color: #a10707; font-weight: bold" class="pb-4">
-          TRANG CHỦ > {{ content.catagoryName }}
-        </h3>
-        <h3 style="font-weight: bold">{{ content.catagoryDesciption }}</h3>
-        <p v-html="content.catagoryContent"></p>
-      </div>
-    </div>
-    <div class="row pb-5">
+    <div class="row p-5">
       <div class="col-12 text-center" style="position: relative">
         <h1 style="color: #a10707; font-weight: bold">KHÓA HỌC ĐANG DIỄN RA</h1>
         <div class="gachchan">
@@ -48,56 +39,6 @@
                 {{ record.dangky.toUpperCase() }}
               </a-button>
             </template>
-            <template v-if="column.key === 'infomationStartdate'">
-              {{ onFormatDate(record.infomationStartdate) }}
-            </template>
-          </template>
-        </a-table>
-      </div>
-    </div>
-
-    <div class="row pb-5">
-      <div class="col-12 text-center" style="position: relative">
-        <h1 style="color: #a10707; font-weight: bold">KHÓA HỌC ĐÃ ĐĂNG KÝ</h1>
-        <div class="gachchan">
-          <img
-            src="../assets/logo/Icon-Web-dao-tao-02.png"
-            alt="khoa hoc goi y"
-            width="150"
-          />
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <a-table
-          :pagination="{ pageSize: 50 }"
-          :columns="columns"
-          :data-source="data2"
-          :scroll="{ x: 1200, y: 600 }"
-        >
-          <template #bodyCell="{ column, index, record }">
-            <template v-if="column.key === 'stt'">
-              {{ index + 1 }}
-            </template>
-            <template
-              v-if="
-                column.key === 'operation' &&
-                record.register.split('/')[2] == 'PC'
-              "
-            >
-              <a-button
-                @click="dangky(record.id, index)"
-                shape="round"
-                :size="size"
-                style="color: #a10707; font-weight: bold; border-color: #a10707"
-              >
-                {{ record.dangky.toUpperCase() }}
-              </a-button>
-            </template>
-            <template v-if="column.key === 'infomationStartdate'">
-              {{ onFormatDate(record.infomationStartdate) }}
-            </template>
           </template>
         </a-table>
       </div>
@@ -108,15 +49,9 @@
 <script>
 import { defineComponent, ref, inject } from "vue";
 import { useUser } from "../store/use-user";
-import moment from "moment";
-import { useRoute } from "vue-router";
 
 export default defineComponent({
-  mounted() {
-    window.scrollTo(0, 1500);
-  },
   setup() {
-    const route = useRoute();
     const swal = inject("$swal");
     const store = useUser();
     const { useID, userEmail, screptionID } = store;
@@ -173,8 +108,6 @@ export default defineComponent({
     ];
 
     let data = ref([]);
-    let data2 = ref([]);
-    let content = ref([]);
     const id = ref("");
     const action = ref("");
     const status = ref(true);
@@ -182,13 +115,12 @@ export default defineComponent({
     const loadData = () => {
       axios({
         method: "post",
-        url: "https://daotao.alphanam.com:7150/api/ClassInfo/GetallDangky",
+        url: "https://daotao.alphanam.com:7150/api/ClassInfo/GetallHome",
         headers: {},
         data: {
           userEmail: userEmail,
           useID: useID,
           screptionID: screptionID,
-          categoryId: route.params.urldetail,
         },
       })
         .then((response) => {
@@ -199,49 +131,6 @@ export default defineComponent({
         });
     };
     loadData();
-
-    const loadData2 = () => {
-      axios({
-        method: "post",
-        url: "https://daotao.alphanam.com:7150/api/ClassInfo/GetallHuyDangky",
-        headers: {},
-        data: {
-          userEmail: userEmail,
-          useID: useID,
-          screptionID: screptionID,
-          categoryId: route.params.urldetail,
-        },
-      })
-        .then((response) => {
-          data2.value = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-
-    loadData2();
-
-    const getContent = () => {
-      axios({
-        method: "post",
-        url: "https://daotao.alphanam.com:7150/api/ClassInfo/GetClassCategorybyID",
-        headers: {},
-        data: {
-          userEmail: userEmail,
-          useID: useID,
-          screptionID: screptionID,
-          categoryId: route.params.urldetail,
-        },
-      })
-        .then((response) => {
-          content.value = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    getContent();
 
     const dangky = (id, index) => {
       id = id;
@@ -272,16 +161,12 @@ export default defineComponent({
           }
 
           loadData();
-          loadData2();
         })
         .catch((error) => {
           console.log(error);
         });
     };
 
-    const onFormatDate = (value) => {
-      return moment(String(value)).format("DD/MM/YYYY, h:mm");
-    };
     return {
       data,
       columns,
@@ -291,9 +176,6 @@ export default defineComponent({
       id,
       action,
       dangky,
-      onFormatDate,
-      content,
-      data2
     };
   },
 });

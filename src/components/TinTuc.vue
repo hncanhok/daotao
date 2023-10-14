@@ -53,12 +53,12 @@
                 },
               }"
             >
-              <h3 class="pt-4" style="font-weight: bold">
+              <h3 class="pt-4" style="font-weight: bold; height: 90px;overflow: hidden;">
                 {{ tieudiem.title.toUpperCase() }}
               </h3>
             </router-link>
-            <p class="pt-2 pb-2" style="text-align: justify">
-              {{ tieudiem.newPageDescription }}...
+            <p class="pt-2 pb-2" style="text-align: justify; height: 150px; overflow: hidden;">
+              {{ tieudiem.newPageDescription.substring(0, tieudiem.newPageDescription.indexOf(" ", 200)) }}...
             </p>
             <div class="text-center mb-5">
               <a-button
@@ -125,7 +125,7 @@ export default {
   },
   methods: {
     loadData() {
-      console.log(this.$route.params.id);
+      console.log("TINTUC "+ this.$route.params.id);
       if (this.$route.params.id == 6) this.title = "tintuc";
       if (this.$route.params.id == -1) this.title = "khoahocgoiy";
       if (this.$route.params.id == -2) this.title = "tieudiem";
@@ -135,7 +135,7 @@ export default {
       if (this.$route.params.id == 25) this.title = "huongdansudungelearning";
      
       axios
-        .get("http://10.16.100.33:7150/api/NewPaper/GetNewsCustomerSize", {
+        .get("https://daotao.alphanam.com:7150/api/NewPaper/GetNewsCustomerSize", {
           params: {
             title: this.title,
             pages: this.current,

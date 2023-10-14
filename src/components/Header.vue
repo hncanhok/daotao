@@ -173,7 +173,7 @@ export default defineComponent({
     const loadMenuUser = () => {
       axios({
         method: "get",
-        url: "http://10.16.100.33:7150/api/MenuInfo/GetUserMenu",
+        url: "https://daotao.alphanam.com:7150/api/MenuInfo/GetUserMenu",
       })
         .then((response) => {
           menuUser.value = response.data;
@@ -195,7 +195,7 @@ export default defineComponent({
     const loadTest = () => {
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/Kiemtra/dskiemtra",
+        url: "https://daotao.alphanam.com:7150/api/Kiemtra/dskiemtra",
         headers: {},
         data: {
           userEmail: userEmail,

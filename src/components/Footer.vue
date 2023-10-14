@@ -52,8 +52,8 @@
   <div class="container-fluid pt-3" style="background-color: #651114">
     <div class="container">
       <div class="row">
-        <div class="col-12 text-center p-4">          
-          <h3 class="text-white" style="opacity: 0.6;">           
+        <div class="col-12 text-center p-4">
+          <h3 class="text-white" style="opacity: 0.6">
             <i class="fa-regular fa-copyright fa-xs me-2"></i>
             <span class="copyright">2023 COPYRIGHT BY ALPHANAM GROUP</span>
           </h3>
@@ -61,7 +61,39 @@
       </div>
     </div>
   </div>
+
+  <div class="up" v-if="display == true" @click="scrollToTop()">
+    <i class="fas fa-arrow-up text-black fa-lg"></i>
+  </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      display: false,
+    };
+  },
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  unmounted() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
+  methods: {
+    handleScroll(event) {
+      if (window.scrollY > 350) {
+        this.display = true;
+      } else {
+        this.display = false;
+      }
+    },
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
+  },
+};
+</script>
 
 <style lang="css" scoped>
 a {
@@ -70,5 +102,23 @@ a {
 }
 .copyright {
   letter-spacing: 10px;
+}
+
+.up {
+  position: fixed;
+  bottom: 150px;
+  right: 30px;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid #ccc;
+  opacity: 0.8;
+  text-align: center;
+}
+.up:hover {
+  opacity: 1;
 }
 </style>

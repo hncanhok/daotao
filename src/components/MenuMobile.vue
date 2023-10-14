@@ -65,7 +65,7 @@ export default {
     let menucap2 = ref([]);
     const loadMenu = () => {
       axios
-        .get("http://10.16.100.33:7150/api/MenuInfo/GetallMenu")
+        .get("https://daotao.alphanam.com:7150/api/MenuInfo/GetallMenu")
         .then((response) => {
           for (let i = 0; i < response.data.length; i++) {
             if (response.data[i].menuParent == 0) {
@@ -83,7 +83,7 @@ export default {
     const loadBoxMenu = (id) => {
       menucap2.value = [];
       axios
-        .get("http://10.16.100.33:7150/api/MenuInfo/GetallMenu")
+        .get("https://daotao.alphanam.com:7150/api/MenuInfo/GetallMenu")
         .then((response) => {
           for (let i = 0; i < response.data.length; i++) {
             if (response.data[i].menuParent == id) {

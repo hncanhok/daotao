@@ -77,7 +77,7 @@ export default {
   methods: {
     loadAllMenu() {
       axios
-        .get("http://10.16.100.33:7150/api/MenuInfo/GetallMenu")
+        .get("https://daotao.alphanam.com:7150/api/MenuInfo/GetallMenu")
         .then((response) => {
           this.allMenu = response.data;
           for (let i = 0; i < this.allMenu.length; i++) {

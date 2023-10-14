@@ -42,7 +42,7 @@ export default {
     const menus = ref([]);
     const loadMenu = () => {
       axios
-        .get("http://10.16.100.33:7150/api/MenuInfo/GetUserMenu")
+        .get("https://daotao.alphanam.com:7150/api/MenuInfo/GetUserMenu")
         .then((response) => {
           menus.value = response.data;
           console.log(menus.value);

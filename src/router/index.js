@@ -6,13 +6,13 @@ const routes = [...admin];
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior(to, from, savedPosition) {
+ /*  scrollBehavior(to, from, savedPosition) {
     // always scroll to top
     return { 
       top: 0,
       behavior: 'smooth'
      }
-  },
+  }, */
 });
 
 router.beforeEach((to) => {

@@ -183,7 +183,7 @@ export default defineComponent({
     const handleOk = () => {
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/UserInfo/UserUpdatePass",
+        url: "https://daotao.alphanam.com:7150/api/UserInfo/UserUpdatePass",
         headers: {},
         data: {
           userEmail: userEmail,
@@ -217,7 +217,7 @@ export default defineComponent({
     const loadProfile = () => {
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/UserInfo/GetUserInfoByID",
+        url: "https://daotao.alphanam.com:7150/api/UserInfo/GetUserInfoByID",
         headers: {},
         data: {
           userEmail: userEmail,

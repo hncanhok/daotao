@@ -44,7 +44,7 @@ export default defineComponent({
     const loadImagesBanner = () => {
       axios
         .get(
-          "http://10.16.100.33:7150/api/MenuInfo/GetallMenuByGroup?groupid=3"
+          "https://daotao.alphanam.com:7150/api/MenuInfo/GetallMenuByGroup?groupid=3"
         )
         .then((response) => {
           slides.value = response.data;
@@ -59,7 +59,8 @@ export default defineComponent({
       rewind: true,
       gap: "1rem",
       autoplay: true,
-      height: "35rem",
+      interval: 1000,
+      height: "30rem",
       breakpoints: {
         576: {
           height: "8rem",
@@ -101,9 +102,12 @@ button {
   max-width: 100%;
   max-height: 100%;
   object-fit: cover;
+  
 }
 
 .splide--nav {
   margin-top: 1rem;
 }
+
+
 </style>

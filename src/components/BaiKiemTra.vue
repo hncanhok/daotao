@@ -159,7 +159,7 @@ export default defineComponent({
       this.id = id;
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/ClassInfo/dangkyhoc",
+        url: "https://daotao.alphanam.com:7150/api/ClassInfo/dangkyhoc",
         headers: {},
         data: {
           userEmail: this.userEmail,
@@ -192,7 +192,7 @@ export default defineComponent({
     loadData() {
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/Kiemtra/dskiemtra",
+        url: "https://daotao.alphanam.com:7150/api/Kiemtra/dskiemtra",
         headers: {},
         data: {
           userEmail: this.userEmail,
@@ -210,7 +210,7 @@ export default defineComponent({
     headerSurvey(classID, exambleID) {
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/KhaoSat/HeaderSurvey",
+        url: "https://daotao.alphanam.com:7150/api/KhaoSat/HeaderSurvey",
         headers: {},
         data: {
           userEmail: this.userEmail,
@@ -229,7 +229,7 @@ export default defineComponent({
           } else {
             axios({
               method: "post",
-              url: "http://10.16.100.33:7150/api/Kiemtra/GetHeadKiemtra",
+              url: "https://daotao.alphanam.com:7150/api/Kiemtra/GetHeadKiemtra",
               headers: {},
               data: {
                 userEmail: this.userEmail,
@@ -264,7 +264,7 @@ export default defineComponent({
     getHeadKiemtra() {
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/Kiemtra/GetHeadKiemtra",
+        url: "https://daotao.alphanam.com:7150/api/Kiemtra/GetHeadKiemtra",
         headers: {},
         data: {
           userEmail: this.userEmail,

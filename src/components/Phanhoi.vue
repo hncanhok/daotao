@@ -16,9 +16,11 @@
       <div class="row">
         <div class="col">
           <Carousel
+            :wrap-around="true"
             :autoplay="2000"
             v-bind="settings"
             :breakpoints="breakpoints"
+                  
           >
             <Slide v-for="slide in data" :key="slide.id">
               <div class="carousel__item">
@@ -26,10 +28,10 @@
                   <a class="anhphanhoi" :style="{ backgroundImage: 'url(' + slide.imgHienthi + ')' }"></a>
                 </div>
 
-                <h3 class="pt-4" style="color: #b80000;font-weight: bold;">
+                <h3 class="pt-4" style="color: #b80000;font-weight: bold;height: 50px;">
                   {{ slide.newPageDescription.toUpperCase() }}
                 </h3>
-                <p style="font-weight: 500;">
+                <p style="font-weight: 500; height: 50px;">
                   {{ slide.title }}
                 </p>
                 <p
@@ -39,6 +41,8 @@
                     background-color: #9b1a1e;
                     color: white;
                     line-height: 1.6;
+                    height: 180px; 
+                  
                   "
                 ></p>
               </div>
@@ -72,10 +76,11 @@ export default defineComponent({
     loadData() {
       axios({
         method: "get",
-        url: "http://10.16.100.33:7150/api/NewPaper/GetNewsbyCate?title=phanhoi&pages=1",
+        url: "https://daotao.alphanam.com:7150/api/NewPaper/GetNewsbyCate?title=phanhoi&pages=1",
       })
         .then((response) => {
           this.data = response.data;
+          
         })
         .catch((error) => {
           console.log(error);
@@ -87,7 +92,7 @@ export default defineComponent({
     // carousel settings
     settings: {
       itemsToShow: 1,
-      snapAlign: "center",
+      snapAlign: "center",      
     },
     // breakpoints are mobile first
     // any settings not specified will fallback to the carousel settings
@@ -165,4 +170,6 @@ export default defineComponent({
     margin-left: 5rem;
   } */
 }
+
+
 </style>

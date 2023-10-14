@@ -66,7 +66,7 @@ export default {
     const khoahocgoiy = () => {
       axios({
         method: "get",
-        url: "http://10.16.100.33:7150/api/MenuInfo/GetChildMenu?parentid=7",
+        url: "https://daotao.alphanam.com:7150/api/MenuInfo/GetChildMenu?parentid=7",
       })
         .then((response) => {
           courses.value = response.data;

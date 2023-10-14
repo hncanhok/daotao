@@ -15,6 +15,7 @@
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
     "cors": "^2.8.5",
+    "moment": "^2.29.4",
     "pinia": "^2.1.6",
     "pinia-plugin-persistedstate": "^3.2.0",
     "vue": "^3.3.4",

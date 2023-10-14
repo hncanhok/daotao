@@ -145,13 +145,13 @@ export default defineComponent({
     const login = () => {
       /* axios({
             method: 'get',
-            url: "http://localhost:5173/api/NewPaper/GetNewsbyID",           
+            url: "https://daotaoapi.alphanam.com:5173/api/NewPaper/GetNewsbyID",           
             data: {
                 id: 6110
             }
             }) */
       axios
-        .get("http://10.16.100.33:7150/api/NewPaper/GetNewsbyID", {
+        .get("https://daotao.alphanam.com:7150/api/NewPaper/GetNewsbyID", {
           params: {
             id: 5098,
           },

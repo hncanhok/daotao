@@ -38,11 +38,11 @@
                   }"
                 ></div>
               </div>
-              <h3 class="pt-4" style="font-weight: bold">
+              <h3 class="pt-4" style="font-weight: bold; height: 100px;overflow: hidden;">
                 {{ tieudiem.title.toUpperCase() }}
               </h3>
-              <p class="pt-2 pb-2" style="text-align: justify">
-                {{ tieudiem.newPageDescription }}...
+              <p class="pt-2 pb-2" style="text-align: justify; height: 150px;overflow: hidden;">
+                {{ tieudiem.newPageDescription.substring(0, tieudiem.newPageDescription.indexOf(" ", 200)) }}...
               </p>
               <div class="text-center mb-4 mb-sm-0">
                 <a-button
@@ -96,7 +96,7 @@ export default {
     loadData() {
       axios({
         method: "get",
-        url: "http://10.16.100.33:7150/api/NewPaper/GetNewsbyCate?title=tieudiem&pages=0",
+        url: "https://daotao.alphanam.com:7150/api/NewPaper/GetNewsbyCate?title=tieudiem&pages=0",
       })
         .then((response) => {
           this.data = response.data;

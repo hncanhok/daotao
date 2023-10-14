@@ -50,7 +50,7 @@ export default {
     loadData() {
       axios
         .get(
-          "http://10.16.100.33:7150/api/NewPaper/GetNewsCustomerSize?title=chuongtrinhdaotao&pages=1&Pagesize=4"
+          "https://daotao.alphanam.com:7150/api/NewPaper/GetNewsCustomerSize?title=chuongtrinhdaotao&pages=1&Pagesize=4"
         )
         .then((response) => {
           this.data = response.data;

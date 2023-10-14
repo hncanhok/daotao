@@ -39,9 +39,9 @@
 
             <div
               class="d-flex align-items-center justify-content-center text-center pt-2"
-              style="               
+              style="              
                 height: 80px;
-                line-height: 1.4;                
+                line-height: 1.4;
               "
             >
               <h3 style="color: #a10707; font-weight: bold;">{{ course.catagoryName.toUpperCase() }}</h3>
@@ -51,42 +51,37 @@
       </div>
     </div>
     <div class="row p-5">
-      <div class="col text-center">
-        <router-link
-          :to="{
-            name: 'KhoaHoc',
-            params: {
-              id: id,
-            },
-          }"
-        >
-          <a-button
-            type="primary"
-            shape="round"
-            size="large"
-            style="padding: 6px 60px 0 60px"
-          >
-            <h4 style="color: #ffe760">XEM TẤT CẢ</h4>
-          </a-button>
-        </router-link>
+        <div class="col text-center">
+          <a-pagination
+            v-model:current="current"
+            v-model:pageSize="pageSize"
+            v-model:pageSizeOptions="pageSizeOptions"
+            show-size-changer
+            :total="total"
+            @showSizeChange="onShowSizeChange"
+          />
+        </div>
       </div>
-    </div>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useUser } from "../store/use-user";
 
 export default {
   data() {
     return {
-      id: -1,
+      id: -1,      
     };
   },
   setup() {
+    const current = ref(1);
+    const pageSize = ref(6);
+    const pageSizeOptions = ref(["6", "12", "18", "24"]);
+    const total = ref(0);
     const { useID, userEmail, screptionID } = useUser();
-    let courses = ref([]);
+    let courses = ref([]);    
 
     const khoahocgoiy = () => {
       axios({
@@ -97,12 +92,13 @@ export default {
           userEmail: userEmail,
           useID: useID,
           screptionID: screptionID,
-          page: 1,
-          pageSize: 6,
+          page: current.value,
+          pageSize: pageSize.value
         },
       })
         .then((response) => {
           courses.value = response.data;
+          total.value = response.data[0].totalPage;
         })
         .catch((error) => {
           console.log(error);
@@ -110,7 +106,17 @@ export default {
     };
     khoahocgoiy();
 
-    return { courses };
+    watch ([current, pageSize], () => {
+      khoahocgoiy();  
+    });
+
+    return { 
+      courses,
+      current,
+      pageSize,
+      pageSizeOptions,
+      total
+    };
   },
 };
 </script>

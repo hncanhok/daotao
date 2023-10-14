@@ -3,9 +3,7 @@
     {{ this.$router.push("/") }}
   </div>
 
-  <div class="banner" :style="{ backgroundImage: 'url(' + url + ')' }">
-   
-  </div>
+  <!-- <div class="banner" :style="{ backgroundImage: 'url(' + url + ')' }"></div> -->
 
   <div v-if="title == 'thong_diep'">
     <Thongdiep :urldetail="urldetail" />
@@ -28,7 +26,11 @@
 
   <div v-if="title == 'khoa_hoc_goi_y'">
     <LopHoc :urldetail="urldetail" />
-  </div>
+  </div>  
+
+  <div v-if="title == 'khoa_hoc'">
+    <TatCaLopHoc :urldetail="urldetail" />
+  </div>  
 
   <div v-if="title == 'chuong_trinh'">
     <ChuongTrinh :urldetail="urldetail" />
@@ -50,15 +52,17 @@
     <ThongTinCaNhan :urldetail="urldetail" />
   </div>
 
-  <div
-    v-if="
-      title == 'tai_lieu' ||
-      title == 'bieu_mau' ||
-      title == 'huong_dan_dao_tao' ||
-      title == 'huong_dan_su_dung_elearning'
-    "
-  >
-    <TinTuc :id="id" />
+  <div v-if="title == 'huong_dan_su_dung_elearning'">
+    <HuongDanSuDung id="id" />
+  </div>
+  <div v-if="title == 'tai_lieu'">
+    <TaiLieu :id="id" />
+  </div>
+  <div v-if="title == 'bieu_mau'">
+    <BieuMau id="id" />
+  </div>
+  <div v-if="title == 'huong_dan_dao_tao'">
+    <HuongDanDaoTao :id="id" />
   </div>
 
   <div
@@ -86,6 +90,11 @@ import ThuVien from "../components/ThuVien.vue";
 import DetailPage from "./DetailPage.vue";
 import LopHocCuaBan from "../components/LopHocCuaBan.vue";
 import ThongTinCaNhan from "../components/ThongTinCaNhan.vue";
+import TaiLieu from "../components/TaiLieu.vue";
+import BieuMau from "../components/BieuMau.vue";
+import HuongDanSuDung from "../components/HuongDanSuDung.vue";
+import HuongDanDaoTao from "../components/HuongDanDaoTao.vue";
+import TatCaLopHoc from "../components/TatCaLopHoc.vue";
 
 export default {
   data() {
@@ -105,7 +114,12 @@ export default {
     ThuVien,
     DetailPage,
     LopHocCuaBan,
-    ThongTinCaNhan
+    ThongTinCaNhan,
+    TaiLieu,
+    BieuMau,
+    HuongDanDaoTao,
+    HuongDanSuDung,
+    TatCaLopHoc    
   },
   props: ["id", "urldetail", "title"],
   created() {
@@ -115,7 +129,7 @@ export default {
     loadBanner() {
       axios
         .get(
-          "http://10.16.100.33:7150/api/MenuInfo/GetallMenuByGroup?groupid=4"
+          "https://daotao.alphanam.com:7150/api/MenuInfo/GetallMenuByGroup?groupid=4"
         )
         .then((response) => {
           this.url = response.data[0].urlDetail;
@@ -136,5 +150,3 @@ export default {
   background-position: center;
 }
 </style>
-
-

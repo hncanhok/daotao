@@ -157,7 +157,7 @@ export default {
     const onFinish = (values) => {
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/DaoTaoAuthenticate/Login",
+        url: "https://daotao.alphanam.com:7150/api/DaoTaoAuthenticate/Login",
         data: {
           UserEmail: values.username,
           Password: values.password,

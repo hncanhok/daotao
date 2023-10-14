@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid pb-5" style="background-color: #a10707">
+  <div class="container-fluid pb-5" :style="{ backgroundImage: 'url(' + anhnen + ')' }">
     <div class="container pb-5">
       <div class="row p-5">
         <div class="col-12 text-center text-white" style="position: relative">
@@ -84,23 +84,25 @@ import { Carousel, Navigation, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 
 export default defineComponent({
+ 
   name: "Breakpoints",
   components: {
     Carousel,
     Slide,
     Navigation,
   },
-  mounted() {
+  created() {
     this.loadData();
   },
   methods: {
     loadData() {
       axios({
         method: "get",
-        url: "http://10.16.100.33:7150/api/NewPaper/GetNewsbyCate?title=vinhdanh&pages=1",
+        url: "https://daotao.alphanam.com:7150/api/NewPaper/GetNewsbyCate?title=vinhdanh&pages=1",
       })
         .then((response) => {
-          this.data = response.data;
+          this.data = response.data;  
+         
         })
         .catch((error) => {
           console.log(error);
@@ -108,6 +110,7 @@ export default defineComponent({
     },
   },
   data: () => ({
+    anhnen: 'https://daotao.alphanam.com/images/nen_do_vinh_danh.jpg',
     data: [],
     // carousel settings
     settings: {
@@ -128,7 +131,7 @@ export default defineComponent({
       },
       // 1024 and up
       1024: {
-        itemsToShow: 5,
+        itemsToShow: 3,
         snapAlign: "start",
       },
     },
@@ -136,7 +139,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .vinhdanh {
   border: 4px solid white;
   width: 240px;

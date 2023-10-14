@@ -186,7 +186,7 @@ export default defineComponent({
       this.id = id;
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/ClassInfo/dangkyhoc",
+        url: "https://daotao.alphanam.com:7150/api/ClassInfo/dangkyhoc",
         headers: {},
         data: {
           userEmail: this.userEmail,
@@ -219,7 +219,7 @@ export default defineComponent({
     loadData() {
       axios({
         method: "post",
-        url: "http://10.16.100.33:7150/api/YourClass/GetYourClass",
+        url: "https://daotao.alphanam.com:7150/api/YourClass/GetYourClass",
         headers: {},
         data: {
           userEmail: this.userEmail,

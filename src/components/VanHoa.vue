@@ -50,7 +50,7 @@ export default {
   methods: {
     loadContent() {
       axios
-        .get("http://10.16.100.33:7150/api/NewPaper/GetNewsbyID", {
+        .get("https://daotao.alphanam.com:7150/api/NewPaper/GetNewsbyID", {
           params: {
             id: this.urldetail,
           },
