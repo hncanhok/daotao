@@ -30,7 +30,7 @@
           }"
         >
           <div style="margin: 0 25px 45px 25px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-            <div class="khunganh" style="border-bottom: 2px solid #a10707;">
+            <div class="khunganh">
               <div
                 class="anhtieudiem"
                 :style="{ backgroundImage: 'url(' + course.catagoryImg + ')' }"
