@@ -39,7 +39,7 @@ const admin = [
         meta: { requiresAuth: true },  
     },     
     {
-        path: "/:id:urldetail/:title",   
+        path: "/:urldetail/:title",   
         name: "Page",
         component: () => import("../pages/Page.vue"),  
         props: true,     
@@ -67,12 +67,13 @@ const admin = [
           
     },
     {
-        path: "/:classID:exambleID/:informationName",   
+        path: "/:classID:exambleID/bai-kiem-tra/:informationName",   
         name: "Test",
         component: () => import("../components/Test.vue"),  
         props: true,
         meta: { requiresAuth: true },   
     },
+   
     {
         path: "/:pathMatch(.*)*",           
         component: () => import("../pages/NotFound.vue"),     

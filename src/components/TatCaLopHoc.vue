@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row p-5">
       <div class="col-12 text-center" style="position: relative">
-        <h1 style="color: #a10707; font-weight: bold">KHÓA HỌC ĐANG DIỄN RA</h1>
+        <h1 class="khoahoc" style="color: #a10707; font-weight: bold">KHÓA HỌC ĐANG DIỄN RA</h1>
         <div class="gachchan">
           <img
             src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -190,7 +190,11 @@ export default defineComponent({
 
 @media only screen and (max-width: 576px) {
   .gachchan {
+    top: 20px;
     left: 23%;
+  }
+  .khoahoc {
+    font-size: 16px;
   }
 }
 

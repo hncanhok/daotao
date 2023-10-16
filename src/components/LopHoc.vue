@@ -11,7 +11,7 @@
     </div>
     <div class="row pb-5">
       <div class="col-12 text-center" style="position: relative">
-        <h1 style="color: #a10707; font-weight: bold">KHÓA HỌC ĐANG DIỄN RA</h1>
+        <h1 class="khoahoc" style="color: #a10707; font-weight: bold">KHÓA HỌC ĐANG DIỄN RA</h1>
         <div class="gachchan">
           <img
             src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -113,7 +113,7 @@ import { useRoute } from "vue-router";
 
 export default defineComponent({
   mounted() {
-    window.scrollTo(0, 1500);
+    // window.scrollTo(0, 1500);
   },
   setup() {
     const route = useRoute();
@@ -308,12 +308,17 @@ export default defineComponent({
 
 @media only screen and (max-width: 576px) {
   .gachchan {
+    top: 20px;
     left: 23%;
+  }
+  .khoahoc {
+    font-size: 16px;
   }
 }
 
 @media only screen and (min-width: 576px) and (max-width: 835px) {
   .gachchan {
+    top: 50px;
     left: 38%;
   }
 }

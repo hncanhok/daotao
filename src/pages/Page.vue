@@ -5,7 +5,7 @@
 
   <!-- <div class="banner" :style="{ backgroundImage: 'url(' + url + ')' }"></div> -->
 
-  <div v-if="title == 'thong_diep'">
+  <div v-if="title == 'thong_diep' || title == 'gioi_thieu'">
     <Thongdiep :urldetail="urldetail" />
   </div>
 

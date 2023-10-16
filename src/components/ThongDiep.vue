@@ -1,8 +1,8 @@
 <template>
-    <div class="container pb-5">
-      <div class="row p-5">
+    <div class="container">
+      <div class="row pt-5">
         <div class="col-12 text-center" style="position: relative">
-          <h1 style="color: #a10707">THÔNG ĐIỆP TỪ BAN LÃNH ĐẠO</h1>
+          <h1 class="thongdiep" style="color: #a10707; font-weight: bold;">THÔNG ĐIỆP BAN LÃNH ĐẠO</h1>
           <div class="gachchan">
             <img
               src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -12,9 +12,9 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row anhnen" :style="{ backgroundImage: 'url(' + anhnen + ')' }">
         <div class="col">
-          <p v-html="content" class="p-5" style="border: 1px solid #303030;border-radius: 25px;"></p>
+          <p v-html="content" style="padding: 300px 200px;"></p>
         </div>
       </div>
     </div>
@@ -26,6 +26,7 @@ export default {
     data() {
     return {
       content: "",
+      anhnen: "https://daotao.alphanam.com/images/thong_diep_BLĐ.png"
     };
   },
   mounted() {
@@ -53,20 +54,28 @@ export default {
 <style scoped>
 .gachchan {
   position: absolute;
-  top: 40px;
+  top: 50px;
   left: 44%;
+}
+
+.anhnen {
+  height: 1900px;
+  background-repeat: no-repeat;
 }
 
 @media only screen and (max-width: 576px) {
   .gachchan {
-    position: absolute;
-    top: 110px;
+    top: 20px;
     left: 23%;
+  }
+  .thongdiep {
+    font-size: 16px;
   }
 }
 
-@media only screen and (min-width: 576px) and (max-width: 820px) {
+@media only screen and (min-width: 576px) and (max-width: 835px) {
   .gachchan {
+    top: 50px;
     left: 38%;
   }
 }

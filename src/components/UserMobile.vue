@@ -27,17 +27,31 @@
           },
         }"
       >
-        <span> {{ menu.menuName.toUpperCase() }}</span>
+        <span> <i class="fa-solid fa-caret-right me-2"></i>{{ menu.menuName }}</span>
       </router-link>
+    </a-menu-item>
+    <a-menu-item>
+      <div
+        @click="onLogout()"
+        style="cursor: pointer"
+        class="d-flex justify-content-left pb-2"
+      >
+        <span>
+          <i class="fa-solid fa-caret-right me-2"></i>
+          Đăng xuất
+        </span>
+      </div>
     </a-menu-item>
   </a-menu>
 </template>
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { useUser } from "../store/use-user.js";
 export default {
   setup() {
+    const router = useRouter();
     const { userName, useID, userEmail, screptionID } = useUser();
     const menus = ref([]);
     const loadMenu = () => {
@@ -53,9 +67,18 @@ export default {
     };
     loadMenu();
 
+    const onLogout = () => {
+      useUser().onLogin(false);
+      useUser().onUserEmail("");
+      useUser().onUseID("");
+      useUser().onScreptionID("");
+      router.push({ name: "Login" });
+    };
+
     return {
       menus,
       userName,
+      onLogout
     };
   },
 };

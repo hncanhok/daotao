@@ -2,7 +2,7 @@
     <div class="container">
       <div class="row p-5">
         <div class="col-12 text-center" style="position: relative">
-          <h1 style="color: #a10707">GIẢNG VIÊN NỘI BỘ</h1>
+          <h1 class="vanhoa" style="color: #a10707; font-weight: bold;">GIẢNG VIÊN NỘI BỘ</h1>
           <div class="gachchan">
             <img
               src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -53,17 +53,21 @@ export default {
 <style scoped>
 .gachchan {
   position: absolute;
-  top: 40px;
+  top: 50px;
   left: 44%;
 }
 
 @media only screen and (max-width: 576px) {
   .gachchan {
+    top: 20px;
     left: 23%;
+  }
+  .vanhoa {
+    font-size: 16px;
   }
 }
 
-@media only screen and (min-width: 576px) and (max-width: 820px) {
+@media only screen and (min-width: 576px) and (max-width: 835px) {
   .gachchan {
     left: 38%;
   }

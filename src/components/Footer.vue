@@ -34,17 +34,17 @@
         </div>
         <div>
           <h3 class="pb-2" style="color: #ffea76">TRANG CHỦ</h3>
-          <p><a href="https://alphanam.com.vn/">Giới thiệu</a></p>
-          <p><a href="https://alphanamfamily.com/">Khóa học đang diễn ra</a></p>
+          <p><a href="https://daotao.alphanam.com/0/gioi_thieu">Giới thiệu</a></p>
+          <p><a href="https://daotao.alphanam.com/0/khoa_hoc">Khóa học đang diễn ra</a></p>
           <p>
-            <a href="https://eoffice.alphanam.com/">Chương trình đào tạo</a>
+            <a href="https://daotao.alphanam.com/0/chuong_trinh">Chương trình đào tạo</a>
           </p>
         </div>
         <div>
           <h3 class="pb-2" style="color: #9b1a1e">TRANG CHỦ</h3>
-          <p><a href="https://alphanam.com.vn/">Kỳ thi - Kiểm tra</a></p>
-          <p><a href="https://alphanamfamily.com/">Tin tức</a></p>
-          <p><a href="https://eoffice.alphanam.com/">Thư viện</a></p>
+          <p><a href="https://daotao.alphanam.com/0/ky_thi_kiem_tra">Kỳ thi - Kiểm tra</a></p>
+          <p><a href="https://daotao.alphanam.com/0/tin_tuc">Tin tức</a></p>
+          <p><a href="https://daotao.alphanam.com/0/thu_vien">Thư viện</a></p>
         </div>
       </div>
     </div>

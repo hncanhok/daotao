@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12 col-lg-8">
         <h3 style="color: #a10707; font-weight: bold" class="pb-4">
-          TRANG CHỦ > TIN TỨC
+          TRANG CHỦ > {{ data.categoryName }}
         </h3>
         <h3 style="font-weight: bold">{{ data.title }}</h3>
         <p v-html="data.newPageContent"></p>
@@ -22,9 +22,9 @@
       </div>
       <div class="col-12 col-lg-4 ps-lg-5" style="text-align: justify">
         <div style="border-bottom: 2px solid #a10707" class="text-center mb-5">
-          <h1 style="font-weight: bold; color: #a10707" class="p-0 m-0">
-            CÁC TIN TỨC KHÁC
-          </h1>
+          <h4 style="font-weight: bold; color: #a10707" class="p-0 m-0">
+            {{ data.categoryName }} KHÁC
+          </h4>
         </div>
         <div v-for="tieudiem in otherNews" :key="tieudiem.id">
           <div class="tieudiem">

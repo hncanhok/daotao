@@ -19,7 +19,7 @@
                   name: 'Page',
                   params: {
                     title: menu.urlFriendLink,
-                    id: menu.id,
+                    // id: menu.id,
                     urldetail: menu.urlDetail,
                   },
                 }"

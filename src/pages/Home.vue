@@ -9,9 +9,9 @@
 <script>
 import Slider from "../components/Slider.vue";
 import Khoahoc from "../components/KhoaHoc.vue";
-import Vinhdanh from '../components/VinhDanh.vue';
+import Vinhdanh from "../components/VinhDanh.vue";
 import Phanhoi from "../components/PhanHoi.vue";
-import Tieudiem from "../components/TieuDiem.vue"
+import Tieudiem from "../components/TieuDiem.vue";
 
 export default {
   components: {
@@ -19,10 +19,18 @@ export default {
     Khoahoc,
     Vinhdanh,
     Phanhoi,
-    Tieudiem
+    Tieudiem,
   },
-  setup() {
-  
+  mounted() {
+    /* if (localStorage.getItem("reloaded")) {
+      
+      localStorage.removeItem("reloaded");
+    } else {
+      
+      localStorage.setItem("reloaded", "1");
+      location.reload();
+    } */
   },
+  setup() {},
 };
 </script>

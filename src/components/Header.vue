@@ -48,15 +48,15 @@
               class="d-inline-block mt-1"
               style="position: relative"
             >
-              <i
-                class="fa-solid fa-circle-user fa-xl"
-                style="color: #a10707"
-              ></i>
-              <span @click="onLogout()" class="ms-2" style="cursor: pointer"
-                >THOÁT</span
-              >
+            <img
+                    class="avatar ms-2 me-2"
+                    style="width: 30px;height: 30px;"
+                    src="https://www.w3schools.com/howto/img_avatar.png"
+                    alt=""
+                  />
+              <span style="color: #a10707; font-weight: bold">{{ userName.toUpperCase() }}</span>
               <div class="boxuser" v-show="active">
-                <div
+                <!-- <div
                   class="box1 gachchan d-flex justify-content-center align-items-center pt-2 pb-2"
                 >
                   <img
@@ -70,7 +70,7 @@
                   >
                     {{ userName }}
                   </p>
-                </div>
+                </div> -->
                 <div class="box2">
                   <div v-for="(user, index) in menuUser" :key="user.id">
                     <router-link
@@ -86,12 +86,18 @@
                     >
                       <div
                         class="thongtin"
-                        :class="{ gachchan: index < menuUser.length - 1 }"
+                        :class="{ gachchan: index < menuUser.length }"
                       >
                         <i class="fa-solid fa-caret-right me-2"></i
                         >{{ user.menuName }}
                       </div>
                     </router-link>
+                  </div>
+                  <div @click="onLogout()" style="cursor: pointer;" class="d-flex justify-content-left pb-2">
+                    <span>
+                      <i class="fa-solid fa-caret-right me-2"></i>                                                                                 
+                      Đăng xuất
+                    </span>
                   </div>
                 </div>
               </div>
@@ -116,7 +122,11 @@
               </div>
             </router-link>
           </div>
-          <i class="fa-solid fa-circle-user fa-xl" @click="showDrawer2()" style="color: #a10707"></i>
+          <i
+            class="fa-solid fa-circle-user fa-xl"
+            @click="showDrawer2()"
+            style="color: #a10707"
+          ></i>
         </div>
       </div>
     </div>
@@ -140,14 +150,14 @@ import { useUser } from "../store/use-user.js";
 export default defineComponent({
   components: {
     MenuMobile,
-    UserMobile
+    UserMobile,
   },
   setup() {
     const thongbao = ref(0);
     const active = ref(false);
     const menuUser = ref([]);
     const { userName, useID, userEmail, screptionID } = useUser();
-    
+
     const router = useRouter();
     const visible = ref(false);
     const visible2 = ref(false);
@@ -159,7 +169,6 @@ export default defineComponent({
     };
     const showDrawer2 = () => {
       visible2.value = true;
-     
     };
 
     const onLogout = () => {
