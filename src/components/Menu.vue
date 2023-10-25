@@ -127,7 +127,7 @@ li {
   position: absolute;
   top: 44px;
   left: 0;
-  z-index: 1;
+  z-index: 100;
   background-color: white;
   color: black;
   width: max-content;

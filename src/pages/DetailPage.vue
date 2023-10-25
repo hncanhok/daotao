@@ -8,7 +8,8 @@
         <h3 style="font-weight: bold">{{ data.title }}</h3>
         <p v-html="data.newPageContent"></p>
 
-        <a-button
+        
+        <!-- <a-button
             v-if="data.taiLieuURL != ''"
             class="mt-2"
             type="primary"
@@ -17,8 +18,21 @@
             @click="downloadItem(data.taiLieuURL)"
           >
             <i class="fa-solid fa-download pe-2"></i>Download
-          </a-button>
-       
+          </a-button> -->
+
+        <object
+            v-if="data.taiLieuURL != ''"
+            :data="`${data.taiLieuURL}#toolbar=0`"
+            type="application/pdf"
+            width="100%"
+            height="530px"
+           
+          >
+            <p>
+              Alternative text - include a link
+              <a :href="data.taiLieuURL">to the PDF!</a>
+            </p>
+          </object>
       </div>
       <div class="col-12 col-lg-4 ps-lg-5" style="text-align: justify">
         <div style="border-bottom: 2px solid #a10707" class="text-center mb-5">
@@ -89,7 +103,12 @@
 </template>
 
 <script>
+import VuePdfEmbed from "vue-pdf-embed";
+
 export default {
+  components: {
+    VuePdfEmbed,
+  },
   props: ["urldetail"],
   data() {
     return {
@@ -109,8 +128,10 @@ export default {
     },
   },
   methods: {
+    onContextmenu() {
+      alert("fdf");
+    },
     loadData() {
-     
       axios
         .get("https://daotao.alphanam.com:7150/api/NewPaper/GetNewsbyID", {
           params: {
@@ -144,15 +165,15 @@ export default {
       axios({
         url: url,
         method: "GET",
-        responseType: "blob"
+        responseType: "blob",
       })
-      .then((response) => {
-          var fileUrl = window.URL.createObjectURL(new Blob([response.data]))
-          var fileLink = document.createElement('a')
-          fileLink.href = fileUrl
-          fileLink.setAttribute('download', 'image.jpg')
-          document.body.appendChild(fileLink)
-          fileLink.click()
+        .then((response) => {
+          var fileUrl = window.URL.createObjectURL(new Blob([response.data]));
+          var fileLink = document.createElement("a");
+          fileLink.href = fileUrl;
+          fileLink.setAttribute("download", "image.jpg");
+          document.body.appendChild(fileLink);
+          fileLink.click();
         })
         .catch((error) => {
           console.log(error);
@@ -177,4 +198,7 @@ export default {
 .tieudiem {
   overflow: hidden;
 }
+
+/* .iFrame{position:relative;}
+.overlay{top:0;left:0;width:100%;height:100%;position:absolute;} */
 </style>

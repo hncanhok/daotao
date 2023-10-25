@@ -58,7 +58,7 @@
 
     <div class="row pb-5">
       <div class="col-12 text-center" style="position: relative">
-        <h1 style="color: #a10707; font-weight: bold">KHÓA HỌC ĐÃ ĐĂNG KÝ</h1>
+        <h1 style="color: #a10707; font-weight: bold" class="khoahoc">KHÓA HỌC ĐÃ ĐĂNG KÝ</h1>
         <div class="gachchan">
           <img
             src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -129,17 +129,24 @@ export default defineComponent({
         key: "stt",
       },
       {
+        title: "TÊN LỚP HỌC",
+        dataIndex: "infomationName",
+        key: "infomationName",
+        width: 150,
+      },
+      {
         title: "MÃ LỚP HỌC",
         width: 100,
         dataIndex: "infomationCode",
         key: "infomationCode",
       },
       {
-        title: "TÊN LỚP HỌC",
-        dataIndex: "infomationName",
-        key: "infomationName",
+        title: "NGÀY KHAI GIẢNG",
+        dataIndex: "infomationStartdate",
+        key: "infomationStartdate",
         width: 150,
       },
+      
       {
         title: "TRẠNG THÁI",
         dataIndex: "trangThai",
@@ -152,12 +159,7 @@ export default defineComponent({
         key: "infomationContent",
         width: 150,
       },
-      {
-        title: "NGÀY KHAI GIẢNG",
-        dataIndex: "infomationStartdate",
-        key: "infomationStartdate",
-        width: 150,
-      },
+      
       {
         title: "GIẢNG VIÊN",
         dataIndex: "infomationLeader",
@@ -308,11 +310,11 @@ export default defineComponent({
 
 @media only screen and (max-width: 576px) {
   .gachchan {
-    top: 20px;
-    left: 23%;
+    top: 35px;
+    left: 30%;
   }
   .khoahoc {
-    font-size: 16px;
+    font-size: 24px;
   }
 }
 

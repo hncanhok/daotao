@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row p-5">
       <div class="col-12 text-center" style="position: relative">
-        <h1 style="color: #a10707">LỚP HỌC CỦA BẠN</h1>
+        <h1 style="color: #a10707; font-weight: bold;" class="thongdiep">LỚP HỌC CỦA BẠN</h1>
         <div class="gachchan">
           <img
             src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -72,12 +72,12 @@ const columns = [
     title: "TÊN LỚP HỌC",
     dataIndex: "infomationName",
     key: "infomationName",
-    width: 250,
+    width: 150,
     fixed: true,
   },
   {
     title: "MÃ LỚP HỌC",
-    width: 150,
+    width: 100,
     dataIndex: "infomationCode",
     key: "infomationCode",
   },
@@ -85,19 +85,19 @@ const columns = [
     title: "NGÀY KHAI GIẢNG",
     dataIndex: "infomationStartdate",
     key: "infomationStartdate",
-    width: 180,
+    width: 120,
   },
   {
     title: "ĐIỂM SỐ",
     dataIndex: "pointIndex",
     key: "pointIndex",
-    width: 150,
+    width: 90,
   },
   {
-    title: "NGÀY ĐĂNG KÝ",
-    dataIndex: "infomationRegisterDate",
-    key: "infomationRegisterDate",
-    width: 150,
+    title: "KẾT QUẢ",
+    dataIndex: "ketqua",
+    key: "ketqua",
+    width: 100,
   },
   {
     title: "GIẢNG VIÊN",
@@ -106,55 +106,43 @@ const columns = [
     width: 150,
   },
   {
-    title: "DANH MỤC",
-    dataIndex: "catagoryName",
-    key: "catagoryName",
-    width: 200,
-  },
-  {
     title: "ĐĂNG KÝ",
     dataIndex: "register",
     key: "register",
-    width: 150,
-  },
-  {
-    title: "KẾT QUẢ",
-    dataIndex: "ketqua",
-    key: "ketqua",
-    width: 150,
+    width: 120,
   },
   {
     title: "ĐIỂM DANH LẦN 1",
     dataIndex: "diemdanh1",
     key: "diemdanh1",
-    width: 250,
+    width: 120,
     align: "center",
   },
   {
     title: "ĐIỂM DANH LẦN 2",
     dataIndex: "diemdanh2",
     key: "diemdanh2",
-    width: 250,
+    width: 120,
     align: "center",
   },
   {
     title: "NGHỈ CÓ PHÉP",
     dataIndex: "nghicophep",
     key: "nghicophep",
-    width: 250,
+    width: 120,
     align: "center",
   },
   {
     title: "LÝ DO NGHỈ PHÉP",
     dataIndex: "lydonghiphep",
     key: "lydonghiphep",
-    width: 250,
+    width: 120,
   },
   {
     title: "LÝ DO CỘNG ĐIỂM",
     dataIndex: "lydocongdiem",
     key: "lydocongdiem",
-    width: 250,
+    width: 120,
   },
 ];
 const data = [];
@@ -229,7 +217,6 @@ export default defineComponent({
       })
         .then((response) => {
           this.data = response.data;
-          
         })
         .catch((error) => {
           console.log(error);
@@ -242,18 +229,23 @@ export default defineComponent({
 <style scoped>
 .gachchan {
   position: absolute;
-  top: 40px;
+  top: 50px;
   left: 44%;
 }
 
 @media only screen and (max-width: 576px) {
   .gachchan {
+    top: 38px;
     left: 23%;
+  }
+  .thongdiep {
+    font-size: 26px;
   }
 }
 
-@media only screen and (min-width: 576px) and (max-width: 820px) {
+@media only screen and (min-width: 576px) and (max-width: 835px) {
   .gachchan {
+    top: 50px;
     left: 38%;
   }
 }

@@ -77,6 +77,7 @@
 <script>
 import { ref } from "vue";
 import { useUser } from "../store/use-user";
+import { useRouter } from "vue-router";
 
 export default {
   data() {
@@ -85,6 +86,7 @@ export default {
     };
   },
   setup() {
+    const router = useRouter();
     const { useID, userEmail, screptionID } = useUser();
     let courses = ref([]);
 
@@ -106,6 +108,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          router.push({name: 'NotFound'});
         });
     };
     khoahocgoiy();

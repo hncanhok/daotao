@@ -75,9 +75,12 @@ const admin = [
     },
    
     {
-        path: "/:pathMatch(.*)*",           
+        path: "/:pathMatch(.*)*",     
+        name: "NotFound",      
         component: () => import("../pages/NotFound.vue"),     
-        meta: { requiresAuth: true },  
+        meta: { 
+            layout: "auth",
+            requiresAuth: true },  
     }
 ];
 
