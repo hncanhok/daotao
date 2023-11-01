@@ -7,11 +7,13 @@
         :key="course.id"
       >
         <router-link
-          style="text-decoration: none;color: inherit"
+          style="text-decoration: none; color: inherit"
           :to="{
-            name: 'ThuVien',
+            name: 'Page',
             params: {
-              id: course.id,
+              title: course.urlFriendLink,
+              // id: menu.id,
+              urldetail: course.urlDetail,
             },
           }"
         >
@@ -58,8 +60,8 @@ import { ref } from "vue";
 export default {
   data() {
     return {
-      id: -3
-    }
+      id: -3,
+    };
   },
   setup() {
     let courses = ref([]);

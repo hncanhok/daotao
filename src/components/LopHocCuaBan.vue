@@ -126,14 +126,14 @@ const columns = [
     align: "center",
   },
   {
-    title: "NGHỈ CÓ PHÉP",
+    title: "NGHỈ",
     dataIndex: "nghicophep",
     key: "nghicophep",
     width: 120,
     align: "center",
   },
   {
-    title: "LÝ DO NGHỈ PHÉP",
+    title: "LÝ DO",
     dataIndex: "lydonghiphep",
     key: "lydonghiphep",
     width: 120,

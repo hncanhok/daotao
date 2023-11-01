@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row" v-if="courses.length > 0">
       <div
         class="col-12 col-md-6 col-lg-4 p-0"
         v-for="course in courses"
@@ -50,6 +50,14 @@
         </router-link>
       </div>
     </div>
+
+    <div class="row" v-else>
+      <div class="col-12 d-flex justify-content-center">
+        <div style="background-image: url('https://daotao.alphanam.com/images/khoa_hoc_dang_cap_nhat.png'); width: 600px; height: 250px; background-size: cover; background-repeat: no-repeat;background-position: center;">
+
+        </div>
+      </div>
+    </div>
     <div class="row p-5">
       <div class="col text-center">
         <router-link
@@ -61,6 +69,7 @@
           }"
         >
           <a-button
+            v-if="courses.length > 6"
             type="primary"
             shape="round"
             size="large"
@@ -105,6 +114,7 @@ export default {
       })
         .then((response) => {
           courses.value = response.data;
+          
         })
         .catch((error) => {
           console.log(error);
