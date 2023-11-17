@@ -59,7 +59,7 @@
                   </h3>
                   <p
                     class="pt-3 text-white"
-                    style="line-height: 1.6; overflow: hidden;"
+                    style="line-height: 1.6; height: 82px; overflow: hidden;"
                     v-html="slide.newPageContent"
                   >
                     

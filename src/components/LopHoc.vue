@@ -124,7 +124,7 @@ export default defineComponent({
     const columns = [
       {
         title: "STT",
-        width: 50,
+        width: 60,
         dataIndex: "stt",
         key: "stt",
       },
@@ -136,7 +136,7 @@ export default defineComponent({
       },
       {
         title: "MÃ LỚP HỌC",
-        width: 100,
+        width: 120,
         dataIndex: "infomationCode",
         key: "infomationCode",
       },
@@ -158,6 +158,13 @@ export default defineComponent({
         dataIndex: "infomationContent",
         key: "infomationContent",
         width: 150,
+      },
+
+      {
+        title: "LOẠI LỚP",
+        dataIndex: "loaiLop",
+        key: "loaiLop",
+        width: 120,
       },
       
       {
@@ -216,6 +223,7 @@ export default defineComponent({
       })
         .then((response) => {
           data2.value = response.data;
+          console.log(data2.value);
         })
         .catch((error) => {
           console.log(error);
@@ -282,7 +290,7 @@ export default defineComponent({
     };
 
     const onFormatDate = (value) => {
-      return moment(String(value)).format("DD/MM/YYYY, h:mm");
+      return moment(String(value)).format("h:mm, DD/MM/YYYY");
     };
     return {
       data,

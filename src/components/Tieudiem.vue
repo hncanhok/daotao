@@ -42,7 +42,12 @@
                 {{ tieudiem.title.toUpperCase() }}
               </h3>
               <p class="pt-2 pb-2" style="text-align: justify; height: 150px;overflow: hidden;">
-                {{ tieudiem.newPageDescription.substring(0, tieudiem.newPageDescription.indexOf(" ", 200)) }}...
+                <span v-if="tieudiem.newPageDescription.indexOf(' ', 200) > 0">
+                  {{ tieudiem.newPageDescription.substring(0, tieudiem.newPageDescription.indexOf(" ", 200)) }}...
+                </span>
+                <span v-else>
+                  {{ tieudiem.newPageDescription }}...
+                </span>
               </p>
               <div class="text-center mb-4 mb-sm-0">
                 <a-button

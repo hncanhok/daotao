@@ -31,6 +31,7 @@
           <div
             style="display: inline-block; position: relative"
             class="ms-2 p-2"
+            @click="onWatched()"
           >
             <router-link
               :to="{ name: 'BaiKiemTra' }"
@@ -39,7 +40,7 @@
               <i class="fa-solid fa-bell fa-2xl me-lg-3"></i>
 
               <div class="thongbao d-inline-block">
-                <span v-show="thongbao > 0" class="circle">{{ thongbao }}</span>
+                <span v-show="thongbao > 0 && watched == false" class="circle">{{ thongbao }}</span>
               </div>
             </router-link>
             <div
@@ -56,21 +57,7 @@
                   />
               <span style="color: #a10707; font-weight: bold">{{ userName.toUpperCase() }}</span>
               <div class="boxuser" v-show="active">
-                <!-- <div
-                  class="box1 gachchan d-flex justify-content-center align-items-center pt-2 pb-2"
-                >
-                  <img
-                    class="avatar ms-2"
-                    src="https://www.w3schools.com/howto/img_avatar.png"
-                    alt=""
-                  />
-                  <p
-                    class="pt-4 ps-3 pe-3"
-                    style="color: #a10707; font-weight: bold"
-                  >
-                    {{ userName }}
-                  </p>
-                </div> -->
+               
                 <div class="box2">
                   <div v-for="(user, index) in menuUser" :key="user.id">
                     <router-link
@@ -110,6 +97,7 @@
           <div
             style="display: inline-block; position: relative"
             class="ms-2 p-2"
+            @click="onWatched()"
           >
             <router-link
               :to="{ name: 'BaiKiemTra' }"
@@ -118,7 +106,7 @@
               <i class="fa-solid fa-bell fa-xl fa-lg-2xl me-2 me-lg-3"></i>
 
               <div class="thongbao d-inline-block">
-                <span v-show="thongbao > 0" class="circle">{{ thongbao }}</span>
+                <span v-show="thongbao > 0 && watched == false " class="circle">{{ thongbao }}</span>
               </div>
             </router-link>
           </div>
@@ -138,6 +126,20 @@
   <a-drawer v-model:visible="visible2" placement="right">
     <UserMobile />
   </a-drawer>
+
+  <div class="noti" v-if="showNoti">
+    <div style="position: relative;">   
+      <p style="position: absolute;top:0;right:0;cursor: pointer;">
+        <i class="fa-solid fa-xmark" @click="showNoti=false"></i>
+      </p>
+      <p>Thông báo</p>
+      <ul>
+        <li v-for="( title, index ) in noti" :key="index">
+          <span style="font-weight: bold;">{{ title.informationCode }}</span> : {{ title.informationName }}      
+        </li>      
+      </ul>    
+    </div>   
+  </div>
 </template>
 
 <script>
@@ -146,6 +148,9 @@ import { useRouter } from "vue-router";
 import MenuMobile from "./MenuMobile.vue";
 import UserMobile from "./UserMobile.vue";
 import { useUser } from "../store/use-user.js";
+import { notification } from 'ant-design-vue';
+
+const key = 'updatable';
 
 export default defineComponent({
   components: {
@@ -153,7 +158,10 @@ export default defineComponent({
     UserMobile,
   },
   setup() {
+    const watched = ref(false);
+    const showNoti = ref(false);
     const thongbao = ref(0);
+    const noti=ref([]);
     const active = ref(false);
     const menuUser = ref([]);
     const { userName, useID, userEmail, screptionID } = useUser();
@@ -222,6 +230,69 @@ export default defineComponent({
 
     loadTest();
 
+    let message = ref('Thông báo');
+    let description = ref('');
+
+    const openNotification = placement => {
+     
+      notification.open({
+        key,
+        message: () => message.value,
+        description: () => description.value,   
+        placement,
+        duration: 0,
+       
+      });
+      
+    };
+
+    const loadNoti = () => {
+      axios({
+        method: "post",
+        url: "https://daotao.alphanam.com:7150/api/Kiemtra/dskiemtra",
+        headers: {},
+        data: {
+          userEmail: userEmail,
+          useID: useID,
+          screptionID: screptionID,
+        },
+      })
+        .then((response) => {
+          noti.value = response.data;
+          
+          if(noti.value[0].strucID == 1 && noti.value[0].statustCode == "Thongbao"){
+            watched.value = true;
+          }
+         
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    loadNoti();
+
+    const onWatched = () => {
+      axios({
+        method: "post",
+        url: "https://daotao.alphanam.com:7150/api/Noti/NotificationReaded",
+        headers: {},
+        data: {         
+          userEmail: userEmail,
+          useID: useID,
+          screptionID: screptionID,         
+        },
+      })
+      .then((response) => {
+          console.log(response);
+         
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      showNoti.value = !showNoti.value;
+      watched.value=true;
+    }
+
     return {
       visible,
       visible2,
@@ -235,6 +306,11 @@ export default defineComponent({
       mouseover,
       mouseleave,
       thongbao,
+      openNotification,
+      noti,
+      showNoti,
+      watched,
+      onWatched
     };
   },
 });
@@ -291,5 +367,25 @@ span.circle {
   text-align: center;
   width: 18px;
   font-size: 12px;
+}
+
+.noti {
+  position:fixed; 
+  bottom:40px;
+  right:20px;  
+  width: 400px;
+  height: max-content;
+  min-height: 120px;
+  background: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 8px;
+  padding: 10px;
+  animation: mymove 0.1s;
+  
+}
+
+@keyframes mymove {
+  from {right: -20px;}
+  to {right: 20px;}
 }
 </style>

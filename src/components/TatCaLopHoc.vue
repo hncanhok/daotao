@@ -59,13 +59,13 @@ export default defineComponent({
     const columns = [
       {
         title: "STT",
-        width: 50,
+        width: 60,
         dataIndex: "stt",
         key: "stt",
       },
       {
         title: "MÃ LỚP HỌC",
-        width: 100,
+        width: 120,
         dataIndex: "infomationCode",
         key: "infomationCode",
       },
@@ -79,7 +79,7 @@ export default defineComponent({
         title: "TRẠNG THÁI",
         dataIndex: "trangThai",
         key: "trangThai",
-        width: 150,
+        width: 120,
       },
       {
         title: "ĐỊA ĐIỂM TỔ CHỨC",
@@ -92,6 +92,12 @@ export default defineComponent({
         dataIndex: "infomationStartdate",
         key: "infomationStartdate",
         width: 150,
+      },
+      {
+        title: "LOẠI LỚP",
+        dataIndex: "loaiLop",
+        key: "loaiLop",
+        width: 100,
       },
       {
         title: "GIẢNG VIÊN",

@@ -20,7 +20,7 @@
           @mouseout="nhanluc = false"
         >
           <div class="text">
-            <h1>NHÂN LỰC</h1>
+            <h1 class="title">NHÂN LỰC</h1>
             <p :class="nhanluc ? 'show' : 'hide'">
               Nhân lực là tài sản quý nhất, là sức mạnh của Alphanam Group; đoàn
               kết và cống hiến là giá trị nhân bản của chúng tôi.
@@ -35,7 +35,7 @@
           @mouseout="sanpham = false"
         >
           <div class="text">
-            <h1>SẢN PHẨM</h1>
+            <h1 class="title">SẢN PHẨM</h1>
             <p :class="sanpham ? 'show' : 'hide'">
               Alphanam Group quyết tâm đem đến cho khách hàng những sản phẩm tốt
               nhất với giá cạnh tranh nhất.
@@ -50,7 +50,7 @@
           @mouseout="loinhuan = false"
         >
           <div class="text">
-            <h1>LỢI NHUẬN</h1>
+            <h1 class="title">LỢI NHUẬN</h1>
             <p :class="loinhuan ? 'show' : 'hide'">
               Lợi nhuận là thước đo sự hoàn hảo đối với sản phẩm, là sự đánh giá
               của khách hàng cho những nỗ lực của Alphanam Group.
@@ -198,12 +198,41 @@ h1 {
     top: 50px;
     left: 23%;
   }
+
+  .khunganh {
+    height: 250px;
+    margin-bottom: 10px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .text {
+    top: 30px;
+    left: 0;   
+    padding: 0 10px;
+  }
 }
 
 @media only screen and (min-width: 576px) and (max-width: 835px) {
   .gachchan {
     top: 50px;
     left: 38%;
+  }
+
+  .khunganh {
+    height: 250px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .text {
+    top: 30px;
+    left: 0;   
+    padding: 0 5px;
   }
 }
 </style>

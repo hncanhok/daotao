@@ -27,7 +27,8 @@
               <a-button
                 v-if="
                   checkTime(record.endChecktime) &&
-                  record.statustCode != 'ĐÃ XÁC NHẬN'
+                  record.statustCode != 'ĐÃ XÁC NHẬN' && 
+                  record.statustCode != 'Thongbao'
                 "
                 @click="headerSurvey(record.classID, record.numberTest)"
                 shape="round"
@@ -201,7 +202,12 @@ export default defineComponent({
         },
       })
         .then((response) => {
-          this.data = response.data;
+                  
+          for(let i=0;i<response.data.length;i++){
+            if(response.data[i].statustCode != "Thongbao"){
+              this.data.push(response.data[i]);
+            }
+          }
         })
         .catch((error) => {
           console.log(error);

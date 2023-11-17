@@ -21,7 +21,7 @@
   </div>
 
   <div v-if="title == 'noi_quy'">
-    <NoiQuy :urldetail="urldetail" />
+    <DetailPage :urldetail="urldetail" />
   </div>
 
   <div v-if="title == 'khoa_hoc_goi_y'">
@@ -64,6 +64,9 @@
   <div v-if="title == 'huong_dan_dao_tao'">
     <HuongDanDaoTao :id="id" />
   </div>
+  <div v-if="title == 'danh-sach-bai-kiem-tra-cua-ban'">
+    <BaiKiemTra />
+  </div>
 
   <div
     v-if="
@@ -95,6 +98,7 @@ import BieuMau from "../components/BieuMau.vue";
 import HuongDanSuDung from "../components/HuongDanSuDung.vue";
 import HuongDanDaoTao from "../components/HuongDanDaoTao.vue";
 import TatCaLopHoc from "../components/TatCaLopHoc.vue";
+import BaiKiemTra from "../components/BaiKiemTra.vue";
 
 export default {
   data() {
@@ -119,7 +123,8 @@ export default {
     BieuMau,
     HuongDanDaoTao,
     HuongDanSuDung,
-    TatCaLopHoc    
+    TatCaLopHoc,
+    BaiKiemTra    
   },
   props: ["id", "urldetail", "title"],
   created() {
