@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mb-5">
     <div class="row p-5">
       <div class="col-12 text-center" style="position: relative">
         <h1 class="khoahoc" style="color: #a10707; font-weight: bold">KHÓA HỌC ĐANG DIỄN RA</h1>
@@ -15,10 +15,11 @@
     <div class="row">
       <div class="col">
         <a-table
-          :pagination="{ pageSize: 50 }"
+          :pagination="{ pageSize: 50, hideOnSinglePage:true }"
           :columns="columns"
           :data-source="data"
           :scroll="{ x: 1200, y: 600 }"
+          :locale="{ emptyText: 'KHÔNG CÓ KHÓA HỌC'}"
         >
           <template #bodyCell="{ column, index, record }">
             <template v-if="column.key === 'stt'">
@@ -131,6 +132,7 @@ export default defineComponent({
       })
         .then((response) => {
           data.value = response.data;
+          
         })
         .catch((error) => {
           console.log(error);

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mb-5">
     <div class="row p-5">
       <div class="col-12 text-center" style="position: relative">
         <h1 style="color: #a10707; font-weight: bold;" class="thongdiep">LỚP HỌC CỦA BẠN</h1>
@@ -17,7 +17,7 @@
         <a-table
           :columns="columns"
           :data-source="data"
-          :pagination="{ pageSize: 50 }"
+          :pagination="{ pageSize: 50, hideOnSinglePage:true }"
           :scroll="{ x: 1200, y: 600 }"
         >
           <template #bodyCell="{ index, column, record }">

@@ -21,6 +21,7 @@
           :data-source="data"
           :pagination="{ pageSize: 50 }"
           :scroll="{ x: 1200, y: 600 }"
+          :locale="{ emptyText: 'KHÔNG CÓ BÀI KIỂM TRA'}"
         >
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'action'">

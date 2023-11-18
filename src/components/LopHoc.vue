@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mb-5">
     <div class="row pt-5">
       <div class="col-12">
         <h3 style="color: #a10707; font-weight: bold" class="pb-4">
@@ -21,10 +21,10 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row mb-5">
       <div class="col">
         <a-table
-          :pagination="{ pageSize: 50 }"
+          :pagination="{ pageSize: 50, hideOnSinglePage:true }"
           :columns="columns"
           :data-source="data"
           :scroll="{ x: 1200, y: 600 }"
@@ -71,10 +71,11 @@
     <div class="row">
       <div class="col">
         <a-table
-          :pagination="{ pageSize: 50 }"
+          :pagination="{ pageSize: 50, hideOnSinglePage:true }"
           :columns="columns"
           :data-source="data2"
           :scroll="{ x: 1200, y: 600 }"
+          :locale="{ emptyText: 'BẠN CHƯA ĐĂNG KÝ KHÓA HỌC NÀO'}"
         >
           <template #bodyCell="{ column, index, record }">
             <template v-if="column.key === 'stt'">

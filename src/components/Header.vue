@@ -29,20 +29,17 @@
             enter-button
           />
           <div
-            style="display: inline-block; position: relative"
+            style="display: inline-block; position: relative;cursor: pointer;"
             class="ms-2 p-2"
             @click="onWatched()"
           >
-            <router-link
-              :to="{ name: 'BaiKiemTra' }"
-              style="text-decoration: none; color: inherit"
-            >
+           
               <i class="fa-solid fa-bell fa-2xl me-lg-3"></i>
 
               <div class="thongbao d-inline-block">
                 <span v-show="thongbao > 0 && watched == false" class="circle">{{ thongbao }}</span>
               </div>
-            </router-link>
+           
             <div
               @mouseover="mouseover"
               @mouseleave="mouseleave"
@@ -95,20 +92,17 @@
           class="col d-block d-lg-none text-end d-flex align-items-center justify-content-end"
         >
           <div
-            style="display: inline-block; position: relative"
+            style="display: inline-block; position: relative;cursor: pointer;"
             class="ms-2 p-2"
             @click="onWatched()"
           >
-            <router-link
-              :to="{ name: 'BaiKiemTra' }"
-              style="text-decoration: none; color: inherit"
-            >
+           
               <i class="fa-solid fa-bell fa-xl fa-lg-2xl me-2 me-lg-3"></i>
 
               <div class="thongbao d-inline-block">
                 <span v-show="thongbao > 0 && watched == false " class="circle">{{ thongbao }}</span>
               </div>
-            </router-link>
+           
           </div>
           <i
             class="fa-solid fa-circle-user fa-xl"
@@ -132,12 +126,20 @@
       <p style="position: absolute;top:0;right:0;cursor: pointer;">
         <i class="fa-solid fa-xmark" @click="showNoti=false"></i>
       </p>
-      <p>Thông báo</p>
-      <ul>
-        <li v-for="( title, index ) in noti" :key="index">
-          <span style="font-weight: bold;">{{ title.informationCode }}</span> : {{ title.informationName }}      
-        </li>      
-      </ul>    
+      <p>
+        <img src="../assets/logo/icon-logo.png" alt="logo" width="30">
+        <span class="ps-2">Thông báo</span>
+        <i class="fa-solid fa-circle fa-xs text-primary ps-2"></i>
+      </p>
+     
+        <div v-for="( obj, index ) in noti" :key="index">
+          <i class="fa-solid fa-bullhorn fa-lg ps-2 pe-2 text-danger"></i>
+          <span style="font-weight: bold;">{{ obj.name.split(':')[0] }}</span>
+          <span>: {{ obj.name.split(':')[1] }}</span>   
+          <div style="font-size: small;" class="text-primary ps-4 ms-3">{{ obj.time }}</div>
+        </div>      
+        
+        
     </div>   
   </div>
 </template>
@@ -149,6 +151,7 @@ import MenuMobile from "./MenuMobile.vue";
 import UserMobile from "./UserMobile.vue";
 import { useUser } from "../store/use-user.js";
 import { notification } from 'ant-design-vue';
+import dayjs from "dayjs";
 
 const key = 'updatable';
 
@@ -257,13 +260,55 @@ export default defineComponent({
           screptionID: screptionID,
         },
       })
-        .then((response) => {
-          noti.value = response.data;
-          
-          if(noti.value[0].strucID == 1 && noti.value[0].statustCode == "Thongbao"){
+        .then((response) => {                    
+          if(response.data[0].strucID == 1 && response.data[0].statustCode == "Thongbao"){
             watched.value = true;
           }
-         
+          let obj = {};
+          noti.value = []; 
+          for(let i=0; i<response.data.length; i++){         
+               
+              obj = {};
+              obj.name = response.data[i].informationCode + ': ' + response.data[i].informationName;              
+              // alert(response.data[i].informationCode);
+              const d = new Date();
+              let monthCheck = dayjs(response.data[i].startChecktime).format('M');
+              let monthNow = d.getMonth() + 1;
+
+              let dayCheck = dayjs(response.data[i].startChecktime).format('D');
+              let dayNow = d.getDate();
+
+              let hourCheck = dayjs(response.data[i].startChecktime).format('H');
+              let hourNow = d.getHours();
+
+              let minuteCheck = dayjs(response.data[i].startChecktime).format('m');
+              let minuteNow = d.getMinutes();
+
+              let dateNow = dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss');
+              let dateCheck = response.data[i].startChecktime;
+             
+              if(monthNow == monthCheck) {
+                if(dayNow > dayCheck){
+                  obj.time = (dayNow - dayCheck) + ' ngày trước';
+                }else if(hourNow > hourCheck){
+                  obj.time = (hourNow - hourCheck) + ' giờ trước';
+                }else if(minuteNow > minuteCheck){
+                  obj.time = (minuteNow - minuteCheck) + ' phút trước';
+                }else {
+                  obj.time = 'vừa xong';
+                }
+              }else {
+                obj.time = (monthNow - monthCheck) + ' tháng trước';
+              }
+                                     
+              console.log(obj.time);
+            
+              noti.value.push(obj);
+             
+          }
+                // console.log(response.data);
+                console.log(noti.value);
+                console.log(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -381,7 +426,7 @@ span.circle {
   border-radius: 8px;
   padding: 10px;
   animation: mymove 0.1s;
-  
+  z-index: 5;
 }
 
 @keyframes mymove {
