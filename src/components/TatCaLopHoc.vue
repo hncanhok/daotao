@@ -22,6 +22,9 @@
           :locale="{ emptyText: 'KHÔNG CÓ KHÓA HỌC'}"
         >
           <template #bodyCell="{ column, index, record }">
+            <template v-if="column.key === 'infomationStartdate'">
+              {{ onFormatDate(record.infomationStartdate) }}
+            </template>
             <template v-if="column.key === 'stt'">
               {{ index + 1 }}
             </template>
@@ -50,6 +53,7 @@
 <script>
 import { defineComponent, ref, inject } from "vue";
 import { useUser } from "../store/use-user";
+import moment from "moment";
 
 export default defineComponent({
   setup() {
@@ -175,6 +179,10 @@ export default defineComponent({
         });
     };
 
+    const onFormatDate = (value) => {
+      return moment(String(value)).format("h:mm, DD/MM/YYYY");
+    };
+
     return {
       data,
       columns,
@@ -184,6 +192,7 @@ export default defineComponent({
       id,
       action,
       dangky,
+      onFormatDate
     };
   },
 });

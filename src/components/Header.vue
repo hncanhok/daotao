@@ -131,7 +131,7 @@
         <span class="ps-2">Thông báo</span>
         <i class="fa-solid fa-circle fa-xs text-primary ps-2"></i>
       </p>
-     
+                      
         <div v-for="( obj, index ) in noti" :key="index">
           <i class="fa-solid fa-bullhorn fa-lg ps-2 pe-2 text-danger"></i>
           <span style="font-weight: bold;">{{ obj.name.split(':')[0] }}</span>
@@ -427,6 +427,16 @@ span.circle {
   padding: 10px;
   animation: mymove 0.1s;
   z-index: 5;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.avatar {       
+  background-image:url('http://localhost:5173/src/assets/logo/icon-E.png');
+  background-size: 100% 100%;  
 }
 
 @keyframes mymove {

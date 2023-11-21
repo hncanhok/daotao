@@ -50,10 +50,11 @@ export default {
     loadData() {
       axios
         .get(
-          "https://daotao.alphanam.com:7150/api/NewPaper/GetNewsCustomerSize?title=chuongtrinhdaotao&pages=1&Pagesize=4"
+          "https://daotao.alphanam.com:7150/api/NewPaper/GetNewsCustomerSize?title=chuongtrinhdaotao&pages=0&Pagesize=4"
         )
         .then((response) => {
           this.data = response.data;
+          console.log(response.data);
         })
         .catch((error) => {
           // handle error
