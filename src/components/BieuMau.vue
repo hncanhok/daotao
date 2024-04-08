@@ -21,94 +21,28 @@
             :data-source="data"
             :scroll="{ x: 1200, y: 600 }"
             :locale="{ emptyText: 'KHÔNG CÓ BIỂU MẪU' }"
+            size="middle"
+            style="font-size: 24px;"
           >
             <template #bodyCell="{ column, index, record }">
               <template v-if="column.key === 'stt'">
-                {{ index + 1 }}
+                <span style="font-size: 24px;">{{ index + 1 }}</span>
               </template>
               <template v-if="column.key === 'title'">
                 <a :href="record.taiLieuURL" download style="text-decoration: none; color: inherit">
-                  <span style="font-weight: bold" @click="onClickTitle()">
-                    {{ record.title }}
+                  <span style="font-weight: bold;font-size: 24px;" @click="onClickTitle()">
+                    <i class="fa-solid fa-download pe-2 text-danger fa-xs"></i>{{ record.title }}
                   </span>
                 </a>                                 
+              </template>
+              <template v-if="column.key === 'newPageDescription'">
+                <span style="font-size: 24px;">{{ record.newPageDescription }}</span>
               </template>
             </template>
           </a-table>
         </div>
       </div>
-      <!-- <div class="row">
-        <div
-          v-for="tieudiem in data"
-          :key="tieudiem.id"
-          class="col-12 col-lg-4 col-sm-6"
-        >
-          <div class="tieudiem">
-            <router-link
-              :to="{
-                name: 'DetailPage',
-                params: {
-                  urldetail: tieudiem.id,
-                  id: this.$route.params.id,
-                },
-              }"
-            >
-              <div
-                class="anhtieudiem"
-                :style="{ backgroundImage: 'url(' + tieudiem.imgHienthi + ')' }"
-              ></div>
-            </router-link>
-            <router-link
-              style="text-decoration: none; color: inherit"
-              :to="{
-                name: 'DetailPage',
-                params: {
-                  urldetail: tieudiem.id,
-                },
-              }"
-            >
-              <h3 class="pt-4" style="font-weight: bold">
-                {{ tieudiem.title.toUpperCase() }}
-              </h3>
-            </router-link>
-            <p class="pt-2 pb-2" style="text-align: justify">
-              {{ tieudiem.newPageDescription }}...
-            </p>
-            <div class="text-center mb-5">
-              <a-button
-                shape="round"
-                style="color: #b80000; border: 1px solid #b80000"
-              >
-                <router-link
-                  style="text-decoration: none; color: inherit"
-                  :to="{
-                    name: 'DetailPage',
-                    params: {
-                      // title: tieudiem.urlFriendLink,
-                      urldetail: tieudiem.id,
-                    },
-                  }"
-                >
-                  <span style="font-weight: bold">Xem thêm</span>
-                </router-link>
-                <i class="fa-solid fa-angles-right fa-2xs ms-1"></i>
-              </a-button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row p-5">
-        <div class="col text-center">
-          <a-pagination
-            v-model:current="current"
-            v-model:pageSize="pageSize"
-            v-model:pageSizeOptions="pageSizeOptions"
-            show-size-changer
-            :total="total"
-            @showSizeChange="onShowSizeChange"
-          />
-        </div>
-      </div> -->
+      
     </div>
   </div>
 </template>
@@ -129,6 +63,7 @@ export default {
           title: "TÊN BIỂU MẪU",         
           dataIndex: "title",
           key: "title",
+          width: 400,
         },
         {
           title: "NỘI DUNG",         

@@ -1,40 +1,27 @@
 <template>
   <div class="container pt-4 pb-5">
     <div class="row">
-      <div class="col-12 col-lg-8">
+      <div class="col-12 col-lg-9">
         <h3 style="color: #a10707; font-weight: bold" class="pb-4">
           TRANG CHỦ > {{ data.categoryName }}
         </h3>
         <h3 style="font-weight: bold">{{ data.title }}</h3>
-        <p v-html="data.newPageContent"></p>
-
-        
-        <!-- <a-button
-            v-if="data.taiLieuURL != ''"
-            class="mt-2"
-            type="primary"
-            shape="round"
-            :size="size"
-            @click="downloadItem(data.taiLieuURL)"
-          >
-            <i class="fa-solid fa-download pe-2"></i>Download
-          </a-button> -->
+        <p v-html="data.newPageContent" @contextmenu="handler($event)"></p>
 
         <object
-            v-if="data.taiLieuURL != ''"
-            :data="`${data.taiLieuURL}#toolbar=0`"
-            type="application/pdf"
-            width="100%"
-            height="530px"
-           
-          >
-            <p>
-              Alternative text - include a link
-              <a :href="data.taiLieuURL">to the PDF!</a>
-            </p>
-          </object>
+          v-if="data.taiLieuURL != ''"
+          :data="`${data.taiLieuURL}#toolbar=0`"
+          type="application/pdf"
+          width="100%"
+          height="530px"
+        >
+          <p>
+            Alternative text - include a link
+            <a :href="data.taiLieuURL">to the PDF!</a>
+          </p>
+        </object>
       </div>
-      <div class="col-12 col-lg-4 ps-lg-5" style="text-align: justify">
+      <div class="col-12 col-lg-3 ps-lg-4" style="text-align: justify">
         <div style="border-bottom: 2px solid #a10707" class="text-center mb-5">
           <h4 style="font-weight: bold; color: #a10707" class="p-0 m-0">
             {{ data.categoryName }} KHÁC
@@ -128,6 +115,9 @@ export default {
     },
   },
   methods: {
+    handler: function (e) {      
+      e.preventDefault();
+    },
     onContextmenu() {
       alert("fdf");
     },

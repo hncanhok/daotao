@@ -4,16 +4,74 @@
       <div class="main-body">
         <div class="row">
           <div class="col-md-4 mb-3 bg-white p-md-5">
-            <div class="d-flex flex-column align-items-center text-center">
-              <img
-                src="https://www.w3schools.com/howto/img_avatar.png"
-                alt="Admin"
-                class="rounded-circle"
-                width="150"
-              />
-              <div class="mt-3">
-                <h4>{{ user.userName }}</h4>
-                <p class="text-secondary mb-1">{{ user.chucvuName }}</p>
+            <div class="row">
+              <div class="col">
+                <div class="d-flex flex-column align-items-center text-center">
+                  <img
+                    src="https://www.w3schools.com/howto/img_avatar.png"
+                    alt="Admin"
+                    class="rounded-circle"
+                    width="150"
+                  />
+                  <div class="mt-3">
+                    <h4>{{ user.userName }}</h4>
+                    <p class="text-secondary mb-1">{{ user.chucvuName }}</p>
+                    <p style="font-weight: bold">
+                      Tài khoản cấp độ {{ capdo }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <p style="font-weight: bold">Lớp Nền tảng:</p>
+                <ProgressBar
+                  style="cursor: pointer"
+                  :value="nentangPhantram"
+                  @click="showModalNentang"
+                  >{{ nentangDat }} / {{ nentangTong }}
+                </ProgressBar>
+                <p style="font-weight: bold">Lớp Phát triển:</p>
+                <ProgressBar 
+                :value="phattrienPhantram" 
+                style="cursor: pointer"
+                @click="showModalPhattrien"
+                  >{{ phattrienDat }} / {{ phattrienTong }}
+                </ProgressBar>
+                <a-modal
+                  v-model:visible="visibleNentang"
+                  title=""
+                  @ok="handleOkNentang"
+                  style="font-weight: bold"
+                >
+                  LỚP NỀN TẢNG HOÀN THÀNH
+                 <ul v-for="(lop, index) in nentangHoanthanh" :key="index">
+                  <li v-if="nentangHoanthanh.length > 0">{{ lop }}</li>                                    
+                 </ul>
+                 LỚP NỀN TẢNG CHƯA HOÀN THÀNH
+                 
+                 <ul v-for="(lop, index) in nentangChuahoanthanh" :key="index">
+                  <li v-if="nentangChuahoanthanh.length > 0">{{ lop }}</li>                  
+                 </ul>
+                </a-modal>
+
+                <a-modal
+                  v-model:visible="visiblePhattrien"
+                  title=""
+                  @ok="handleOkPhattrien"
+                  style="font-weight: bold"
+                >
+                  LỚP PHÁT TRIỂN HOÀN THÀNH
+                 <ul v-for="(lop, index) in phattrienHoanthanh" :key="index">
+                  <li v-if="phattrienHoanthanh.length > 0">{{ lop }}</li>                                    
+                 </ul>
+                 LỚP PHÁT TRIỂN CHƯA HOÀN THÀNH
+                 
+                 <ul v-for="(lop, index) in phattrienChuahoanthanh" :key="index">
+                  <li v-if="phattrienChuahoanthanh.length > 0">{{ lop }}</li>                  
+                 </ul>
+                </a-modal>
               </div>
             </div>
           </div>
@@ -165,11 +223,29 @@
 </template>
 
 <script>
-import { ref, defineComponent, reactive } from "vue";
+import { ref, defineComponent, reactive, onMounted } from "vue";
 import { useUser } from "../store/use-user";
 import { message } from "ant-design-vue";
+import ProgressBar from "primevue/progressbar";
 export default defineComponent({
+  components: {
+    ProgressBar,
+  },
   setup() {
+    onMounted(() => {
+      loadProfile();
+      loadNentang();
+    });
+
+    const nentangDat = ref(0);
+    const nentangTong = ref(0);
+    const nentangPhantram = ref(0);
+
+    const phattrienDat = ref(0);
+    const phattrienTong = ref(0);
+    const phattrienPhantram = ref(0);
+    const capdo = ref("I - Tân Sinh");
+
     const store = useUser();
     const { useID, userEmail, screptionID } = store;
     const user = ref([]);
@@ -232,8 +308,76 @@ export default defineComponent({
           console.log(error);
         });
     };
+    const nentangHoanthanh = ref([]);
+    const nentangChuahoanthanh = ref([]);
+    const phattrienHoanthanh = ref([]);
+    const phattrienChuahoanthanh = ref([]);
+    const loadNentang = () => {
+      axios({
+        method: "post",
+        url: "https://daotao.alphanam.com:7150/api/ClassInfo/Lotrinhhoc",
+        headers: {},
+        data: {
+          userEmail: userEmail,
+          useID: useID,
+          screptionID: screptionID,
+          Key: 2,
+        },
+      })
+        .then((response) => {
+         
 
-    loadProfile();
+          for (let i = 0; i < response.data.length; i++) {
+            if (response.data[i].ketquadat == "1") {
+              nentangDat.value++;
+              capdo.value = "II - Học Thủ";
+              nentangHoanthanh.value.push(response.data[i].tendanhmuclopcon);
+            }else{
+              nentangChuahoanthanh.value.push(response.data[i].tendanhmuclopcon);
+            }
+          }
+
+          nentangTong.value = response.data.length;
+          nentangPhantram.value = (nentangDat.value / nentangTong.value) * 100;
+          loadPhattrien();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    const loadPhattrien = () => {
+      axios({
+        method: "post",
+        url: "https://daotao.alphanam.com:7150/api/ClassInfo/Lotrinhhoc",
+        headers: {},
+        data: {
+          userEmail: userEmail,
+          useID: useID,
+          screptionID: screptionID,
+          Key: 3,
+        },
+      })
+        .then((response) => {
+          console.log(response.data);
+          for (let i = 0; i < response.data.length; i++) {
+            if (response.data[i].ketquadat == "1") {
+              phattrienDat.value++;
+              capdo.value = "III - Học Bá";
+              phattrienHoanthanh.value.push(response.data[i].tendanhmuclopcon);
+            }else {
+              phattrienChuahoanthanh.value.push(response.data[i].tendanhmuclopcon);
+            }
+          }
+
+          phattrienTong.value = response.data.length;
+          phattrienPhantram.value =
+            (phattrienDat.value / phattrienTong.value) * 100;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
 
     const formRef = ref();
     const formState = reactive({
@@ -319,6 +463,24 @@ export default defineComponent({
       console.log(args);
     };
 
+    const visibleNentang = ref(false);
+    const showModalNentang = () => {
+      visibleNentang.value = true;
+    };
+    const handleOkNentang = e => {
+      
+      visibleNentang.value = false;
+    };
+
+    const visiblePhattrien = ref(false);
+    const showModalPhattrien = () => {
+      visiblePhattrien.value = true;
+    };
+    const handleOkPhattrien = e => {
+      
+      visiblePhattrien.value = false;
+    };
+
     return {
       user,
       modalText,
@@ -334,6 +496,23 @@ export default defineComponent({
       handleFinish,
       resetForm,
       handleValidate,
+      nentangDat,
+      nentangTong,
+      nentangPhantram,
+      phattrienDat,
+      phattrienTong,
+      phattrienPhantram,
+      capdo,
+      visibleNentang,
+      showModalNentang,
+      handleOkNentang,
+      nentangHoanthanh,
+      nentangChuahoanthanh,
+      visiblePhattrien,
+      showModalPhattrien,
+      handleOkPhattrien,
+      phattrienHoanthanh,
+      phattrienChuahoanthanh
     };
   },
 });

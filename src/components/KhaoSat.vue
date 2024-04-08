@@ -26,6 +26,17 @@
         </a-button>
       </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <p class="border p-4">
+          Anh/Chị vui lòng đánh giá các tiêu chí theo thang điểm tăng dần từ 1 - 10 <br>
+        <i>Điểm <b>1-4</b> tương ứng: Yếu kém, không hài lòng </i><br>
+        <i>Điểm <b>5-6</b> tương ứng : Trung bình, tạm chấp nhận </i><br>
+        <i>Điểm <b>7-8</b> tương ứng : Khá, hài lòng </i><br>
+        <i>Điểm <b>9-10</b> tương ứng : Tốt, rất hài lòng </i><br>
+        </p>
+      </div>
+    </div>
     <div
       v-for="(khaosat, index) in data"
       :key="khaosat.id"

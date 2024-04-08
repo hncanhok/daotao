@@ -83,7 +83,7 @@ export default {
           for (let i = 0; i < this.allMenu.length; i++) {
             if (this.allMenu[i].menuParent == 0) {
               this.menucha.push(this.allMenu[i]);
-              console.log(this.menucha);
+             
             }
           }
         })

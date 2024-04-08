@@ -5,8 +5,12 @@
 
   <!-- <div class="banner" :style="{ backgroundImage: 'url(' + url + ')' }"></div> -->
 
-  <div v-if="title == 'thong_diep' || title == 'gioi_thieu'">
+  <div v-if="title == 'thong_diep'">
     <Thongdiep :urldetail="urldetail" />
+  </div>
+
+  <div v-if="title == 'gioi_thieu'">
+    <Thongdiep :urldetail="6127" />
   </div>
 
   <div v-if="title == 'cot_loi'">
@@ -73,7 +77,8 @@
       title == 'Dao_tao_Nen_tang' ||
       title == 'Dao_tao_phat_trien' ||
       title == 'Dao_tao_truong_Thanh' ||
-      title == 'Dao_tao_chuyen_mon'
+      title == 'Dao_tao_chuyen_mon' ||
+      title == 'Dao_tao_Hoi_nhap' 
     "
   >
     <DetailPage :urldetail="urldetail" />

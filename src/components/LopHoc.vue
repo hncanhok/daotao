@@ -11,7 +11,9 @@
     </div>
     <div class="row pb-5">
       <div class="col-12 text-center" style="position: relative">
-        <h1 class="khoahoc" style="color: #a10707; font-weight: bold">KHÓA HỌC ĐANG DIỄN RA</h1>
+        <h1 class="khoahoc" style="color: #a10707; font-weight: bold">
+          KHÓA HỌC ĐANG DIỄN RA
+        </h1>
         <div class="gachchan">
           <img
             src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -24,7 +26,7 @@
     <div class="row mb-5">
       <div class="col">
         <a-table
-          :pagination="{ pageSize: 50, hideOnSinglePage:true }"
+          :pagination="{ pageSize: 50, hideOnSinglePage: true }"
           :columns="columns"
           :data-source="data"
           :scroll="{ x: 1200, y: 600 }"
@@ -36,7 +38,8 @@
             <template
               v-if="
                 column.key === 'operation' &&
-                record.register.split('/')[2] == 'PC'
+                (record.register.split('/')[2] == 'PC' ||
+                  record.register.split('/')[2] == 'TT')
               "
             >
               <a-button
@@ -48,6 +51,27 @@
                 {{ record.dangky.toUpperCase() }}
               </a-button>
             </template>
+
+            <template
+              v-if="column.key == 'vaohoc' && record.isVaohoc == 'True'"
+            >
+              <a-button
+                shape="round"
+                :size="size"
+                style="
+                  color: #a10707;
+                  font-weight: bold;
+                  border-color: #a10707;
+                  background-color: #a10707;
+                "
+              >
+                <span class="text-white">
+                  <i class="fa-regular fa-circle-play fa-lg me-2"></i>
+                  VÀO HỌC
+                </span>
+              </a-button>
+            </template>
+
             <template v-if="column.key === 'infomationStartdate'">
               {{ onFormatDate(record.infomationStartdate) }}
             </template>
@@ -58,7 +82,9 @@
 
     <div class="row pb-5">
       <div class="col-12 text-center" style="position: relative">
-        <h1 style="color: #a10707; font-weight: bold" class="khoahoc">KHÓA HỌC ĐÃ ĐĂNG KÝ</h1>
+        <h1 style="color: #a10707; font-weight: bold" class="khoahoc">
+          KHÓA HỌC ĐÃ ĐĂNG KÝ
+        </h1>
         <div class="gachchan">
           <img
             src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -71,11 +97,11 @@
     <div class="row">
       <div class="col">
         <a-table
-          :pagination="{ pageSize: 50, hideOnSinglePage:true }"
+          :pagination="{ pageSize: 50, hideOnSinglePage: true }"
           :columns="columns"
           :data-source="data2"
           :scroll="{ x: 1200, y: 600 }"
-          :locale="{ emptyText: 'BẠN CHƯA ĐĂNG KÝ KHÓA HỌC NÀO'}"
+          :locale="{ emptyText: 'BẠN CHƯA ĐĂNG KÝ KHÓA HỌC NÀO' }"
         >
           <template #bodyCell="{ column, index, record }">
             <template v-if="column.key === 'stt'">
@@ -84,7 +110,8 @@
             <template
               v-if="
                 column.key === 'operation' &&
-                record.register.split('/')[2] == 'PC'
+                (record.register.split('/')[2] == 'PC' ||
+                  record.register.split('/')[2] == 'TT')
               "
             >
               <a-button
@@ -96,6 +123,41 @@
                 {{ record.dangky.toUpperCase() }}
               </a-button>
             </template>
+
+            <template
+              v-if="
+                column.key === 'vaohoc' &&
+                record.ulrVideo &&
+                record.register.split('/')[2] == 'TT' &&
+                record.register.split('/')[1] == 'True'
+              "
+            >
+              <router-link
+                :to="{
+                  name: 'VaoHoc',
+                  params: {
+                    id: record.id,
+                  },
+                }"
+              >
+                <a-button
+                  shape="round"
+                  :size="size"
+                  style="
+                    color: #a10707;
+                    font-weight: bold;
+                    border-color: #a10707;
+                    background-color: #a10707;
+                  "
+                >
+                  <span class="text-white">
+                    <i class="fa-regular fa-circle-play fa-lg me-2"></i>
+                    VÀO HỌC
+                  </span>
+                </a-button>
+              </router-link>
+            </template>
+
             <template v-if="column.key === 'infomationStartdate'">
               {{ onFormatDate(record.infomationStartdate) }}
             </template>
@@ -147,7 +209,7 @@ export default defineComponent({
         key: "infomationStartdate",
         width: 150,
       },
-      
+
       {
         title: "TRẠNG THÁI",
         dataIndex: "trangThai",
@@ -167,7 +229,7 @@ export default defineComponent({
         key: "loaiLop",
         width: 120,
       },
-      
+
       {
         title: "GIẢNG VIÊN",
         dataIndex: "infomationLeader",
@@ -177,6 +239,12 @@ export default defineComponent({
       {
         title: "ĐĂNG KÝ",
         key: "operation",
+        fixed: "right",
+        width: 150,
+      },
+      {
+        title: "THAM GIA LỚP",
+        key: "vaohoc",
         fixed: "right",
         width: 150,
       },
@@ -192,6 +260,7 @@ export default defineComponent({
     const loadData = () => {
       axios({
         method: "post",
+        // url: "https://daotao.alphanam.com:7150/api/ClassInfo/GetallDangky",
         url: "https://daotao.alphanam.com:7150/api/ClassInfo/GetallDangky",
         headers: {},
         data: {
@@ -203,6 +272,7 @@ export default defineComponent({
       })
         .then((response) => {
           data.value = response.data;
+          
         })
         .catch((error) => {
           console.log(error);
@@ -213,6 +283,7 @@ export default defineComponent({
     const loadData2 = () => {
       axios({
         method: "post",
+        // url: "https://daotao.alphanam.com:7150/api/ClassInfo/GetallHuyDangky",
         url: "https://daotao.alphanam.com:7150/api/ClassInfo/GetallHuyDangky",
         headers: {},
         data: {
@@ -258,6 +329,7 @@ export default defineComponent({
       id = id;
       axios({
         method: "post",
+        // url: "https://daotao.alphanam.com:7150/api/ClassInfo/dangkyhoc",
         url: "https://daotao.alphanam.com:7150/api/ClassInfo/dangkyhoc",
         headers: {},
         data: {
@@ -268,6 +340,7 @@ export default defineComponent({
         },
       })
         .then((response) => {
+          vaohoc(id);
           if (response.data.register.split("/")[1] == "null") {
             swal.fire({
               icon: "error",
@@ -293,6 +366,23 @@ export default defineComponent({
     const onFormatDate = (value) => {
       return moment(String(value)).format("h:mm, DD/MM/YYYY");
     };
+
+    const vaohoc = (id) => {
+      axios({
+        method: "post",
+        url: "https://daotao.alphanam.com:7150/api/ClassInfo/Hoconline",
+        headers: {},
+        data: {
+          userEmail: userEmail,
+          useID: useID,
+          screptionID: screptionID,
+          ClassID: id,
+        },
+      })
+        .then((res) => {})
+        .catch((err) => {});
+    };
+
     return {
       data,
       columns,
@@ -304,7 +394,7 @@ export default defineComponent({
       dangky,
       onFormatDate,
       content,
-      data2
+      data2,
     };
   },
 });

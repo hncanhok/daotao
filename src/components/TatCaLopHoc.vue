@@ -2,7 +2,9 @@
   <div class="container mb-5">
     <div class="row p-5">
       <div class="col-12 text-center" style="position: relative">
-        <h1 class="khoahoc" style="color: #a10707; font-weight: bold">KHÓA HỌC ĐANG DIỄN RA</h1>
+        <h1 class="khoahoc" style="color: #a10707; font-weight: bold">
+          KHÓA HỌC ĐANG DIỄN RA
+        </h1>
         <div class="gachchan">
           <img
             src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -15,11 +17,11 @@
     <div class="row">
       <div class="col">
         <a-table
-          :pagination="{ pageSize: 50, hideOnSinglePage:true }"
+          :pagination="{ pageSize: 50, hideOnSinglePage: true }"
           :columns="columns"
           :data-source="data"
           :scroll="{ x: 1200, y: 600 }"
-          :locale="{ emptyText: 'KHÔNG CÓ KHÓA HỌC'}"
+          :locale="{ emptyText: 'KHÔNG CÓ KHÓA HỌC' }"
         >
           <template #bodyCell="{ column, index, record }">
             <template v-if="column.key === 'infomationStartdate'">
@@ -31,7 +33,8 @@
             <template
               v-if="
                 column.key === 'operation' &&
-                record.register.split('/')[2] == 'PC'
+                (record.register.split('/')[2] == 'PC' ||
+                  record.register.split('/')[2] == 'TT')
               "
             >
               <a-button
@@ -42,6 +45,39 @@
               >
                 {{ record.dangky.toUpperCase() }}
               </a-button>
+            </template>
+
+            <template
+              v-if="
+                column.key === 'vaohoc' &&                
+                record.ulrVideo && 
+                (record.register.split('/')[2] == 'TT' && record.register.split('/')[1] == 'True')
+              "
+            >
+              <router-link
+                :to="{
+                  name: 'VaoHoc',
+                  params: {
+                    id: record.id,
+                  },
+                }"
+              >
+                <a-button
+                  shape="round"
+                  :size="size"
+                  style="
+                    color: #a10707;
+                    font-weight: bold;
+                    border-color: #a10707;
+                    background-color: #a10707;
+                  "
+                >
+                  <span class="text-white">
+                    <i class="fa-regular fa-circle-play fa-lg me-2"></i>
+                    VÀO HỌC
+                  </span>
+                </a-button>
+              </router-link>
             </template>
           </template>
         </a-table>
@@ -116,6 +152,12 @@ export default defineComponent({
         fixed: "right",
         width: 150,
       },
+      {
+        title: "THAM GIA LỚP",
+        key: "vaohoc",
+        fixed: "right",
+        width: 150,
+      },
     ];
 
     let data = ref([]);
@@ -126,6 +168,7 @@ export default defineComponent({
     const loadData = () => {
       axios({
         method: "post",
+        // url: "https://daotao.alphanam.com:7150/api/ClassInfo/GetallHome",
         url: "https://daotao.alphanam.com:7150/api/ClassInfo/GetallHome",
         headers: {},
         data: {
@@ -136,7 +179,7 @@ export default defineComponent({
       })
         .then((response) => {
           data.value = response.data;
-          
+         
         })
         .catch((error) => {
           console.log(error);
@@ -158,6 +201,7 @@ export default defineComponent({
         },
       })
         .then((response) => {
+          vaohoc(id);
           if (response.data.register.split("/")[1] == "null") {
             swal.fire({
               icon: "error",
@@ -165,6 +209,7 @@ export default defineComponent({
               showConfirmButton: true,
             });
           } else {
+            
             swal.fire({
               icon: "success",
               title: response.data.notification,
@@ -183,6 +228,25 @@ export default defineComponent({
       return moment(String(value)).format("h:mm, DD/MM/YYYY");
     };
 
+    const vaohoc = (id) => {
+      
+      axios({
+        method: "post",
+        url: "https://daotao.alphanam.com:7150/api/ClassInfo/Hoconline",
+        headers: {},
+        data: {
+          userEmail: userEmail,
+          useID: useID,
+          screptionID: screptionID,
+          ClassID: id,
+        },
+      })
+        .then((res) => {
+          
+        })
+        .catch((err) => {});
+    };
+
     return {
       data,
       columns,
@@ -192,7 +256,7 @@ export default defineComponent({
       id,
       action,
       dangky,
-      onFormatDate
+      onFormatDate,
     };
   },
 });

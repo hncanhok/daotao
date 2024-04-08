@@ -2,7 +2,7 @@
     <div class="container">
       <div class="row pt-5">
         <div class="col-12 text-center" style="position: relative">
-          <h1 class="thongdiep" style="color: #a10707; font-weight: bold;">THÔNG ĐIỆP BAN LÃNH ĐẠO</h1>
+          <h1 class="thongdiep" style="color: #a10707; font-weight: bold;">{{ categoryName }}</h1>
           <div class="gachchan">
             <img
               src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -12,9 +12,9 @@
           </div>
         </div>
       </div>
-      <div class="row anhnen" :style="{ backgroundImage: 'url(' + anhnen + ')' }">
-        <div class="col">
-          <p v-html="content" style="padding: 300px 200px;"></p>
+      <div class="row">
+        <div class="col pt-5">
+          <p v-html="content"></p>
         </div>
       </div>
     </div>
@@ -26,7 +26,8 @@ export default {
     data() {
     return {
       content: "",
-      anhnen: "https://daotao.alphanam.com/images/thong_diep_BLĐ.png"
+      anhnen: "https://daotao.alphanam.com/images/thong_diep_BLĐ.png",
+      categoryName: ""
     };
   },
   mounted() {
@@ -42,6 +43,8 @@ export default {
         })
         .then((response) => {         
           this.content = response.data.newPageContent;
+          this.categoryName = response.data.categoryName;
+          console.log(this.categoryName);
         })
         .catch((error) => {
           console.log(error);

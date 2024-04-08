@@ -59,7 +59,7 @@ export default defineComponent({
       rewind: true,
       gap: "1rem",
       autoplay: true,
-      interval: 1000,
+      interval: 2000,
       height: "30rem",
       breakpoints: {
         576: {

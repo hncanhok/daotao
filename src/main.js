@@ -30,9 +30,11 @@ import "./style.css";
 import "ant-design-vue/dist/reset.css";
 import "bootstrap/dist/css/bootstrap-grid.min.css";
 import "bootstrap/dist/css/bootstrap-utilities.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+import 'primevue/resources/themes/aura-light-green/theme.css'
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedState);
 
@@ -59,6 +61,7 @@ app.use(Checkbox);
 app.use(Modal);
 app.use(Radio);
 app.use(message);
+
 
 app.mount("#app");
 

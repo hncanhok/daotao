@@ -5,13 +5,7 @@
         <div class="col-12 text-center" style="position: relative">
           <h1 style="color: #b80000; font-weight: bold">   
             TIN TỨC         
-            <!-- <span v-if="this.$route.params.id == 6">TIN TỨC</span>
-            <span v-if="this.$route.params.id == -1">KHÓA HỌC GỢI Ý</span>
-            <span v-if="this.$route.params.id == -2">TIÊU ĐIỂM</span>
-            <span v-if="this.$route.params.id == 22">TÀI LIỆU</span>
-            <span v-if="this.$route.params.id == 23">BIỂU MẪU</span>
-            <span v-if="this.$route.params.id == 24">HƯỚNG DẪN ĐÀO TẠO</span>
-            <span v-if="this.$route.params.id == 25">HƯỚNG DẪN SỬ DỤNG E-LEARNING</span> -->
+            
           </h1>
           <div class="gachchan">
             <img
@@ -128,13 +122,7 @@ export default {
     loadData() {
       console.log("TINTUC "+ this.$route.params.id);
       this.title = "tintuc";
-      /* if (this.$route.params.id == 6) this.title = "tintuc";
-      if (this.$route.params.id == -1) this.title = "khoahocgoiy";
-      if (this.$route.params.id == -2) this.title = "tieudiem";
-      if (this.$route.params.id == 22) this.title = "tailieudaotao";
-      if (this.$route.params.id == 23) this.title = "danhmucbieumau";
-      if (this.$route.params.id == 24) this.title = "huongdan";
-      if (this.$route.params.id == 25) this.title = "huongdansudungelearning"; */
+      
      
       axios
         .get("https://daotao.alphanam.com:7150/api/NewPaper/GetNewsCustomerSize", {

@@ -98,6 +98,13 @@
               )
             "
           />
+          <input
+            type="file"                                   
+            @change="handleChangeFileUpload(test.questionID, test.className, index)"           
+            :class="test.className"
+            class="pt-3"
+            ref="attachments"
+          />
         </div>
       </div>
     </div>
@@ -122,8 +129,14 @@ import { ref, reactive, inject } from "vue";
 import { useUser } from "../store/use-user";
 import { useRoute } from "vue-router";
 import { useRouter } from "vue-router";
+import { UploadOutlined } from "@ant-design/icons-vue";
 export default {
+  components: {
+    UploadOutlined,
+  },
   setup() {
+    const fileList = ref([]);
+
     const swal = inject("$swal");
     const route = useRoute();
     const router = useRouter();
@@ -186,7 +199,7 @@ export default {
         swal
           .fire({
             title: "Bạn đã hết thời gian làm bài.",
-            icon: 'info',
+            icon: "info",
             showClass: {
               popup: "animate__animated animate__fadeInDown",
             },
@@ -214,7 +227,15 @@ export default {
         },
       })
         .then((response) => {
-          data.value = response.data;
+          // data.value = response.data;
+          console.log(response.data);
+
+          for(let i=0; i<response.data.length;i++){
+            data.value.push(response.data[i]);
+            data.value[i].className = "className"+response.data[i].questionID;
+            
+          }
+          
         })
         .catch((error) => {
           console.log(error);
@@ -326,11 +347,40 @@ export default {
           console.log(error);
         });
       swal
-        .fire("Good job!", "Bạn đã hoàn thành bài kiểm tra.", "success")
+        .fire("Chúc mừng!", "Bạn đã hoàn thành bài kiểm tra.", "success")
         .then(() => {
           router.push({ name: "BaiKiemTra" });
         });
     };
+    const attachments = ref(null);
+    const handleChangeFileUpload = (questionID, className, index) => {    
+      let files = attachments.value[index];
+      // console.log(files.files); 
+
+      var formData = new FormData();
+      // var imagefile = document.querySelector(`.${className}`);
+
+      formData.append("files", files.files[0]);
+      formData.append("UserEmail", userEmail);
+      formData.append("UseID", useID);
+      formData.append("ScreptionID", screptionID);
+      formData.append("ClassID", route.params.classID);
+      formData.append("ID_Dapan", questionID);
+
+      
+     
+      axios
+        .post("https://daotao.alphanam.com:7150/api/MngUpload/UploadsimbleFile", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          
+        });
+    };
+
     return {
       second,
       day,
@@ -343,6 +393,9 @@ export default {
       onchange,
       onChangeText,
       onEndTest,
+      fileList,
+      handleChangeFileUpload,
+      attachments
     };
   },
 };

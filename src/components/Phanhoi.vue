@@ -3,7 +3,9 @@
     <div class="container pb-5">
       <div class="row p-5">
         <div class="col-12 text-center" style="position: relative">
-          <h1 style="color: #b80000;font-weight: bold;">PHẢN HỒI CỦA HỌC VIÊN</h1>
+          <h1 style="color: #b80000; font-weight: bold">
+            PHẢN HỒI CỦA HỌC VIÊN
+          </h1>
           <div class="gachchan">
             <img
               src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -20,18 +22,25 @@
             :autoplay="2000"
             v-bind="settings"
             :breakpoints="breakpoints"
-                  
           >
             <Slide v-for="slide in data" :key="slide.id">
               <div class="carousel__item">
                 <div class="phanhoi">
-                  <a class="anhphanhoi" :style="{ backgroundImage: 'url(' + slide.imgHienthi + ')' }"></a>
+                  <a
+                    class="anhphanhoi"
+                    :style="{
+                      backgroundImage: 'url(' + slide.imgHienthi + ')',
+                    }"
+                  ></a>
                 </div>
 
-                <h3 class="pt-4" style="color: #b80000;font-weight: bold;height: 50px;">
+                <h3
+                  class="pt-4"
+                  style="color: #b80000; font-weight: bold; height: 50px"
+                >
                   {{ slide.newPageDescription.toUpperCase() }}
                 </h3>
-                <p style="font-weight: 500; height: 50px;">
+                <p style="font-weight: 500; height: 50px">
                   {{ slide.title }}
                 </p>
                 <p
@@ -41,8 +50,7 @@
                     background-color: #9b1a1e;
                     color: white;
                     line-height: 1.6;
-                    height: 180px; 
-                  
+                    height: 180px;
                   "
                 ></p>
               </div>
@@ -80,7 +88,6 @@ export default defineComponent({
       })
         .then((response) => {
           this.data = response.data;
-          
         })
         .catch((error) => {
           console.log(error);
@@ -92,7 +99,7 @@ export default defineComponent({
     // carousel settings
     settings: {
       itemsToShow: 1,
-      snapAlign: "center",      
+      snapAlign: "center",
     },
     // breakpoints are mobile first
     // any settings not specified will fallback to the carousel settings
@@ -129,7 +136,7 @@ export default defineComponent({
 .anhphanhoi {
   display: inline-block;
   width: 100%;
-  height: 100%; 
+  height: 100%;
   background-position: 50% 50%;
   background-size: cover;
   border-radius: 50%;
@@ -139,7 +146,6 @@ export default defineComponent({
   padding: 10px;
 }
 .carousel__item {
-  
 }
 .gachchan {
   position: absolute;
@@ -170,6 +176,4 @@ export default defineComponent({
     margin-left: 5rem;
   } */
 }
-
-
 </style>

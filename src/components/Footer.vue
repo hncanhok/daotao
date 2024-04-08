@@ -32,20 +32,7 @@
             <a href="https://eoffice.alphanam.com/">Eoffice.alphanam.com</a>
           </p>
         </div>
-        <div>
-          <h3 class="pb-2" style="color: #ffea76">TRANG CHỦ</h3>
-          <p><a href="https://daotao.alphanam.com/0/gioi_thieu">Giới thiệu</a></p>
-          <p><a href="https://daotao.alphanam.com/0/khoa_hoc">Khóa học đang diễn ra</a></p>
-          <p>
-            <a href="https://daotao.alphanam.com/0/chuong_trinh">Chương trình đào tạo</a>
-          </p>
-        </div>
-        <div>
-          <h3 class="pb-2" style="color: #9b1a1e">TRANG CHỦ</h3>
-          <p><a href="https://daotao.alphanam.com/0/ky_thi_kiem_tra">Kỳ thi - Kiểm tra</a></p>
-          <p><a href="https://daotao.alphanam.com/0/tin_tuc">Tin tức</a></p>
-          <p><a href="https://daotao.alphanam.com/0/thu_vien">Thư viện</a></p>
-        </div>
+       
       </div>
     </div>
   </div>

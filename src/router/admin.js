@@ -73,6 +73,19 @@ const admin = [
         props: true,
         meta: { requiresAuth: true },   
     },
+    {
+        path: "/url/:id",   
+        name: "VaoHoc",
+        component: () => import("../components/VaoHoc.vue"),  
+        props: true,     
+        meta: { requiresAuth: true },
+    }, 
+    {
+        path: "/testupload",           
+        component: () => import("../components/testupload.vue"),  
+        props: true,     
+        meta: { requiresAuth: true },
+    }, 
    
     {
         path: "/:pathMatch(.*)*",     

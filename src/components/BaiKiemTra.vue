@@ -203,7 +203,7 @@ export default defineComponent({
         },
       })
         .then((response) => {
-                  
+          this.data = [];     
           for(let i=0;i<response.data.length;i++){
             if(response.data[i].statustCode != "Thongbao"){
               this.data.push(response.data[i]);
@@ -234,7 +234,8 @@ export default defineComponent({
               params: { classID: classID, exambleID: exambleID },
             });
           } else {
-            axios({
+            
+            axios({                           
               method: "post",
               url: "https://daotao.alphanam.com:7150/api/Kiemtra/GetHeadKiemtra",
               headers: {},

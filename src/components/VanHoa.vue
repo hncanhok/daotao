@@ -14,7 +14,7 @@
     </div>
     <div class="row">
       <div class="col-lg"></div>
-      <div class="col-12 col-lg-6 text-center">
+      <div class="col-12 col-lg-6 text-center pb-5">
         <p v-html="description"></p>
         <router-link :to="{name: 'DetailPage', params: {urldetail: urldetail, title: title}}">
           <a-button

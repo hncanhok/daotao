@@ -10,7 +10,7 @@
           ></i>
         </div>
         <div
-          class="col-6 d-flex justify-content-center justify-content-lg-start text-sm-start"
+          class="col d-flex justify-content-center justify-content-lg-start text-sm-start"
         >
           <router-link :to="{ name: 'Home' }">
             <img
@@ -21,40 +21,43 @@
             />
           </router-link>
         </div>
-        <div class="col pt-3 text-end d-none d-lg-block">
-          <a-input-search
+        <div class="col-8 pt-3 text-end d-none d-lg-block">
+          <!-- <a-input-search
             class="rounded-pill p-2"
             style="width: 250px"
             placeholder="Tìm kiếm..."
             enter-button
-          />
+          /> -->
           <div
-            style="display: inline-block; position: relative;cursor: pointer;"
+            style="display: inline-block; position: relative; cursor: pointer"
             class="ms-2 p-2"
-            @click="onWatched()"
           >
-           
-              <i class="fa-solid fa-bell fa-2xl me-lg-3"></i>
+            <i class="fa-solid fa-bell fa-2xl me-lg-3" @click="onWatched()"></i>
 
-              <div class="thongbao d-inline-block">
-                <span v-show="thongbao > 0 && watched == false" class="circle">{{ thongbao }}</span>
-              </div>
-           
+            <div class="thongbao d-inline-block">
+              <span v-show="thongbao > 0 && watched == false" class="circle">{{
+                thongbao
+              }}</span>
+            </div>
+
             <div
               @mouseover="mouseover"
               @mouseleave="mouseleave"
               class="d-inline-block mt-1"
               style="position: relative"
             >
-            <img
-                    class="avatar ms-2 me-2"
-                    style="width: 30px;height: 30px;"
-                    src="https://www.w3schools.com/howto/img_avatar.png"
-                    alt=""
-                  />
-              <span style="color: #a10707; font-weight: bold">{{ userName.toUpperCase() }}</span>
+              <img
+                class="avatar ms-2 me-2"
+                style="width: 30px; height: 30px"
+                src="https://www.w3schools.com/howto/img_avatar.png"
+                alt=""
+              />
+              <span style="color: #a10707; font-weight: bold"
+                >{{ userName.toUpperCase() }} -
+              </span>
+              <span style="font-weight: bold">Cấp độ {{ capdo }}</span>
+              
               <div class="boxuser" v-show="active">
-               
                 <div class="box2">
                   <div v-for="(user, index) in menuUser" :key="user.id">
                     <router-link
@@ -77,14 +80,22 @@
                       </div>
                     </router-link>
                   </div>
-                  <div @click="onLogout()" style="cursor: pointer;" class="d-flex justify-content-left pb-2">
+                  <div
+                    @click="onLogout()"
+                    style="cursor: pointer"
+                    class="d-flex justify-content-left pb-2"
+                  >
                     <span>
-                      <i class="fa-solid fa-caret-right me-2"></i>                                                                                 
+                      <i class="fa-solid fa-caret-right me-2"></i>
                       Đăng xuất
                     </span>
                   </div>
                 </div>
               </div>
+            </div>
+            <div style="padding: 5px 0px 0px 95px;">
+              <!-- <ProgressBar :value="nentangPhantram" style="height: 10px">{{ nentangDat }} / {{ nentangTong }}</ProgressBar>
+              <ProgressBar class="mt-2" :value="phattrienPhantram" style="height: 10px">{{ phattrienDat }} / {{ phattrienTong }}</ProgressBar> --> 
             </div>
           </div>
         </div>
@@ -92,17 +103,19 @@
           class="col d-block d-lg-none text-end d-flex align-items-center justify-content-end"
         >
           <div
-            style="display: inline-block; position: relative;cursor: pointer;"
+            style="display: inline-block; position: relative; cursor: pointer"
             class="ms-2 p-2"
-            @click="onWatched()"
           >
-           
-              <i class="fa-solid fa-bell fa-xl fa-lg-2xl me-2 me-lg-3"></i>
+            <i
+              class="fa-solid fa-bell fa-xl fa-lg-2xl me-2 me-lg-3"
+              @click="onWatched()"
+            ></i>
 
-              <div class="thongbao d-inline-block">
-                <span v-show="thongbao > 0 && watched == false " class="circle">{{ thongbao }}</span>
-              </div>
-           
+            <div class="thongbao d-inline-block">
+              <span v-show="thongbao > 0 && watched == false" class="circle">{{
+                thongbao
+              }}</span>
+            </div>
           </div>
           <i
             class="fa-solid fa-circle-user fa-xl"
@@ -122,49 +135,63 @@
   </a-drawer>
 
   <div class="noti" v-if="showNoti">
-    <div style="position: relative;">   
-      <p style="position: absolute;top:0;right:0;cursor: pointer;">
-        <i class="fa-solid fa-xmark" @click="showNoti=false"></i>
+    <div style="position: relative">
+      <p style="position: absolute; top: 0; right: 0; cursor: pointer">
+        <i class="fa-solid fa-xmark" @click="showNoti = false"></i>
       </p>
       <p>
-        <img src="../assets/logo/icon-logo.png" alt="logo" width="30">
+        <img src="../assets/logo/icon-logo.png" alt="logo" width="30" />
         <span class="ps-2">Thông báo</span>
         <i class="fa-solid fa-circle fa-xs text-primary ps-2"></i>
       </p>
-                      
-        <div v-for="( obj, index ) in noti" :key="index">
-          <i class="fa-solid fa-bullhorn fa-lg ps-2 pe-2 text-danger"></i>
-          <span style="font-weight: bold;">{{ obj.name.split(':')[0] }}</span>
-          <span>: {{ obj.name.split(':')[1] }}</span>   
-          <div style="font-size: small;" class="text-primary ps-4 ms-3">{{ obj.time }}</div>
-        </div>      
-        
-        
-    </div>   
+
+      <div v-for="(obj, index) in noti" :key="index">
+        <i class="fa-solid fa-bullhorn fa-lg ps-2 pe-2 text-danger"></i>
+        <span style="font-weight: bold">{{ obj.name.split(":")[0] }}</span>
+        <span>: {{ obj.name.split(":")[1] }}</span>
+        <div style="font-size: small" class="text-primary ps-4 ms-3">
+          {{ obj.time }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import MenuMobile from "./MenuMobile.vue";
 import UserMobile from "./UserMobile.vue";
 import { useUser } from "../store/use-user.js";
-import { notification } from 'ant-design-vue';
+import { notification } from "ant-design-vue";
 import dayjs from "dayjs";
-
-const key = 'updatable';
+import ProgressBar from "primevue/progressbar";
+const key = "updatable";
 
 export default defineComponent({
   components: {
     MenuMobile,
     UserMobile,
+    ProgressBar,
   },
   setup() {
+    onMounted(()=>{     
+      loadNentang();      
+    });
+
+    const nentangDat = ref(0);
+    const nentangTong = ref(0);
+    const nentangPhantram = ref(0);
+
+    const phattrienDat = ref(0);
+    const phattrienTong = ref(0);
+    const phattrienPhantram = ref(0);
+    const capdo = ref('I - Tân Sinh');
+
     const watched = ref(false);
     const showNoti = ref(false);
     const thongbao = ref(0);
-    const noti=ref([]);
+    const noti = ref([]);
     const active = ref(false);
     const menuUser = ref([]);
     const { userName, useID, userEmail, screptionID } = useUser();
@@ -233,20 +260,17 @@ export default defineComponent({
 
     loadTest();
 
-    let message = ref('Thông báo');
-    let description = ref('');
+    let message = ref("Thông báo");
+    let description = ref("");
 
-    const openNotification = placement => {
-     
+    const openNotification = (placement) => {
       notification.open({
         key,
         message: () => message.value,
-        description: () => description.value,   
+        description: () => description.value,
         placement,
         duration: 0,
-       
       });
-      
     };
 
     const loadNoti = () => {
@@ -260,55 +284,61 @@ export default defineComponent({
           screptionID: screptionID,
         },
       })
-        .then((response) => {                    
-          if(response.data[0].strucID == 1 && response.data[0].statustCode == "Thongbao"){
+        .then((response) => {
+          if (
+            response.data[0].strucID == 1 &&
+            response.data[0].statustCode == "Thongbao"
+          ) {
             watched.value = true;
           }
           let obj = {};
-          noti.value = []; 
-          for(let i=0; i<response.data.length; i++){         
-               
-              obj = {};
-              obj.name = response.data[i].informationCode + ': ' + response.data[i].informationName;              
-              // alert(response.data[i].informationCode);
-              const d = new Date();
-              let monthCheck = dayjs(response.data[i].startChecktime).format('M');
-              let monthNow = d.getMonth() + 1;
+          noti.value = [];
+          for (let i = 0; i < response.data.length; i++) {
+            obj = {};
+            obj.name =
+              response.data[i].informationCode +
+              ": " +
+              response.data[i].informationName;
+            // alert(response.data[i].informationCode);
+            const d = new Date();
+            let monthCheck = dayjs(response.data[i].startChecktime).format("M");
+            let monthNow = d.getMonth() + 1;
 
-              let dayCheck = dayjs(response.data[i].startChecktime).format('D');
-              let dayNow = d.getDate();
+            let dayCheck = dayjs(response.data[i].startChecktime).format("D");
+            let dayNow = d.getDate();
 
-              let hourCheck = dayjs(response.data[i].startChecktime).format('H');
-              let hourNow = d.getHours();
+            let hourCheck = dayjs(response.data[i].startChecktime).format("H");
+            let hourNow = d.getHours();
 
-              let minuteCheck = dayjs(response.data[i].startChecktime).format('m');
-              let minuteNow = d.getMinutes();
+            let minuteCheck = dayjs(response.data[i].startChecktime).format(
+              "m"
+            );
+            let minuteNow = d.getMinutes();
 
-              let dateNow = dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss');
-              let dateCheck = response.data[i].startChecktime;
-             
-              if(monthNow == monthCheck) {
-                if(dayNow > dayCheck){
-                  obj.time = (dayNow - dayCheck) + ' ngày trước';
-                }else if(hourNow > hourCheck){
-                  obj.time = (hourNow - hourCheck) + ' giờ trước';
-                }else if(minuteNow > minuteCheck){
-                  obj.time = (minuteNow - minuteCheck) + ' phút trước';
-                }else {
-                  obj.time = 'vừa xong';
-                }
-              }else {
-                obj.time = (monthNow - monthCheck) + ' tháng trước';
+            let dateNow = dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss");
+            let dateCheck = response.data[i].startChecktime;
+
+            if (monthNow == monthCheck) {
+              if (dayNow > dayCheck) {
+                obj.time = dayNow - dayCheck + " ngày trước";
+              } else if (hourNow > hourCheck) {
+                obj.time = hourNow - hourCheck + " giờ trước";
+              } else if (minuteNow > minuteCheck) {
+                obj.time = minuteNow - minuteCheck + " phút trước";
+              } else {
+                obj.time = "vừa xong";
               }
-                                     
-              console.log(obj.time);
-            
-              noti.value.push(obj);
-             
+            } else {
+              obj.time = monthNow - monthCheck + " tháng trước";
+            }
+
+            console.log(obj.time);
+
+            noti.value.push(obj);
           }
-                // console.log(response.data);
-                console.log(noti.value);
-                console.log(response.data);
+          // console.log(response.data);
+          console.log(noti.value);
+          console.log(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -321,22 +351,82 @@ export default defineComponent({
         method: "post",
         url: "https://daotao.alphanam.com:7150/api/Noti/NotificationReaded",
         headers: {},
-        data: {         
+        data: {
           userEmail: userEmail,
           useID: useID,
-          screptionID: screptionID,         
+          screptionID: screptionID,
         },
       })
-      .then((response) => {
+        .then((response) => {
           console.log(response);
-         
         })
         .catch((error) => {
           console.log(error);
         });
       showNoti.value = !showNoti.value;
-      watched.value=true;
-    }
+      watched.value = true;
+    };
+
+    const loadNentang = () => {
+      axios({
+        method: "post",
+        url: "https://daotao.alphanam.com:7150/api/ClassInfo/Lotrinhhoc",
+        headers: {},
+        data: {
+          userEmail: userEmail,
+          useID: useID,
+          screptionID: screptionID,
+          Key: 2
+        },
+      })
+        .then((response) => {
+        
+          for(let i=0; i<response.data.length; i++){
+            
+            if(response.data[i].ketquadat == "1"){
+              nentangDat.value++;
+              capdo.value = 'II - Học Thủ';
+            }
+          }
+         
+          nentangTong.value = response.data.length;
+          nentangPhantram.value = (nentangDat.value/nentangTong.value)*100;
+          loadPhattrien();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    const loadPhattrien = () => {
+      axios({
+        method: "post",
+        url: "https://daotao.alphanam.com:7150/api/ClassInfo/Lotrinhhoc",
+        headers: {},
+        data: {
+          userEmail: userEmail,
+          useID: useID,
+          screptionID: screptionID,
+          Key: 3
+        },
+      })
+        .then((response) => {
+         
+          for(let i=0; i<response.data.length; i++){
+            
+            if(response.data[i].ketquadat == "1"){
+              phattrienDat.value++;
+              capdo.value = 'III - Học Bá';
+            }
+          }
+          
+          phattrienTong.value = response.data.length;
+          phattrienPhantram.value = (phattrienDat.value/phattrienTong.value)*100;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
 
     return {
       visible,
@@ -355,7 +445,14 @@ export default defineComponent({
       noti,
       showNoti,
       watched,
-      onWatched
+      onWatched,
+      nentangDat,
+      nentangTong,
+      nentangPhantram,
+      phattrienDat,
+      phattrienTong,
+      phattrienPhantram,
+      capdo
     };
   },
 });
@@ -415,9 +512,9 @@ span.circle {
 }
 
 .noti {
-  position:fixed; 
-  bottom:40px;
-  right:20px;  
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
   width: 400px;
   height: max-content;
   min-height: 120px;
@@ -429,18 +526,30 @@ span.circle {
   z-index: 5;
 }
 
-table, th, td {
+table,
+th,
+td {
   border: 1px solid black;
   border-collapse: collapse;
 }
 
-.avatar {       
-  background-image:url('http://localhost:5173/src/assets/logo/icon-E.png');
-  background-size: 100% 100%;  
+.avatar {
+  background-image: url("http://localhost:5173/src/assets/logo/icon-E.png");
+  background-size: 100% 100%;
 }
 
 @keyframes mymove {
-  from {right: -20px;}
-  to {right: 20px;}
+  from {
+    right: -20px;
+  }
+  to {
+    right: 20px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .noti {
+    width: 350px;
+  }
 }
 </style>
