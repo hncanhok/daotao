@@ -100,7 +100,7 @@
           />
           <input
             type="file"                                   
-            @change="handleChangeFileUpload(test.questionID, test.className, index)"           
+            @change="handleChangeFileUpload($event, test.chitietID, test.className, index)"           
             :class="test.className"
             class="pt-3"
             ref="attachments"
@@ -130,6 +130,7 @@ import { useUser } from "../store/use-user";
 import { useRoute } from "vue-router";
 import { useRouter } from "vue-router";
 import { UploadOutlined } from "@ant-design/icons-vue";
+import { message } from 'ant-design-vue';
 export default {
   components: {
     UploadOutlined,
@@ -272,17 +273,7 @@ export default {
         },
       })
         .then((response) => {
-          /* console.log("userEmail: " + userEmail);
-          console.log("useID: " + useID);
-          console.log("screptionID: " + screptionID);
-          console.log("classID: " + route.params.classID);
-          console.log("exambleID: " + route.params.exambleID);
-          console.log("id: " + id);
-          console.log("questionID: " + questionID);
-          console.log("questionType: " + questionType);
-          console.log("luachon: " + luachon);
-          console.log("gopy: "+ luachon);
-          console.log("muticheck: " + "string"); */
+          
           console.log(response.data.reposeMessage);
         })
         .catch((error) => {
@@ -353,14 +344,14 @@ export default {
         });
     };
     const attachments = ref(null);
-    const handleChangeFileUpload = (questionID, className, index) => {    
-      let files = attachments.value[index];
-      // console.log(files.files); 
+    const handleChangeFileUpload = (e, questionID, className, index) => {    
+      /* let files = attachments.value[index];
+      console.log(e.target.files[0]);
+      console.log(attachments.value[2].files[0]); */
+      let files = e.target.files[0];
 
-      var formData = new FormData();
-      // var imagefile = document.querySelector(`.${className}`);
-
-      formData.append("files", files.files[0]);
+      var formData = new FormData();      
+      formData.append("files", files);
       formData.append("UserEmail", userEmail);
       formData.append("UseID", useID);
       formData.append("ScreptionID", screptionID);
@@ -376,8 +367,12 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.data);
-          
+         
+          if(res.data.resposeId == 1){
+            message.success(res.data.reposeMessage);
+          }else{
+            message.error(res.data.reposeMessage);
+          }
         });
     };
 

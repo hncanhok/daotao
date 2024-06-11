@@ -130,7 +130,7 @@ export default {
         })
         .then((response) => {
           this.data = response.data;
-          console.log("download " + response.data.taiLieuURL);
+         console.log(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -146,6 +146,7 @@ export default {
         })
         .then((response) => {
           this.otherNews = response.data;
+
         })
         .catch((error) => {
           console.log(error);

@@ -2,7 +2,7 @@
   <div class="container mt-4 mb-5">
     <div class="row">
       <div class="col ms-4 mb-2 text-center">
-        <a :href="linkDownload" download style="text-decoration: none; color: inherit">
+        <a v-if="linkDownload" :href="linkDownload" download style="text-decoration: none; color: inherit">
           <a-button type="primary" shape="round" size="large">
             <template #icon>
               <DownloadOutlined />
@@ -91,6 +91,7 @@ export default defineComponent({
           
           for (let i = 0; i < response.data.length; i++) {
             if (response.data[i].id == props.id) {
+              console.log(response.data[i]);
               linkDownload.value = response.data[i].tailieuDaotao;
               if (response.data[i].ulrVideo.includes(";")) {
                 urls.value = response.data[i].ulrVideo.split(";");

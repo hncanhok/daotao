@@ -25,20 +25,45 @@
             </div>
             <div class="row">
               <div class="col">
-                <p style="font-weight: bold">Lớp Nền tảng:</p>
+                <p style="font-weight: bold">Lớp Hội nhập - Cấp I</p>
+                <ProgressBar
+                  style="cursor: pointer"
+                  :value="hoinhapPhantram"
+                  @click="showModalHoinhap"
+                  >{{ hoinhapDat }} / {{ hoinhapTong }}
+                </ProgressBar>
+                <p style="font-weight: bold">Lớp Nền tảng - Cấp II</p>
                 <ProgressBar
                   style="cursor: pointer"
                   :value="nentangPhantram"
                   @click="showModalNentang"
                   >{{ nentangDat }} / {{ nentangTong }}
                 </ProgressBar>
-                <p style="font-weight: bold">Lớp Phát triển:</p>
+                <p style="font-weight: bold">Lớp Phát triển - Cấp III</p>
                 <ProgressBar 
                 :value="phattrienPhantram" 
                 style="cursor: pointer"
                 @click="showModalPhattrien"
                   >{{ phattrienDat }} / {{ phattrienTong }}
                 </ProgressBar>
+
+                <a-modal
+                  v-model:visible="visibleHoinhap"
+                  title=""
+                  @ok="handleOkHoinhap"
+                  style="font-weight: bold"
+                >
+                  LỚP HỘI NHẬP HOÀN THÀNH
+                 <ul v-for="(lop, index) in hoinhapHoanthanh" :key="index">
+                  <li v-if="hoinhapHoanthanh.length > 0">{{ lop }}</li>                                    
+                 </ul>
+                 LỚP HỘI NHẬP CHƯA HOÀN THÀNH
+                 
+                 <ul v-for="(lop, index) in hoinhapChuahoanthanh" :key="index">
+                  <li v-if="hoinhapChuahoanthanh.length > 0">{{ lop }}</li>                  
+                 </ul>
+                </a-modal>
+
                 <a-modal
                   v-model:visible="visibleNentang"
                   title=""
@@ -234,8 +259,12 @@ export default defineComponent({
   setup() {
     onMounted(() => {
       loadProfile();
-      loadNentang();
+      loadHoinhap();
     });
+
+    const hoinhapDat = ref(0);
+    const hoinhapTong = ref(0);
+    const hoinhapPhantram = ref(0);
 
     const nentangDat = ref(0);
     const nentangTong = ref(0);
@@ -244,6 +273,7 @@ export default defineComponent({
     const phattrienDat = ref(0);
     const phattrienTong = ref(0);
     const phattrienPhantram = ref(0);
+    
     const capdo = ref("I - Tân Sinh");
 
     const store = useUser();
@@ -312,6 +342,8 @@ export default defineComponent({
     const nentangChuahoanthanh = ref([]);
     const phattrienHoanthanh = ref([]);
     const phattrienChuahoanthanh = ref([]);
+    const hoinhapHoanthanh = ref([]);
+    const hoinhapChuahoanthanh = ref([]);
     const loadNentang = () => {
       axios({
         method: "post",
@@ -330,7 +362,7 @@ export default defineComponent({
           for (let i = 0; i < response.data.length; i++) {
             if (response.data[i].ketquadat == "1") {
               nentangDat.value++;
-              capdo.value = "II - Học Thủ";
+              capdo.value = "II - Học Trưởng";
               nentangHoanthanh.value.push(response.data[i].tendanhmuclopcon);
             }else{
               nentangChuahoanthanh.value.push(response.data[i].tendanhmuclopcon);
@@ -373,6 +405,40 @@ export default defineComponent({
           phattrienTong.value = response.data.length;
           phattrienPhantram.value =
             (phattrienDat.value / phattrienTong.value) * 100;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    const loadHoinhap = () => {
+      axios({
+        method: "post",
+        url: "https://daotao.alphanam.com:7150/api/ClassInfo/Lotrinhhoc",
+        headers: {},
+        data: {
+          userEmail: userEmail,
+          useID: useID,
+          screptionID: screptionID,
+          Key: 1,
+        },
+      })
+        .then((response) => {
+          console.log(response.data);
+          for (let i = 0; i < response.data.length; i++) {
+            if (response.data[i].ketquadat == "1") {
+              hoinhapDat.value++;
+              capdo.value = "I - Tân Sinh";
+              hoinhapHoanthanh.value.push(response.data[i].tendanhmuclopcon);
+            }else {
+              hoinhapChuahoanthanh.value.push(response.data[i].tendanhmuclopcon);
+            }
+          }
+
+          hoinhapTong.value = response.data.length;
+          hoinhapPhantram.value =
+            (hoinhapDat.value / hoinhapTong.value) * 100;
+          loadNentang();
         })
         .catch((error) => {
           console.log(error);
@@ -463,6 +529,15 @@ export default defineComponent({
       console.log(args);
     };
 
+    const visibleHoinhap = ref(false);
+    const showModalHoinhap = () => {
+      visibleHoinhap.value = true;
+    };
+    const handleOkHoinhap = e => {
+      
+      visibleHoinhap.value = false;
+    };
+
     const visibleNentang = ref(false);
     const showModalNentang = () => {
       visibleNentang.value = true;
@@ -496,6 +571,9 @@ export default defineComponent({
       handleFinish,
       resetForm,
       handleValidate,
+      hoinhapDat,
+      hoinhapTong,
+      hoinhapPhantram,
       nentangDat,
       nentangTong,
       nentangPhantram,
@@ -503,6 +581,11 @@ export default defineComponent({
       phattrienTong,
       phattrienPhantram,
       capdo,
+      visibleHoinhap,
+      showModalHoinhap,
+      handleOkHoinhap,
+      hoinhapHoanthanh,
+      hoinhapChuahoanthanh,
       visibleNentang,
       showModalNentang,
       handleOkNentang,

@@ -385,7 +385,7 @@ export default defineComponent({
             
             if(response.data[i].ketquadat == "1"){
               nentangDat.value++;
-              capdo.value = 'II - Học Thủ';
+              capdo.value = 'II - Học Trưởng';
             }
           }
          
