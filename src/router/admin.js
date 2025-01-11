@@ -1,11 +1,18 @@
 
 const admin = [
     {
+        path: "/Trangchu",
+        name: "Home2",
+        component: () => import("../pages/Home.vue"),  
+        meta: { requiresAuth: true },
+    },
+    {
         path: "/",
         name: "Home",
         component: () => import("../pages/Home.vue"),  
         meta: { requiresAuth: true },
     },
+    
     {
         path: "/login",
         name: "Login",

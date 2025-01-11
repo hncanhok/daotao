@@ -2,7 +2,9 @@
   <div class="container mb-5">
     <div class="row p-5">
       <div class="col-12 text-center" style="position: relative">
-        <h1 style="color: #a10707; font-weight: bold;" class="thongdiep">LỚP HỌC CỦA BẠN</h1>
+        <h1 style="color: #a10707; font-weight: bold" class="thongdiep">
+          LỚP HỌC CỦA BẠN
+        </h1>
         <div class="gachchan">
           <img
             src="../assets/logo/Icon-Web-dao-tao-02.png"
@@ -17,7 +19,7 @@
         <a-table
           :columns="columns"
           :data-source="data"
-          :pagination="{ pageSize: 50, hideOnSinglePage:true }"
+          :pagination="{ pageSize: 50, hideOnSinglePage: true }"
           :scroll="{ x: 1200, y: 600 }"
         >
           <template #bodyCell="{ index, column, record }">
@@ -59,7 +61,7 @@ import { defineComponent } from "vue";
 import { useUser } from "../store/use-user";
 
 const store = useUser();
-const { useID, userEmail, screptionID } = store;
+// const { useID, userEmail, screptionID } = store;
 const columns = [
   {
     title: "STT",
@@ -146,77 +148,33 @@ const columns = [
   },
 ];
 const data = [];
-const id = "";
-const action = "";
-const status = true;
 
 export default defineComponent({
   data() {
     return {
       data,
       columns,
-      useID,
-      userEmail,
-      screptionID,
-      id,
-      action,
     };
   },
   mounted() {
     this.loadData();
   },
   methods: {
-    showAlert() {
-      // Use sweetalert2
-      this.$swal("Hello Vue world!!!");
-    },
-    dangky(id, index) {
-      this.id = id;
-      axios({
-        method: "post",
-        url: "https://daotao.alphanam.com:7150/api/ClassInfo/dangkyhoc",
-        headers: {},
-        data: {
-          userEmail: this.userEmail,
-          useID: this.useID,
-          screptionID: this.screptionID,
-          ClassID: id,
-        },
-      })
-        .then((response) => {
-          if (response.data.register.split("/")[1] == "null") {
-            this.$swal.fire({
-              icon: "error",
-              title: response.data.notification,
-              showConfirmButton: true,
-            });
-          } else {
-            this.$swal.fire({
-              icon: "success",
-              title: response.data.notification,
-              showConfirmButton: true,
-            });
-          }
-
-          this.loadData();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
     loadData() {
+      const { useID, userEmail, screptionID } = store;
       axios({
         method: "post",
         url: "https://daotao.alphanam.com:7150/api/YourClass/GetYourClass",
         headers: {},
         data: {
-          userEmail: this.userEmail,
-          useID: this.useID,
-          screptionID: this.screptionID,
+          userEmail: userEmail,
+          useID: useID,
+          screptionID: screptionID,
         },
       })
         .then((response) => {
           this.data = response.data;
+          console.log(userEmail);
         })
         .catch((error) => {
           console.log(error);

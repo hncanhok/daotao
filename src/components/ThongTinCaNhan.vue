@@ -46,6 +46,9 @@
                 @click="showModalPhattrien"
                   >{{ phattrienDat }} / {{ phattrienTong }}
                 </ProgressBar>
+                <p class="mt-3 text-end">
+                  <i>Click vào thanh tiến độ để xem chi tiết</i>
+                </p>
 
                 <a-modal
                   v-model:visible="visibleHoinhap"
