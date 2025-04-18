@@ -32,7 +32,6 @@
             <a href="https://eoffice.alphanam.com/">Eoffice.alphanam.com</a>
           </p>
         </div>
-       
       </div>
     </div>
   </div>
@@ -52,17 +51,52 @@
   <div class="up" v-if="display == true" @click="scrollToTop()">
     <i class="fas fa-arrow-up text-black fa-lg"></i>
   </div>
+
+  <div class="chatbot">
+    <img
+      src="../assets/icon/live-chat.png"
+      alt=""
+      @click="popupchatbot"
+      width="60"
+    />
+    <a-modal
+      v-model:open="openchatbot"
+      width="50%"
+      title=""
+      @ok="handleOk"
+      :footer="null"
+      centered
+    >
+      <iframe
+        src="https://www.chatbase.co/chatbot-iframe/KOKfD_RjVwRGhDt4oKE2P"
+        width="100%"
+        style="height: 100%; min-height: 80vh"
+        frameborder="0"
+      ></iframe>
+    </a-modal>
+  </div>
 </template>
 
 <script>
+import { ref } from "vue";
+
 export default {
   data() {
+    const openchatbot = ref(false);
+
     return {
       display: false,
+      openchatbot,
     };
   },
   created() {
     window.addEventListener("scroll", this.handleScroll);
+  },
+  mounted() {
+    /* const script = document.createElement('script');
+    script.src = '(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="KOKfD_RjVwRGhDt4oKE2P";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();';
+    script.async = true;
+    document.body.appendChild(script); */
   },
   unmounted() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -77,6 +111,9 @@ export default {
     },
     scrollToTop() {
       window.scrollTo(0, 0);
+    },
+    popupchatbot() {
+      this.openchatbot = true;
     },
   },
 };
@@ -107,5 +144,12 @@ a {
 }
 .up:hover {
   opacity: 1;
+}
+
+.chatbot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
 }
 </style>
