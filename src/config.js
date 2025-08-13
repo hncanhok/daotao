@@ -1,0 +1,1 @@
+export const webBaseURL = 'https://daotao2.alphanam.com/backend';

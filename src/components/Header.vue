@@ -175,8 +175,10 @@ export default defineComponent({
     ProgressBar,
   },
   setup() {
+    
     onMounted(()=>{     
-      loadNentang();      
+      loadNentang();   
+      console.log('isUser: ' + isUser);       
     });
 
     const nentangDat = ref(0);
@@ -194,7 +196,7 @@ export default defineComponent({
     const noti = ref([]);
     const active = ref(false);
     const menuUser = ref([]);
-    const { userName, useID, userEmail, screptionID } = useUser();
+    const { userName, useID, userEmail, screptionID, isUser } = useUser();
 
     const router = useRouter();
     const visible = ref(false);

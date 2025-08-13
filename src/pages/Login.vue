@@ -105,6 +105,19 @@
                     ></a-button
                   >
                 </a-form-item>
+
+                <a-form-item :wrapper-col="{ span: 26, offset: 0 }">              
+              <a-button
+                class="ms-login-btn"
+                @click="dangnhapoffice365"
+              >
+                <img
+                  src="https://img.icons8.com/color/48/000000/microsoft.png"
+                  alt="Microsoft"
+                />
+                Đăng nhập với Microsoft 365
+              </a-button>
+            </a-form-item>
               </a-form>
             </div>
           </div>
@@ -142,6 +155,8 @@ import { reactive, ref } from "vue";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import { useUser } from "../store/use-user.js";
 import { useRouter } from "vue-router";
+import { webBaseURL } from "../config.js";
+
 export default {
   components: {
     UserOutlined,
@@ -165,7 +180,7 @@ export default {
       })
         .then((response) => {
           if (response.data.status == true) {
-           
+            // console.log(response.data);
             useUser().onLogin(true);
             useUser().onUserEmail(response.data.userEmail);
             useUser().onUseID(response.data.useID);
@@ -184,11 +199,16 @@ export default {
       console.log("Failed:", errorInfo);
     };
 
+    const dangnhapoffice365 = () => {      
+      window.location.href = `${webBaseURL}/auth/azure`;
+    };
+
     return {
       formState,
       onFinish,
       onFinishFailed,
       error,
+      dangnhapoffice365,
     };
   },
 };
@@ -212,5 +232,30 @@ export default {
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+.ms-login-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #ffffff;;
+  color: #000;;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0px 15px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  margin-top: 3rem;
+}
+.ms-login-btn:hover {
+  background-color: #f3f3f3;
+  /* transform: scale(1.02); */
+}
+
+.ms-login-btn img {
+  width: 24px;
+  height: 24px;
 }
 </style>
